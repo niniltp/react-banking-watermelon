@@ -1,10 +1,14 @@
 import  React, { Component } from 'react';
-import wallets from '../data/wallets';
+import './Wallet.css';
+import wallets from '../../data/wallets';
 
 class Wallet extends Component {
     constructor(props){
         super(props);
-        this.getWalletUser(1);
+
+        this.state = {
+            wallet: this.getWalletUser(props.user_id)
+        };
     }
 
     getWalletUser(user_id){
@@ -15,8 +19,9 @@ class Wallet extends Component {
 
     render() {
         return (
-            <div>
-                Wallet...
+            <div id="wallet">
+                <h3>Wallet</h3>
+                <span>{this.state.wallet.balance} ₩M</span>
             </div>
         );
     }
