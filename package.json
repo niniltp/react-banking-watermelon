@@ -1,6 +1,7 @@
 {
   "name": "react-banking-watermelon",
   "version": "0.1.0",
+  "description": "Loic Cheong - Quynh-Nhien Phan",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
