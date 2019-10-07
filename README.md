@@ -1,5 +1,5 @@
 # Watermelon
-By Quynh-Nhien PHAN
+By Loic CHEONG, Quynh-Nhien PHAN
 
 This is a react project for the Web Technology course at ECE Paris-Lyon, ING4.
 
