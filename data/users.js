@@ -1,4 +1,4 @@
-export default const users = [
+const users = [
 {
 	id: 0,
 	first_name: 'Amy',
@@ -24,3 +24,5 @@ export default const users = [
 	is_admin: 'true'
 }
 ];
+
+export default users;

@@ -1,4 +1,4 @@
-export default const transfers = [
+const transfers = [
 {
 	id: 0,
 	debited_wallet_id: 0,
@@ -12,3 +12,5 @@ export default const transfers = [
 	amount: 1000
 }
 ];
+
+export default transfers;

@@ -1,4 +1,4 @@
-export default const wallets = [
+const wallets = [
 {
 	id: 0,
 	user_id: 0,
@@ -15,3 +15,5 @@ export default const wallets = [
 	balance: 51542
 }
 ];
+
+export default wallets;

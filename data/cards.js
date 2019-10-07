@@ -1,4 +1,4 @@
-export default const cards = [
+const cards = [
 {
 	id: 0,
 	last_4: '1234',
@@ -35,3 +35,5 @@ export default const cards = [
 	user_id: 2
 }
 ];
+
+export default cards;
