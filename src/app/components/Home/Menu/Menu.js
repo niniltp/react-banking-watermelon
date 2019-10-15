@@ -1,6 +1,6 @@
 import  React, { Component } from 'react';
 import {Button} from 'reactstrap';
-import {Route, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 import './Menu.css';
 
 class Menu extends Component {
@@ -11,8 +11,8 @@ class Menu extends Component {
     render() {
         return (
             <div id="menu">
-                <Button outline color="secondary" className="menuBtn"><Link to="/account">Account</Link></Button>
-                <Button outline color="secondary" className="menuBtn"><Link to="/cards">Credit Cards</Link></Button>
+                <Link to="/account"><Button outline color="secondary" className="menuBtn">Account</Button></Link>
+                <Link to="/cards"><Button outline color="secondary" className="menuBtn">Credit Cards</Button></Link>
             </div>
         );
     }
