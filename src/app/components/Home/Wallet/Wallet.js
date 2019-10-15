@@ -1,6 +1,6 @@
 import  React, { Component } from 'react';
 import './Wallet.css';
-import wallets from '../../data/wallets';
+import wallets from '../../../../database/wallets';
 
 class Wallet extends Component {
     constructor(props){
