@@ -1,0 +1,8 @@
+.creditCard {
+    text-align: left;
+    background-color: #282C34;
+}
+
+.creditCard ul li {
+    list-style: none;
+}

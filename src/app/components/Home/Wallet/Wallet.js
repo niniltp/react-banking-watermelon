@@ -1,20 +1,14 @@
 import  React, { Component } from 'react';
 import './Wallet.css';
-import wallets from '../../../../database/wallets';
+import {getWalletByUserId} from "../../../backend/wallets_backend";
 
 class Wallet extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            wallet: this.getWalletUser(props.user_id)
+            wallet: getWalletByUserId(this.props.user_id)
         };
-    }
-
-    getWalletUser(user_id){
-        const wallet = wallets.find( w => w.user_id === user_id);
-        console.log(wallet);
-        return wallet;
     }
 
     render() {

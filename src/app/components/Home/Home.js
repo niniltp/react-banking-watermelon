@@ -13,10 +13,10 @@ class Home extends Component {
     render() {
         return (
             <div className="container" id="home">
-                <Wallet user_id={1}/>
+                <Wallet user_id={this.props.user_id}/>
                 <h1>Hi</h1>
-                <Menu/>
-                <Route path="/cards" component={Cards}/>
+                <Route exact path="/" component={Menu}/>
+                <Route path="/cards" render={() => <Cards user_id={this.props.user_id}/>}/>
             </div>
         );
     }
