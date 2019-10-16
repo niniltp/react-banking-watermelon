@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap';
+import {Button, FormGroup, Label, Input} from 'reactstrap';
 import Card from './Card.js';
 import {getCardsByUserId} from "../../../backend/cards_backend";
 import './Cards.css';
@@ -15,6 +15,7 @@ class Cards extends Component {
         }
 
         this.addCard = this.addCard.bind(this);
+        this.displayAddCard = this.displayAddCard.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +29,16 @@ class Cards extends Component {
         console.log("test");
     }
 
+    displayAddCard(){
+        return (
+            <div>
+                <FormGroup row>
+                    <Label for="typeCard">Type</Label>
+                </FormGroup>
+            </div>
+        )
+    }
+
     render() {
         return (
             <div id="creditCardsContainer">
@@ -37,7 +48,7 @@ class Cards extends Component {
                         <Card key={index} card={card}/>
                     ))}
                 </div>
-                {this.state.isAddingCard ? <p>hig</p>:  <Button outline onClick={this.addCard}>+</Button>}
+                {this.state.isAddingCard ? this.displayAddCard():  <Button outline onClick={this.addCard}>+</Button>}
             </div>
         );
     }
