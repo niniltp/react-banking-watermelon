@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
           <Link exact to="/"><img src={logo} className="App-logo" alt="logo" /></Link>
       </header>
-        <Route path="/" render={() => <Home user_id={1}/>}/>
+        <Route path="/" render={() => <Home user_id={2}/>}/>
     </div>
   );
 }

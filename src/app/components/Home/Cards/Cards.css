@@ -1,8 +1,18 @@
+#creditCards {
+    margin: 20px 0px;
+}
+
 .creditCard {
     text-align: left;
     background-color: #282C34;
+    padding: 10px;
+    margin: 2px 100px;
 }
 
 .creditCard ul li {
     list-style: none;
+}
+
+.labelInfoCard {
+    font-weight: bold;
 }
