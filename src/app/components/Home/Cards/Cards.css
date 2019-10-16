@@ -1,5 +1,9 @@
-#creditCards {
-    margin: 20px 0px;
+#creditCardsContainer {
+    margin: 20px 0;
+}
+
+#creditCardsList {
+    margin: 20px 0;
 }
 
 .creditCard {
