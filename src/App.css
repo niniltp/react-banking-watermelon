@@ -17,9 +17,12 @@
   color: #09d3ac;
 }
 
-.container-in {
-  margin: 0 100px;
+@media (min-width: 600px) {
+  .container-in {
+    margin: 0 100px;
+  }
 }
+
 
 .reset-margin {
   margin-left: 0 !important;

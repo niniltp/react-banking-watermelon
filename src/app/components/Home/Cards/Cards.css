@@ -1,3 +1,5 @@
+/* CARDS */
+
 #creditCardsContainer {
     margin: 50px 0;
 }
@@ -17,14 +19,36 @@
     list-style: none;
 }
 
+/* ADDING CARD FORM */
+
+.addCreditCard-btn {
+    margin-top: 10px;
+}
+
+.creditCard-form {
+    background-color: #2b2f37;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.creditCard-formGroup {
+    padding: 10px 40px;
+    margin-bottom: 0 !important;
+}
+
 .labelInfoCard {
     font-weight: bold;
 }
 
 
-.creditCardForm {
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-bottom: 0 !important;
-    background-color: #2b2f37;
+.creditCardForm-btn {
+    margin-left: 5px;
+}
+
+@media (max-width: 995px) {
+    .labelInfoCard {
+        margin-right: 5px;
+    }
 }
