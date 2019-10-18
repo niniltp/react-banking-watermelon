@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, FormGroup, Label, Input} from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, Col} from 'reactstrap';
 import Card from './Card.js';
 import {getCardsByUserId} from "../../../backend/cards_backend";
 import './Cards.css';
@@ -19,36 +19,71 @@ class Cards extends Component {
     }
 
     componentDidMount() {
-        this.setState({ isFetching: true});
-        this.setState({ cards: getCardsByUserId(this.props.user_id) });
-        this.setState({ isFetching: false})
+        this.setState({isFetching: true});
+        this.setState({cards: getCardsByUserId(this.props.user_id)});
+        this.setState({isFetching: false})
     }
 
     addCard() {
-        this.setState({ isAddingCard: true});
+        this.setState({isAddingCard: true});
         console.log("test");
     }
 
-    displayAddCard(){
+    displayAddCard() {
         return (
-            <div>
-                <FormGroup row>
-                    <Label for="typeCard">Type</Label>
+            <Form>
+                <FormGroup className="creditCard creditCardForm reset-margin" row>
+                    <Label for="brandCard" sm={2} className="labelInfoCard">Brand</Label>
+                    <Col sm={10}>
+                        <Input type="select" id="brandCard">
+                            <option>Visa</option>
+                            <option>American Express</option>
+                        </Input>
+                    </Col>
                 </FormGroup>
-            </div>
+                <FormGroup className="creditCard creditCardForm reset-margin" row>
+                    <Label for="numberCard" sm={2} className="labelInfoCard">Card Number</Label>
+                    <Col sm={2}>
+                        <Input type="number" min="1000" max="9999" id="numberCard"/>
+                    </Col>
+                    <Col sm={2}>
+                        <Input type="number" min="1000" max="9999" id="numberCard"/>
+                    </Col>
+                    <Col sm={2}>
+                        <Input type="number" min="1000" max="9999" id="numberCard"/>
+                    </Col>
+                    <Col sm={2}>
+                        <Input type="number" min="1000" max="9999" id="numberCard"/>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="creditCard creditCardForm reset-margin" row>
+                    <Label for="expirationDateCard" sm={2} className="labelInfoCard">Expiration Date</Label>
+                    <Col sm={10}>
+                        <Input type="month" id="expirationDateCard"/>
+                    </Col>
+                </FormGroup>
+                <FormGroup check className="creditCard creditCardForm reset-margin" row>
+                    <Col sm={{ size: 10, offset: 2 }}>
+                        <Button>Submit</Button>
+                    </Col>
+                </FormGroup>
+            </Form>
         )
     }
 
     render() {
         return (
-            <div id="creditCardsContainer">
-                <h3>Cards</h3>
-                <div id="creditCardsList">
-                    {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                        <Card key={index} card={card}/>
-                    ))}
+            <div className="container-in">
+                <div id="creditCardsContainer">
+                    <h3>Cards</h3>
+                    <div id="creditCardsList">
+                        {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
+                            <Card key={index} card={card}/>
+                        ))}
+                        {this.state.isAddingCard ? this.displayAddCard() :
+                            <Button outline onClick={this.addCard}>+</Button>}
+                    </div>
                 </div>
-                {this.state.isAddingCard ? this.displayAddCard():  <Button outline onClick={this.addCard}>+</Button>}
             </div>
         );
     }

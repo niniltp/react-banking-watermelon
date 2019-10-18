@@ -1,5 +1,5 @@
 #creditCardsContainer {
-    margin: 20px 0;
+    margin: 50px 0;
 }
 
 #creditCardsList {
@@ -10,7 +10,7 @@
     text-align: left;
     background-color: #282C34;
     padding: 10px;
-    margin: 2px 100px;
+    margin-bottom: 2px;
 }
 
 .creditCard ul li {
@@ -19,4 +19,12 @@
 
 .labelInfoCard {
     font-weight: bold;
+}
+
+
+.creditCardForm {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 0 !important;
+    background-color: #2b2f37;
 }
