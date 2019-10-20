@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import users from '../data/users';
+import { Link } from 'react-router-dom';
+import { Button, ButtonToolbar } from 'reactstrap';
 
 class SignUp extends Component {
 
@@ -9,8 +10,8 @@ class SignUp extends Component {
         this.state = {
             first_name : '',
             last_name : '',
-            email : ''
-        }
+            email : '',
+            password : ''};
     }
 
     handleChangeFirstName = event => {
@@ -25,24 +26,36 @@ class SignUp extends Component {
         this.setState({ email : event.target.value });
     }
 
+    handleChangePassword(event) {
+        this.setState({ password: event.target.value });
+    }
+
     
 
     render() {
         return (
             <form>
+                <div className="home-container">
+                <h4>Please fill in this form :</h4>
+                <br/>
                 <div>
-                    <h3><label>Last-name</label></h3>
+                    <h4><label>Last-name</label></h4>
                     <input type="text" onChange={this.handleChangeLastName} value={this.state.last_name} />
                 </div>
-
+                <br/>
                 <div>
-                    <h3><label>First-name</label></h3>
+                    <h4><label>First-name</label></h4>
                     <input type="text" onChange={this.handleChangeFirstName} value={this.state.first_name} />
                 </div>
-
+                <br/>
                 <div>
-                    <h3><label>Email</label></h3>
-                    <input type="text" onChange={this.handleChangeEmail} value={this.state.email} />
+                    <h4><label>Email</label></h4>
+                    <input type="email" onChange={this.handleChangeEmail} value={this.state.email} />
+                </div>
+                <br/>
+                <div>
+                    <h4><label>Password</label></h4>
+                    <input type="password" onChange={this.handleChangePassword} value={this.state.password} />
                 </div>
 
                 <br/><br/>
@@ -50,8 +63,13 @@ class SignUp extends Component {
                 <Button type="submit" color="primary" onClick={this.subscribe}>Sign Up</Button>
                 </ButtonToolbar>
                 <br/>
-
+                <br/>
+                <Link to="/"><h6>Already on Watermelon ? Sign in</h6></Link>
+                </div>
+                
             </form>
+            
+            
             
         );
     }
