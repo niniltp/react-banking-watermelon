@@ -1,4 +1,4 @@
-import {getDataFromLS, setDataInLS} from "../services/localStorageManager";
+import {getDataFromLS, setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 import usersDB from "../../database/users";
 
 export function getUserById(user_id){
@@ -14,14 +14,9 @@ export function getUserByEmail(email){
 }
 
 export function getUsers() {
-    const key = "users";
+    return setAndGetDataFromLS("users", usersDB);
+}
 
-    let data = getDataFromLS(key);
-
-    if (data === null) {
-        setDataInLS(key, usersDB);
-        data = getDataFromLS(key);
-    }
-
-    return data;
+export function updateUsers(users) {
+    setDataInLS("users", usersDB);
 }

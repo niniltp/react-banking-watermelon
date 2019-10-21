@@ -1,5 +1,5 @@
 import payoutsDB from "../../database/payouts";
-import {setAndGetDataFromLS} from "../services/localStorageManager";
+import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 
 export function getPayoutsByWalletId(wallet_id){
     const payouts = getPayouts();
@@ -11,4 +11,8 @@ export function getPayoutsByWalletId(wallet_id){
 
 export function getPayouts() {
     return setAndGetDataFromLS("payouts", payoutsDB);
+}
+
+export function updatePayouts(payouts) {
+    setDataInLS("payouts", payouts);
 }

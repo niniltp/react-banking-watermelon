@@ -1,5 +1,5 @@
 import walletsDB from "../../database/wallets";
-import {setAndGetDataFromLS} from "../services/localStorageManager";
+import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 
 export function getWalletByUserId(user_id) {
     const wallets = getWallets();
@@ -9,4 +9,8 @@ export function getWalletByUserId(user_id) {
 
 export function getWallets() {
     return setAndGetDataFromLS("wallets", walletsDB);
+}
+
+export function updateWallets(wallets) {
+    setDataInLS("wallets", walletsDB);
 }
