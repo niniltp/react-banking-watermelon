@@ -12,7 +12,7 @@ const wallets = [
 {
 	id: 2,
 	user_id: 2,
-	balance: 51542
+	balance: 51540
 }
 ];
 

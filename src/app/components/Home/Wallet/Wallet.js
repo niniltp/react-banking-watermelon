@@ -7,8 +7,22 @@ class Wallet extends Component {
         super(props);
 
         this.state = {
-            wallet: getWalletByUserId(this.props.user_id)
+            isFetching: true
         };
+
+        this.fetchData = this.fetchData.bind(this);
+    }
+
+    componentDidMount() {
+        this.setState({isFetching: true});
+        this.fetchData();
+        this.setState({isFetching: false});
+    }
+
+    fetchData() {
+        this.setState({
+            wallet: getWalletByUserId(this.props.user_id)
+        });
     }
 
     render() {
@@ -16,7 +30,8 @@ class Wallet extends Component {
             <div className="container-in">
                 <div id="wallet">
                     <h3>Wallet</h3>
-                    <span>{this.state.wallet.balance} ₩M</span>
+                    {this.state.isFetching ? <p>Fetching data...</p> : <span>{this.state.wallet.balance} ₩M</span>}
+
                 </div>
             </div>
         );

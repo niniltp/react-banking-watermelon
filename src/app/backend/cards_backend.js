@@ -1,10 +1,14 @@
-import cards from "../../database/cards";
+import cardsDB from "../../database/cards";
+import {setAndGetDataFromLS} from "../services/localStorageManager";
 
 export function getCardsByUserId(user_id){
-    const cardsList = cards.filter(function(card) {
+    const cards = getCards();
+
+    return cards.filter(function(card) {
         return card.user_id === user_id
     });
+}
 
-    console.log(cards);
-    return cardsList;
+export function getCards() {
+    return setAndGetDataFromLS("cards", cardsDB);
 }

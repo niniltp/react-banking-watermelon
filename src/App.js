@@ -6,14 +6,15 @@ import Home from './app/components/Home/Home.js'
 
 //TODO: Home -> change user_id with user auth
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-          <Link exact to="/"><img src={logo} className="App-logo" alt="logo" /></Link>
-      </header>
-        <Route path="/" render={() => <Home user_id={2}/>}/>
-    </div>
-  );
+    localStorage.clear(); //TODO: delete this line ?
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Link exact to="/"><img src={logo} className="App-logo" alt="logo"/></Link>
+            </header>
+            <Route path="/" render={() => <Home user_id={2}/>}/>
+        </div>
+    );
 }
 
 export default App;

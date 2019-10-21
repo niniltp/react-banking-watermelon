@@ -9,7 +9,7 @@ class Cards extends Component {
         super(props);
 
         this.state = {
-            isFetching: false,
+            isFetching: true,
             isAddingCard: false,
             cards: [],
             newCard: {
