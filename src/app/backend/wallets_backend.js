@@ -12,5 +12,5 @@ export function getWallets() {
 }
 
 export function updateWallets(wallets) {
-    setDataInLS("wallets", walletsDB);
+    setDataInLS("wallets", wallets);
 }

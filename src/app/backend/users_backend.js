@@ -18,5 +18,5 @@ export function getUsers() {
 }
 
 export function updateUsers(users) {
-    setDataInLS("users", usersDB);
+    setDataInLS("users", users);
 }

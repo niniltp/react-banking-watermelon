@@ -22,5 +22,5 @@ export function getTransfers() {
 }
 
 export function updateTransfers(transfers) {
-    setDataInLS("transfers", transfersDB);
+    setDataInLS("transfers", transfers);
 }

@@ -14,5 +14,5 @@ export function getPayins() {
 }
 
 export function updatePayins(payins) {
-    setDataInLS("payins", payinsDB);
+    setDataInLS("payins", payins);
 }

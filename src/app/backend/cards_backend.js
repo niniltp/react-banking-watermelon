@@ -14,5 +14,5 @@ export function getCards() {
 }
 
 export function updateCards(cards) {
-    setDataInLS("cards", cardsDB);
+    setDataInLS("cards", cards);
 }
