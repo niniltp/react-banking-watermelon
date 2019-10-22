@@ -36,7 +36,7 @@ export function addUser(user) {
 }
 
 /*
-* This function updates all the users of the DB
+* This function updates all the users of the DB (replaces with the array in parameter)
 * */
 export function updateUsers(users) {
     setDataInLS("users", users);
@@ -49,5 +49,14 @@ export function updateUser(user) {
     let users = getUsers();
     let index = users.findIndex(obj => obj.user_id === user.user_id);
     users[index] = user;
+    updateUsers(users);
+}
+
+/*
+* This function removes the user specified by its id from the DB
+* */
+export function removeUser(user_id) {
+    let users = getUsers();
+    users = users.filter((item) => item.id !== user_id);
     updateUsers(users);
 }

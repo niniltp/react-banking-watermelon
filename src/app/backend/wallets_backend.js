@@ -21,7 +21,7 @@ export function addWallet(wallet) {
 }
 
 /*
-* This function updates all the wallets of the DB
+* This function updates all the wallets of the DB (replaces with the array in parameter)
 * */
 export function updateWallets(wallets) {
     setDataInLS("wallets", wallets);
@@ -34,5 +34,15 @@ export function updateWallet(wallet) {
     let wallets = getWallets();
     let index = wallets.findIndex(obj => obj.id === wallet.id);
     wallets[index] = wallet;
+    updateWallets(wallets);
+}
+
+/*
+* This function removes the wallet specified by its id from the DB
+* */
+export function removeWallet(id) {
+    let wallets = getWallets();
+
+    wallets = wallets.filter((item) => item.id !== id);
     updateWallets(wallets);
 }
