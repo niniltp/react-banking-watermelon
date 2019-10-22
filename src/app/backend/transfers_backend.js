@@ -1,26 +1,57 @@
 import transfersDB from "../../database/transfers";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 
-export function getTransfersByCreditedWalletId(wallet_id){
+/*
+* This function returns all the transfers from the credited wallet specified by its id from the DB
+* */
+export function getTransfersByCreditedWalletId(wallet_id) {
     const transfers = getTransfers();
 
-    return transfers.filter(function(transfer) {
+    return transfers.filter(function (transfer) {
         return transfer.credited_wallet_id === wallet_id;
     });
 }
 
-export function getTransfersByDebitedWalletId(wallet_id){
+/*
+* This function returns all the transfers from the debited wallet specified by its id from the DB
+* */
+export function getTransfersByDebitedWalletId(wallet_id) {
     const transfers = getTransfers();
 
-    return transfers.filter(function(transfer) {
+    return transfers.filter(function (transfer) {
         return transfer.debited_wallet_id === wallet_id;
     });
 }
 
+/*
+* This function returns all the transfers from the DB
+* */
 export function getTransfers() {
     return setAndGetDataFromLS("transfers", transfersDB);
 }
 
+/*
+* This function adds a transfer in the DB
+* */
+export function addTransfer(transfer) {
+    let transfers = getTransfers();
+    transfers.push(transfer);
+    updateTransfers(transfers);
+}
+
+/*
+* This function updates all the transfers of the DB
+* */
 export function updateTransfers(transfers) {
     setDataInLS("transfers", transfers);
+}
+
+/*
+* This function updates the transfer specified in parameter in the DB
+* */
+export function updateTransfer(transfer) {
+    let transfers = getTransfers();
+    let index = transfers.findIndex(obj => obj.id === transfer.id);
+    transfers[index] = transfer;
+    updateTransfers(transfers);
 }
