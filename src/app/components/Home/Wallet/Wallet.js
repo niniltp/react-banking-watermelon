@@ -9,8 +9,6 @@ class Wallet extends Component {
         this.state = {
             isFetching: true
         };
-
-        this.fetchData = this.fetchData.bind(this);
     }
 
     componentDidMount() {
@@ -19,11 +17,11 @@ class Wallet extends Component {
         this.setState({isFetching: false});
     }
 
-    fetchData() {
+    fetchData = () => {
         this.setState({
             wallet: getWalletByUserId(this.props.user_id)
         });
-    }
+    };
 
     render() {
         return (

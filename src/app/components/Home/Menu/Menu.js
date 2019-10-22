@@ -4,10 +4,6 @@ import {Link} from "react-router-dom";
 import './Menu.css';
 
 class Menu extends Component {
-    constructor(props){
-        super(props);
-    }
-
     render() {
         return (
             <div id="menu">
