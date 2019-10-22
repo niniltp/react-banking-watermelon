@@ -7,7 +7,7 @@ import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager"
 export function getCardsByUserId(user_id) {
     const cards = getCards();
 
-    return cards.filter(function (card) {
+    return cards.filter( (card) => {
         return card.user_id === user_id
     });
 }
@@ -29,7 +29,7 @@ export function addCard(card) {
 }
 
 /*
-* This function updates all the cards of the DB
+* This function updates all the cards of the DB (replaces with the array in parameter)
 * */
 export function updateCards(cards) {
     setDataInLS("cards", cards);
@@ -42,5 +42,15 @@ export function updateCard(card) {
     let cards = getCards();
     let index = cards.findIndex(obj => obj.id === card.id);
     cards[index] = card;
+    updateCards(cards);
+}
+
+/*
+* This function removes the card specified by its id from the DB
+* */
+export function removeCard(id) {
+    let cards = getCards();
+
+    cards = cards.filter((item) => item.id !== id);
     updateCards(cards);
 }

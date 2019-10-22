@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import Card from './Card.js';
-import {addCard as addCardDB, getCardsByUserId} from "../../../backend/cards_backend";
+import {addCard as addCardDB, removeCard as removeCardDB, getCardsByUserId} from "../../../backend/cards_backend";
 import './Cards.css';
 import {isCardValid} from "../../../services/checkCardValidity";
 
@@ -61,6 +61,16 @@ class Cards extends Component {
         addCardDB(card);
     };
 
+    removeCard = (id) => {
+        this.setState(prevState => ({
+            cards: prevState.cards.filter(card => card.id !== id)
+        }), () => {
+            console.log(this.state.cards);
+        });
+        removeCardDB(id);
+
+    };
+
     handleChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -97,6 +107,11 @@ class Cards extends Component {
                 }
             });
         }
+    };
+
+    handleRemove = (index, id) => {
+        this.removeCard(id);
+        console.log(`remove card ${index}, ${id}`);
     };
 
     displayAddCard = () => {
@@ -159,8 +174,7 @@ class Cards extends Component {
                     <h3>Cards</h3>
                     <div id="creditCardsList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                            <Card key={index} card={card}/>
-                        ))}
+                            <Card key={index} index={index} card={card} onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
                             <Button outline className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
                     </div>

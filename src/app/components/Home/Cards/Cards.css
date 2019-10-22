@@ -13,10 +13,22 @@
     background-color: #282C34;
     padding: 10px;
     margin-bottom: 2px;
+    position: relative;
 }
 
 .creditCard ul li {
     list-style: none;
+}
+
+.destroyCreditCard {
+    font-weight: 300;
+    font-size: larger;
+    color: grey;
+    position: absolute;
+    top: 50%;
+    right:  5%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 /* ADDING CARD FORM */
