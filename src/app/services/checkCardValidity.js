@@ -3,7 +3,11 @@ export function isBrandValid(brand) {
 }
 
 export function isNumberCardValid(numberCard0, numberCard1, numberCard2, numberCard3) {
-    return numberCard0 !== '' && numberCard0.length === 4 && numberCard1 !== '' && numberCard1.length === 4 &&  numberCard2 !== '' && numberCard2.length === 4 &&  numberCard3 !== '' && numberCard3.length === 4;
+    return is4digitsCardValid(numberCard0) && is4digitsCardValid(numberCard1) && is4digitsCardValid(numberCard2) && is4digitsCardValid(numberCard3);
+}
+
+export function is4digitsCardValid(digits) {
+    return digits !== null && digits !== '' && digits.length === 4 && parseInt(digits) >= 0
 }
 
 export function isExpirationDateValid(expirationDate) {

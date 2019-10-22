@@ -50,7 +50,7 @@ class Cards extends Component {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
         let card = {
-            id: this.state.cards.length + 2,
+            id: this.state.cards.length + 2, //TODO: Generate unique ID !!!
             last_4: newCard.numberCard3,
             brand: newCard.brand,
             expired_at: expirationDate,
@@ -131,19 +131,19 @@ class Cards extends Component {
                 <FormGroup className="creditCard-formGroup reset-margin" row>
                     <Label for="numberCard" sm={2} className="labelInfoCard">Card Number</Label>
                     <Col sm={2}>
-                        <Input type="number" min="1000" max="9999" id="numberCard0" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard0" className="creditCardForm-input"
                                name="numberCard0" value={this.state.newCard.numberCard0} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="1000" max="9999" id="numberCard1" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard1" className="creditCardForm-input"
                                name="numberCard1" value={this.state.newCard.numberCard1} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="1000" max="9999" id="numberCard2" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard2" className="creditCardForm-input"
                                name="numberCard2" value={this.state.newCard.numberCard2} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="1000" max="9999" id="numberCard3" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard3" className="creditCardForm-input"
                                name="numberCard3" value={this.state.newCard.numberCard3} onChange={this.handleChange}/>
                     </Col>
                 </FormGroup>
