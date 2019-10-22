@@ -10,9 +10,11 @@
 
 .creditCard {
     text-align: left;
-    background-color: #282C34;
+    background-color: rgba(49, 54, 64, 0.4);
+    /*opacity: 0.5;*/
+    border-radius: 20px;
     padding: 10px;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
     position: relative;
 }
 
@@ -22,7 +24,7 @@
 
 .destroyCreditCard {
     font-weight: 300;
-    font-size: larger;
+    font-size: x-large;
     color: grey;
     position: absolute;
     top: 50%;
@@ -35,10 +37,12 @@
 
 .addCreditCard-btn {
     margin-top: 10px;
+    border-radius: 15px !important;
 }
 
 .creditCard-form {
-    background-color: #2b2f37;
+    background-color: #31363f;
+    border-radius: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
@@ -50,12 +54,33 @@
     margin-bottom: 0 !important;
 }
 
+.creditCard-formGroup input, .creditCard-formGroup select{
+    background-color: inherit !important;
+    border-radius: 0;
+    border: none !important;
+    border-bottom: 1px solid #404654 !important;
+    color: white !important;
+}
+
+
+.creditCard-formGroup input:focus, .creditCard-formGroup select:focus{
+    background-color: rgba(59, 65, 77, 0.4) !important;
+    border: none !important;
+    border-bottom: 1px solid #545c6e !important;
+    box-shadow: none;
+}
+
+.creditCard-formGroup select option {
+    background-color: rgb(59, 65, 77) !important;
+    border: none;
+}
+
 .creditCardForm-input {
     min-width: 70px;
 }
 
 .labelInfoCard {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 

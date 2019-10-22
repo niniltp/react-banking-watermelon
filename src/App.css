@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  background-color: #282c34;
+  /*background-color: #282c34;*/
+  background: linear-gradient(90deg, #262931, #2e323c);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -10,7 +11,9 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  margin-top: 45px;
+  margin-bottom: 20px;
+  height: 30vmin;
 }
 
 .App-link {
