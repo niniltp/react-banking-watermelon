@@ -33,6 +33,15 @@
     cursor: pointer;
 }
 
+.modifyCreditCard {
+    height: 3vmin;
+    position: absolute;
+    top: 53%;
+    right:  8%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
 /* ADDING CARD FORM */
 
 .addCreditCard-btn {
@@ -76,7 +85,7 @@
 }
 
 .creditCardForm-input {
-    min-width: 70px;
+    min-width: 80px;
 }
 
 .labelInfoCard {

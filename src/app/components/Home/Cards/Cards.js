@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
-import {Button, Col, Row, Form, FormGroup, Input, Label} from 'reactstrap';
+import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import Card from './Card.js';
-import {addCard as addCardDB, removeCard as removeCardDB, getCardsByUserId} from "../../../backend/cards_backend";
+import {
+    addCard as addCardDB,
+    getCardsByUserId,
+    removeCard as removeCardDB,
+    updateCard as updateCardDB
+} from "../../../backend/cards_backend";
 import './Cards.css';
 import {isCardValid} from "../../../services/checkCardValidity";
 
@@ -14,7 +19,7 @@ class Cards extends Component {
             isAddingCard: false,
             cards: [],
             newCard: {
-                brand: 'American Express',
+                brand: 'american_express',
                 numberCard0: '',
                 numberCard1: '',
                 numberCard2: '',
@@ -61,6 +66,17 @@ class Cards extends Component {
         addCardDB(card);
     };
 
+    modifyCard = (index, card) => {
+        let cards = this.state.cards;
+        cards[index] = card;
+        this.setState({
+            cards: cards
+        }, () => {
+            console.log(this.state.cards);
+        });
+        updateCardDB(card);
+    };
+
     removeCard = (id) => {
         this.setState(prevState => ({
             cards: prevState.cards.filter(card => card.id !== id)
@@ -75,17 +91,14 @@ class Cards extends Component {
         const target = event.target;
         const name = target.name;
         const value = target.value;
-        console.log(value);
 
-        if(!(name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") || ((name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") && value.length <= 4)) {
+        if (!(name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") || ((name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") && value.length <= 4)) {
             this.setState(prevState => ({
                 newCard: {
                     ...prevState.newCard,
                     [name]: value
                 }
-            }), () => {
-                console.log(this.state.newCard);
-            });
+            }));
         }
     };
 
@@ -109,6 +122,11 @@ class Cards extends Component {
         }
     };
 
+    handleModif = (index, card) => {
+        this.modifyCard(index, card);
+        console.log(`modify card ${index}, ${card.id}`);
+    };
+
     handleRemove = (index, id) => {
         this.removeCard(id);
         console.log(`remove card ${index}, ${id}`);
@@ -122,9 +140,9 @@ class Cards extends Component {
                     <Col sm={10}>
                         <Input type="select" id="brandCard" className="creditCardForm-input" name="brand"
                                value={this.state.newCard.brand} onChange={this.handleChange}>
-                            <option>American Express</option>
-                            <option>Master Card</option>
-                            <option>Visa</option>
+                            <option value="american_express">American Express</option>
+                            <option value="master_card">Master Card</option>
+                            <option value="visa">Visa</option>
                         </Input>
                     </Col>
                 </FormGroup>
@@ -158,7 +176,7 @@ class Cards extends Component {
                 <FormGroup check className="creditCard-formGroup reset-margin" row>
                     <Col sm={{size: 10, offset: 2}} style={{textAlign: "right"}}>
                         <Button color="success" className="creditCardForm-btn"
-                                onClick={this.handleSubmit}>Submit</Button>
+                                onClick={this.handleSubmit}>Add</Button>
                         <Button color="danger" className="creditCardForm-btn"
                                 onClick={this.disableAddingCard}>Cancel</Button>
                     </Col>
@@ -174,7 +192,8 @@ class Cards extends Component {
                     <h3>Cards</h3>
                     <div id="creditCardsList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                            <Row><Col><Card key={index} index={index} card={card} onRemove={this.handleRemove}/></Col></Row>))}
+                            <Card key={index} index={index} card={card} onModif={this.handleModif}
+                                  onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
                             <Button outline className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
                     </div>
