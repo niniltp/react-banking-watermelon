@@ -66,15 +66,17 @@ class Cards extends Component {
         const name = target.name;
         const value = target.value;
         console.log(value);
-        this.setState(prevState => ({
-            newCard: {
-                ...prevState.newCard,
-                [name]: value
-            }
-        }), () => {
-            console.log(this.state.newCard);
-        });
 
+        if(!(name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") || ((name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") && value.length <= 4)) {
+            this.setState(prevState => ({
+                newCard: {
+                    ...prevState.newCard,
+                    [name]: value
+                }
+            }), () => {
+                console.log(this.state.newCard);
+            });
+        }
     };
 
     handleSubmit = (event) => {

@@ -38,6 +38,10 @@
     margin-bottom: 0 !important;
 }
 
+.creditCardForm-input {
+    min-width: 70px;
+}
+
 .labelInfoCard {
     font-weight: bold;
 }
