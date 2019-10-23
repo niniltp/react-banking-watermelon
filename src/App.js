@@ -24,13 +24,6 @@ class App extends Component {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
         localStorage.clear(); //TODO: delete this line ?
-        // setDataInLS("cards", cards);
-        // setDataInLS("payins", payins);
-        // setDataInLS("payouts", payouts);
-        // setDataInLS("transfers", transfers);
-        // setDataInLS("users", users);
-        // setDataInLS("wallets", wallets);
-
         if (!isAuth()) disconnectUser();
     }
 
@@ -46,6 +39,7 @@ class App extends Component {
                     <Route path="/pwdForgot" component={PwdForgot}/>
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
+                    <ProtectedRoute path="/withdraw" component={Home}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
                 </Switch>
             </div>
