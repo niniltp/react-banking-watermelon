@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 import Wallet from './Wallet/Wallet.js';
 import Cards from './Cards/Cards.js';
 import Menu from './Menu/Menu';
+import Withdraw from "./fundsMng/Withdraw";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 
