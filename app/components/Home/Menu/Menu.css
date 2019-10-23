@@ -1,0 +1,20 @@
+#menu {
+    /*background-color: #404754;*/
+    margin: 50px 100px;
+    border-radius: 10px;
+}
+
+#menu .menuBtn {
+    display: block;
+    border: none;
+    padding: 10px 50px;
+    width: 100%;
+    text-align: left;
+    color: white;
+    font-weight: 500;
+}
+
+#menu a {
+    text-decoration: none;
+    color: inherit;
+}
