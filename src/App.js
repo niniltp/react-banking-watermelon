@@ -40,6 +40,7 @@ class App extends Component {
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
+                    <ProtectedRoute path="/deposit" component={Home}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
                 </Switch>
             </div>
