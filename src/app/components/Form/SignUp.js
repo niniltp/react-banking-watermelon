@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button, ButtonToolbar} from 'reactstrap';
 import Form from 'react-bootstrap/Form';
+import {getUsers, addUser} from "../../backend/users_backend";
+import {authenticateUser, isAuth} from "../../services/authenticationManager";
+import {getWallets, addWallet} from "../../backend/wallets_backend.js";
 
 //Code written by CHEONG Loïc
 
@@ -15,13 +18,15 @@ class SignUp extends Component {
             last_name : '',
             email : '',
             password : '',
-            errors : []};
+            errors : [],
+            redirect : false
+        }; 
             
-        //this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+        this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.checkFields = this.checkFields.bind(this); 
+        this.signUp= this.signUp.bind(this); 
     }
 
     handleChangeFirstName = event => {
@@ -42,16 +47,28 @@ class SignUp extends Component {
     }
 
     subscribe = () =>{
-        const users = JSON.parse(localStorage.getItem("users"));
-        const newUser = [{
+    //this function records new user's data in the Watermelon database
+        const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
+        const newUser = {
             id: users[users.length-1].id+1,
             first_name: this.state.first_name,
             last_name: this.state.last_name, 
             email: this.state.email, 
             password: this.state.password, 
             is_admin: "false"
-        }];
-        console.log(newUser);
+        };
+
+        const wallets = getWallets();
+        const newWallet = {
+                id: wallets[wallets.length-1].id+1,
+                user_id: newUser.id,
+                balance: 0
+        };
+
+        authenticateUser(users[users.length-1].id+1);
+        addWallet(newWallet);
+        //console.log(newUser);
+        console.log(newWallet);
         return newUser;
     }
 
@@ -62,11 +79,11 @@ class SignUp extends Component {
     }
 
 
-    checkFields(){
+    signUp(){
         //this function checks if there is what it is expected in the fields
         //Otherwise, it will display a msg error
         this.setState({errors : [] });
-        const users = JSON.parse(localStorage.getItem("users"));
+        const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
         const user = users.filter((user)=> {return user.email===this.state.email;});
         let condition = 0;
 
@@ -96,75 +113,85 @@ class SignUp extends Component {
 
         
         if (condition === 0){// condition = 0 means that there is not any error
-            let newArray = users.concat(this.subscribe());
-            console.log(newArray);
-            localStorage.setItem("users",JSON.stringify(newArray));
-            //return <Link to ="/"> </Link>
-            //NEED TO FIX HERE TO DISPLAY THE USER'S PROFILEs
-        } else return null;
+            //let newArray = users.concat(this.subscribe());
+            //console.log(newArray);
+            //localStorage.setItem("users",JSON.stringify(newArray));
+            console.log("Successful registration !");
+            let newUser = this.subscribe();
+            console.log(newUser);
+            addUser(newUser);
+            console.log(getUsers());
+            this.setState({redirect: true});
+           
+        } 
         
     }
 
 
 
     render() {
-        let  lastNameErr = null, firstNameErr = null, emailErr = null, passwordErr = null;
 
-        for(let err of this.state.errors){
-            if (err.elt === "lastName") lastNameErr = err.msg;
-            if (err.elt === "firstName") firstNameErr = err.msg;
-            if (err.elt === "email") emailErr = err.msg;
-            if (err.elt === "password") passwordErr = err.msg;
-        }
+        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>; //TODO: change with function
 
-        return (
-            <Form>
-                <div className="home-container">
-                    <h4>Please fill in this form :</h4>
-                    <br/>
-                    <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control type="text" placeholder="Last name"  onChange={this.handleChangeLastName} value={this.state.last_name} />
-                    <p style={{fontSize:12, color: "red"}}>{lastNameErr ? lastNameErr : ""}</p>
-                    </Form.Group>
-                    
+        else {
+            let  lastNameErr = null, firstNameErr = null, emailErr = null, passwordErr = null;
 
-                    <Form.Group>
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control type="text" placeholder="First name"  onChange={this.handleChangeFirstName} value={this.state.first_name}/>
-                    <p style={{fontSize:12, color: "red"}}>{firstNameErr ? firstNameErr : ""}</p>
-                    </Form.Group>
+            for(let err of this.state.errors){
+                if (err.elt === "lastName") lastNameErr = err.msg;
+                if (err.elt === "firstName") firstNameErr = err.msg;
+                if (err.elt === "email") emailErr = err.msg;
+                if (err.elt === "password") passwordErr = err.msg;
+            }
 
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Email" onChange={this.handleChangeEmail.bind(this)} value={this.state.email}/>
-                        <p style={{fontSize:12, color: "red"}}>{emailErr ? emailErr : ""}</p>
-                    </Form.Group>
+            return (
+                <Form>
+                    <div className="home-container">
+                        <h4>Please fill in this form :</h4>
+                        <br/>
+                        <Form.Group>
+                        <Form.Label>Last name</Form.Label>
+                        <Form.Control type="text" placeholder="Last name"  onChange={this.handleChangeLastName} value={this.state.last_name} />
+                        <p style={{fontSize:12, color: "red"}}>{lastNameErr ? lastNameErr : ""}</p>
+                        </Form.Group>
+                        
+
+                        <Form.Group>
+                        <Form.Label>First name</Form.Label>
+                        <Form.Control type="text" placeholder="First name"  onChange={this.handleChangeFirstName} value={this.state.first_name}/>
+                        <p style={{fontSize:12, color: "red"}}>{firstNameErr ? firstNameErr : ""}</p>
+                        </Form.Group>
+
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Email" onChange={this.handleChangeEmail.bind(this)} value={this.state.email}/>
+                            <p style={{fontSize:12, color: "red"}}>{emailErr ? emailErr : ""}</p>
+                        </Form.Group>
+                        
                     
-                   
-                    <Form.Group controlId="formGroupPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password (8 or more characters)" onChange={this.handleChangePassword} value={this.state.password}/>
-                        <p style={{fontSize:12, color: "red"}}>{passwordErr ? passwordErr : ""}</p>
-                    </Form.Group>
+                        <Form.Group controlId="formGroupPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password (8 or more characters)" onChange={this.handleChangePassword} value={this.state.password}/>
+                            <p style={{fontSize:12, color: "red"}}>{passwordErr ? passwordErr : ""}</p>
+                        </Form.Group>
+                        
+                        
+                        <br/>
+                        <p style={{fontSize:12, color: "grey"}}>By clicking Sign Up, you agree to the Watermelon</p>
+                        <p style={{fontSize:12, color: "grey"}}>User Agreement, Privacy Policy, and Cookie Policy</p>
+                        <ButtonToolbar>
+                        <Button type="button" color="primary" onClick={this.signUp} block>Sign Up</Button>
+                        </ButtonToolbar>
+                        <br/>
+                        <br/>
+                        <Link to="/"><h6>Already on Watermelon ? Sign in</h6></Link>
+                    </div>
                     
-                    
-                    <br/>
-                    <p style={{fontSize:12, color: "grey"}}>By clicking Sign Up, you agree to the Watermelon</p>
-                    <p style={{fontSize:12, color: "grey"}}>User Agreement, Privacy Policy, and Cookie Policy</p>
-                    <ButtonToolbar>
-                    <Button type="button" color="primary" onClick={this.checkFields} block>Sign Up</Button>
-                    </ButtonToolbar>
-                    <br/>
-                    <br/>
-                    <Link to="/"><h6>Already on Watermelon ? Sign in</h6></Link>
-                </div>
+                </Form>
                 
-            </Form>
-            
-            
-            
-        );
+                
+                
+            );
+        }
     }
     
 }

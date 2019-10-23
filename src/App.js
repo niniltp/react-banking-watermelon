@@ -5,6 +5,7 @@ import './App.css';
 import SignIn from './app/components/Form/SignIn';
 import SignUp from './app/components/Form/SignUp.js';
 import PwdForgot from './app/components/Form/PwdForgot.js';
+import changePwd from './app/components/Form/changePwd.js';
 import Home from './app/components/Home/Home.js';
 import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
@@ -39,6 +40,7 @@ class App extends Component {
                     <Route path="/pwdForgot" component={PwdForgot}/>
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
+                    <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
                     <ProtectedRoute path="/deposit" component={Home}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
