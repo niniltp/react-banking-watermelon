@@ -1,18 +1,23 @@
-import  React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Route} from "react-router-dom";
 import Wallet from './Wallet/Wallet.js';
 import Cards from './Cards/Cards.js';
 import Menu from './Menu/Menu';
 import './Home.css';
+import {getUserIDAuth} from "../../services/authenticationManager";
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="container" id="home">
-                <Wallet user_id={this.props.user_id}/>
+                <Wallet user_id={getUserIDAuth()}/>
                 <h1>Hi</h1>
-                <Route exact path="/" component={Menu}/>
-                <Route path="/cards" render={() => <Cards user_id={this.props.user_id}/>}/>
+                <Route exact path="/account" component={Menu}/>
+                <Route path="/cards" component={Cards}/>
             </div>
         );
     }

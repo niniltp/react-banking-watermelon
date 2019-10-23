@@ -21,6 +21,7 @@ class Wallet extends Component {
         this.setState({
             wallet: getWalletByUserId(this.props.user_id)
         });
+        console.log(this.state.wallet);
     };
 
     render() {

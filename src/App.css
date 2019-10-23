@@ -10,6 +10,17 @@
   color: white;
 }
 
+.App-header {
+    /*background-color: #282c34;*/
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
 .App-logo {
   margin-top: 45px;
   margin-bottom: 20px;
@@ -19,6 +30,19 @@
 .App-link {
   color: #09d3ac;
 }
+
+.home-container {
+  line-height: 1.5;
+  background-color: #404754;
+  border-style: solid;
+  border-radius: 50px;
+  padding-bottom: 50px;
+  padding-left:85px;
+  padding-right:85px;
+  padding-top: 50px;
+  margin-top:30px;
+  margin-bottom:30px;
+  }
 
 @media (min-width: 600px) {
   .container-in {

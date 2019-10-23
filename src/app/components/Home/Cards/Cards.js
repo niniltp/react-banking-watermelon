@@ -9,12 +9,14 @@ import {
 } from "../../../backend/cards_backend";
 import './Cards.css';
 import {isCardValid} from "../../../services/checkCardValidity";
+import {getUserIDAuth} from "../../../services/authenticationManager";
 
 class Cards extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            userID: getUserIDAuth(),
             isFetching: true,
             isAddingCard: false,
             cards: [],
@@ -36,7 +38,7 @@ class Cards extends Component {
     };
 
     fetchData = () => {
-        this.setState({cards: getCardsByUserId(this.props.user_id)});
+        this.setState({cards: getCardsByUserId(this.state.userID)});
     };
 
     enableAddingCard = () => {
@@ -59,7 +61,7 @@ class Cards extends Component {
             last_4: newCard.numberCard3,
             brand: newCard.brand,
             expired_at: expirationDate,
-            user_id: this.props.user_id
+            user_id: getUserIDAuth()
         };
 
         this.state.cards.push(card);

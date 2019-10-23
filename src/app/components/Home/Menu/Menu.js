@@ -7,7 +7,7 @@ class Menu extends Component {
     render() {
         return (
             <div id="menu">
-                <Link to="/account"><Button outline color="secondary" className="menuBtn">Account</Button></Link>
+                <Link to="/settings"><Button outline color="secondary" className="menuBtn">Settings</Button></Link>
                 <Link to="/cards"><Button outline color="secondary" className="menuBtn">Credit Cards</Button></Link>
             </div>
         );
