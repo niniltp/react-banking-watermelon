@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import settings from '../../../img/settings.svg';
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {isCardValid} from "../../../services/checkCardValidity";
+import {getYearMonthFromExpirationDateCard} from "../../../services/dateManager";
 
 class Card extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Card extends Component {
                 numberCard1: '0000',
                 numberCard2: '0000',
                 numberCard3: this.props.card.last_4,
-                expirationDate: this.props.card.expired_at.substring(0, 7),
+                expirationDate: getYearMonthFromExpirationDateCard(this.props.card.expired_at),
                 user_id: this.props.card.user_id
             }
         }
@@ -78,7 +79,7 @@ class Card extends Component {
                     numberCard1: '0000',
                     numberCard2: '0000',
                     numberCard3: newCard.last_4,
-                    expirationDate: newCard.expired_at.substring(0, 7)
+                    expirationDate: getYearMonthFromExpirationDateCard(newCard.expired_at)
                 }
             });
         }
@@ -86,9 +87,7 @@ class Card extends Component {
 
     handleModify = (event) => {
         event.preventDefault();
-        this.setState({
-            isModifying: true
-        });
+        this.enableModifying();
         console.log("modify card");
         console.log(this.state.card);
     };
@@ -113,7 +112,9 @@ class Card extends Component {
                 <ul>
                     <li><span className="labelInfoCard">Brand: </span>{this.state.card.brand}</li>
                     <li><span className="labelInfoCard">Card number: </span>**** **** **** {this.state.card.last_4}</li>
-                    <li><span className="labelInfoCard">Expiration date: </span>{this.state.card.expired_at.substring(0, 7)}</li>
+                    <li><span
+                        className="labelInfoCard">Expiration date: </span>{getYearMonthFromExpirationDateCard(this.state.card.expired_at)}
+                    </li>
                 </ul>
                 {this.state.mouseHover ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
                 {this.state.mouseHover ?

@@ -1,35 +1,34 @@
 import React, {Component} from 'react';
 import './Wallet.css';
-import {getWalletByUserId} from "../../../backend/wallets_backend";
 
 class Wallet extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isFetching: true
+            prevIsFetching: this.props.isFetching,
+            prevWallet: this.props.wallet
         };
     }
 
-    componentDidMount() {
-        this.setState({isFetching: true});
-        this.fetchData();
-        this.setState({isFetching: false});
+    static getDerivedStateFromProps(props, state) {
+        // Re-run the filter whenever props change
+        if (state.prevIsFetching !== props.isFetching || state.prevWallet.balance !== props.wallet.balance) {
+            return {
+                prevIsFetching: props.isFetching,
+                prevWallet: props.wallet
+            };
+        }
+        return null;
     }
 
-    fetchData = () => {
-        this.setState({
-            wallet: getWalletByUserId(this.props.user_id)
-        });
-        console.log(this.state.wallet);
-    };
 
     render() {
         return (
             <div className="container-in">
                 <div id="wallet">
                     <h3>Wallet</h3>
-                    {this.state.isFetching ? <p>Fetching data...</p> : <span>{this.state.wallet.balance} ₩M</span>}
+                    {this.state.prevIsFetching ? <p>Fetching data...</p> : <span>{this.state.prevWallet.balance} ₩M</span>}
 
                 </div>
             </div>
