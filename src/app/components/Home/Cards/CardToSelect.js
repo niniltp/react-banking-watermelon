@@ -14,7 +14,7 @@ class CardToSelect extends Component {
 
     static getDerivedStateFromProps(props, state) {
         // Re-run the filter whenever props change
-        if(state.prevSelectedCardIndex !== props.selectedCardIndex) {
+        if (state.prevSelectedCardIndex !== props.selectedCardIndex) {
             return {
                 mouseHover: state.mouseHover,
                 isSelected: props.selectedCardIndex === props.index,
@@ -45,12 +45,6 @@ class CardToSelect extends Component {
 
     deselect = () => {
         this.setState({isSelected: false});
-    };
-
-    handleChange = (event) => {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
     };
 
     handleClick = () => {

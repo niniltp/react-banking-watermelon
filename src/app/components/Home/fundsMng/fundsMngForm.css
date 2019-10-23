@@ -1,0 +1,88 @@
+@media (min-width: 775px) {
+    .amount-input {
+        display: inline-block;
+        padding: 25px 20px;
+        text-align: right;
+        font-size: xx-large;
+        font-weight: bold;
+        letter-spacing: 2px;
+        max-width: 80%;
+    }
+
+    .fundsMng-title {
+        font-size: large;
+        margin: 30px 0;
+    }
+
+    .fundsMng-formGroup {
+        max-width: 70%;
+        margin: auto;
+        position: relative;
+    }
+
+    .amount-label {
+        position: absolute;
+        top: 53%;
+        right: 3%;
+        transform: translateY(-50%);
+        font-size: xx-large;
+    }
+}
+
+@media (min-width: 470px) and (max-width: 775px) {
+    .amount-input {
+        display: inline-block;
+        padding: 25px 20px;
+        text-align: right;
+        font-size: xx-large;
+        font-weight: bold;
+        letter-spacing: 2px;
+        max-width: 90%;
+    }
+
+    .fundsMng-title {
+        font-size: large;
+        margin: 30px 0;
+    }
+
+    .fundsMng-formGroup {
+        max-width: 70%;
+        margin: auto;
+        position: relative;
+    }
+
+    .amount-label {
+        position: absolute;
+        top: 53%;
+        right: -20%;
+        transform: translateY(-50%);
+        font-size: xx-large;
+    }
+}
+
+@media (max-width: 471px) {
+    .amount-input {
+        display: inline-block;
+        padding: 25px 20px;
+        text-align: right;
+        font-size: xx-large;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .fundsMng-title {
+        font-size: large;
+        margin: 30px 20px;
+    }
+
+    .fundsMng-formGroup {
+        max-width: 70%;
+        margin: auto;
+    }
+
+    .amount-label {
+        margin: auto;
+        text-align: center;
+        font-size: xx-large;
+    }
+}
