@@ -44,8 +44,8 @@ class Card extends Component {
         this.setState({isModifying: false});
     };
 
-    isNewCardValid = () => {
-        return isCardValid(this.state.newCard);
+    isNewCardValid = (newCard) => {
+        return isCardValid(newCard);
     };
 
     handleRemove = (event) => {
@@ -64,7 +64,7 @@ class Card extends Component {
             user_id: this.state.newCard.user_id
         };
 
-        if (this.isNewCardValid()) {
+        if (this.isNewCardValid(newCard)) {
             this.props.onModif(this.props.index, newCard);
 
             /* Update card and Reset newCard with the updated card values*/
