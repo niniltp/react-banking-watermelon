@@ -82,8 +82,6 @@ class SignIn extends Component {
         // condition = 0 means that there is not any error
     }
 
-
-    signIn()
     
 
     render() {
@@ -94,6 +92,7 @@ class SignIn extends Component {
             if (err.elt === "password") passwordErr = err.msg;
             if (err.elt === "wrongUser") wrongUserErr = err.msg;
         }
+
         return (
             <Form>
                 <div className="home-container">    
