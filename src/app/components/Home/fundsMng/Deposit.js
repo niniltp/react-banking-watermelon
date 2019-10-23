@@ -5,11 +5,10 @@ import CardToSelect from "../Cards/CardToSelect";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {isWithdrawValid} from "../../../services/fundsManager";
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
 import Card from "../Cards/Card";
 
-class Withdraw extends Component {
+class Deposit extends Component {
     constructor(props) {
         super(props);
 
@@ -19,7 +18,7 @@ class Withdraw extends Component {
             cards: [],
             amount: 0,
             selectedCardIndex: null,
-            withdrawConfirmed: false
+            depositConfirmed: false
         };
     }
 
@@ -34,16 +33,16 @@ class Withdraw extends Component {
     };
 
     isValid = (wallet, card, amount) => {
-        return isWithdrawValid(wallet, card, amount);
+        // return isDepositValid(wallet, card, amount);
     };
 
-    confirmWithdraw = () => {
+    confirmDeposit = () => {
         this.setState({
-            withdrawConfirmed: true
+            depositConfirmed: true
         });
     };
 
-    makeWithdraw = (wallet, card, amount) => {
+    makeDeposit = (wallet, card, amount) => {
         let newWallet = wallet;
 
         newWallet.balance = wallet.balance - amount;
@@ -74,18 +73,18 @@ class Withdraw extends Component {
             event.preventDefault();
 
             if (this.isValid(wallet, card, amount)) {
-                this.makeWithdraw(wallet, card, amount);
-                this.confirmWithdraw();
-                console.log(`make withdraw of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
+                this.makeDeposit(wallet, card, amount);
+                this.confirmDeposit();
+                console.log(`make deposit of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
             }
         }
     };
 
-    displayWithdrawForm = () => {
+    displayDepositForm = () => {
         return (
             <div className="container-in">
                 <div className={"fundsMng-title"}>
-                    <h3>How much do you want to withdraw from your wallet ?</h3>
+                    <h3>How much do you want to deposit from your wallet ?</h3>
                 </div>
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
@@ -116,10 +115,10 @@ class Withdraw extends Component {
         );
     };
 
-    displayWithdrawConfirmed = () => {
+    displayDepositConfirmed = () => {
         return (
             <div>
-                <p><strong>{this.state.amount}</strong>₩M has been successfully withdrawn from your card !</p>
+                <p><strong>{this.state.amount}</strong>₩M has been successfully deposited to your card !</p>
                 {this.state.selectedCardIndex !== null ?
                     <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
                     : null}
@@ -130,9 +129,9 @@ class Withdraw extends Component {
 
     render = () => {
         return (
-            this.state.withdrawConfirmed ? this.displayWithdrawConfirmed() : this.displayWithdrawForm()
+            this.state.depositConfirmed ? this.displayDepositConfirmed() : this.displayDepositForm()
         );
     };
 }
 
-export default Withdraw;
+export default Deposit;
