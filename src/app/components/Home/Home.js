@@ -7,7 +7,6 @@ import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 
 class Home extends Component {
-
     render() {
         return (
             <div className="container" id="home">
