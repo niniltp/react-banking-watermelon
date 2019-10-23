@@ -1,9 +1,15 @@
+import {getMonthFromExpirationDateCard, getYearFromExpirationDateCard, isDateBeforeToday} from "./datesManager";
+
 export function isBrandValid(brand) {
     return brand !== '' && brand !== null;
 }
 
-export function isNumberCardValid(numberCard0, numberCard1, numberCard2, numberCard3) {
+export function isNumberCardValid_divided(numberCard0, numberCard1, numberCard2, numberCard3) {
     return is4digitsCardValid(numberCard0) && is4digitsCardValid(numberCard1) && is4digitsCardValid(numberCard2) && is4digitsCardValid(numberCard3);
+}
+
+export function isNumberCardValid(numberCard) {
+    return is4digitsCardValid(numberCard);
 }
 
 export function is4digitsCardValid(digits) {
@@ -11,12 +17,12 @@ export function is4digitsCardValid(digits) {
 }
 
 export function isExpirationDateValid(expirationDate) {
-    return expirationDate !== '';
+    const month = getMonthFromExpirationDateCard(expirationDate);
+    const year = getYearFromExpirationDateCard(expirationDate);
+
+    return expirationDate !== '' && !isDateBeforeToday(new Date(year, month, 1));
 }
 
 export function isCardValid(card) {
-    if (isBrandValid(card.brand) && isNumberCardValid(card.numberCard0, card.numberCard1, card.numberCard2, card.numberCard3) && isExpirationDateValid(card.expirationDate))
-        return true;
-    else
-        return false;
+    return isBrandValid(card.brand) && isNumberCardValid(card.last_4) && isExpirationDateValid(card.expired_at);
 }

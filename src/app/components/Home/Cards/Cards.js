@@ -8,7 +8,7 @@ import {
     updateCard as updateCardDB
 } from "../../../backend/cards_backend";
 import './Cards.css';
-import {isCardValid} from "../../../services/checkCardValidity";
+import {isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
 import {getUserIDAuth} from "../../../services/authenticationManager";
 
 class Cards extends Component {
@@ -50,7 +50,16 @@ class Cards extends Component {
     };
 
     isNewCardValid = () => {
-        return isCardValid(this.state.newCard);
+        const newCard = this.state.newCard;
+        const expirationDate = newCard.expirationDate + "-01";
+        const card = {
+            id: newCard.id,
+            last_4: newCard.numberCard3,
+            brand: newCard.brand,
+            expired_at: expirationDate,
+            user_id: getUserIDAuth()
+        };
+        return isCardValid(card) && isNumberCardValid_divided(newCard.numberCard0, newCard.numberCard1, newCard.numberCard2, newCard.numberCard3);
     };
 
     addCard = () => {
