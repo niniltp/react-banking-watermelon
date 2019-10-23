@@ -20,7 +20,7 @@ class SignUp extends Component {
             password : '',
             errors : [],
             redirect : false
-        };
+        }; 
             
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);

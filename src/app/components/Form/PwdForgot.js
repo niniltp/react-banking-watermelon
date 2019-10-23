@@ -48,7 +48,7 @@ class PwdForgot extends Component {
 
 
         //Step 2 : is the user in the database ?
-        const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
+        const users = getUsers(); 
         const user = users.filter((user)=> {return user.email===this.state.email;});
         //console.log(user);
         if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users

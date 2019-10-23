@@ -19,7 +19,7 @@ class App extends Component {
             email: '',
             password: ''
         };
-    }
+    } 
 
     componentDidMount() {
         /*this fonction fires after the initial render
