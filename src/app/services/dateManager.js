@@ -1,5 +1,4 @@
 export function isDateBeforeToday(date) {
-    console.log(new Date(new Date().toDateString()));
     return new Date(date.toDateString()) < new Date(new Date().toDateString());
 }
 

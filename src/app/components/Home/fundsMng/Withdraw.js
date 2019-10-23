@@ -47,6 +47,7 @@ class Withdraw extends Component {
 
         newWallet.balance = wallet.balance - amount;
         updateWallet(wallet);
+        this.props.updateWallet();
     };
 
     handleChange = (event) => {

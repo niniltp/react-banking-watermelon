@@ -1,4 +1,4 @@
-import {getMonthFromExpirationDateCard, getYearFromExpirationDateCard, isDateBeforeToday} from "./datesManager";
+import {getMonthFromExpirationDateCard, getYearFromExpirationDateCard, isDateBeforeToday} from "./dateManager";
 
 export function isBrandValid(brand) {
     return brand !== '' && brand !== null;
@@ -20,7 +20,7 @@ export function isExpirationDateValid(expirationDate) {
     const month = getMonthFromExpirationDateCard(expirationDate);
     const year = getYearFromExpirationDateCard(expirationDate);
 
-    return expirationDate !== '' && !isDateBeforeToday(new Date(year, month, 1));
+    return expirationDate !== '' && !isDateBeforeToday(new Date(year, month-1, 1));
 }
 
 export function isCardValid(card) {

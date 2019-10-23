@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {getYearMonthFromExpirationDateCard} from "../../../services/dateManager";
 
 class CardToSelect extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ class CardToSelect extends Component {
                     <li><span className="labelInfoCard">Brand: </span>{this.state.card.brand}</li>
                     <li><span className="labelInfoCard">Card number: </span>**** **** **** {this.state.card.last_4}</li>
                     <li><span
-                        className="labelInfoCard">Expiration date: </span>{this.state.card.expired_at.substring(0, 7)}
+                        className="labelInfoCard">Expiration date: </span>{getYearMonthFromExpirationDateCard(this.state.card.expired_at)}
                     </li>
                 </ul>
             </div>
