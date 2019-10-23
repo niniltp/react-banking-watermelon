@@ -5,6 +5,7 @@ import './App.css';
 import SignIn from './app/components/Form/SignIn';
 import SignUp from './app/components/Form/SignUp.js';
 import PwdForgot from './app/components/Form/PwdForgot.js';
+import changePwd from './app/components/Form/changePwd.js';
 import Home from './app/components/Home/Home.js';
 import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
@@ -23,7 +24,7 @@ class App extends Component {
     componentDidMount() {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
-        localStorage.clear(); //TODO: delete this line ?
+        localStorage.clear(); //TODO: DELETE THIS LINE AT THE END OF THE PROJECT
         // setDataInLS("cards", cards);
         // setDataInLS("payins", payins);
         // setDataInLS("payouts", payouts);
@@ -46,6 +47,7 @@ class App extends Component {
                     <Route path="/pwdForgot" component={PwdForgot}/>
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
+                    <Route path="/changePwd" component={changePwd}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
                 </Switch>
             </div>
