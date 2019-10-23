@@ -1,0 +1,11 @@
+#wallet {
+    min-height: 50px;
+    /*background-color: #282C34;*/
+    border-top: 1px solid #333842 ;
+    border-bottom: 1px solid #333842;
+    padding: 10px;
+    /*border-radius: 10px;*/
+    font-size: xx-large;
+    line-height: 50px;
+    margin: 40px 0;
+}
