@@ -4,6 +4,10 @@ import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {isCardValid} from "../../../services/checkCardValidity";
 import {getYearMonthFromExpirationDateCard} from "../../../services/dateManager";
 
+/*
+* Props used: key, index, card, modifON (boolean), removeON (boolean), onModif(), onRemove()
+* */
+
 class Card extends Component {
     constructor(props) {
         super(props);
@@ -116,8 +120,8 @@ class Card extends Component {
                         className="labelInfoCard">Expiration date: </span>{getYearMonthFromExpirationDateCard(this.state.card.expired_at)}
                     </li>
                 </ul>
-                {this.state.mouseHover ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
-                {this.state.mouseHover ?
+                {this.state.mouseHover && this.props.removeON ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                {this.state.mouseHover && this.props.modifON ?
                     <img src={settings} alt="logo-modify" className="modifyCreditCard"
                          onClick={this.handleModify}/> : null}
             </div>
@@ -176,7 +180,7 @@ class Card extends Component {
                         </Col>
                     </FormGroup>
                 </Form>
-                {this.state.mouseHover ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                {this.state.mouseHover && this.props.removeON ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
             </div>
         )
     };

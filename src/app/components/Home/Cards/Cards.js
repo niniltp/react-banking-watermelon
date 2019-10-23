@@ -203,7 +203,7 @@ class Cards extends Component {
                     <h3>Cards</h3>
                     <div id="creditCardsList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                            <Card key={index} index={index} card={card} onModif={this.handleModif}
+                            <Card key={index} index={index} card={card} modifON={true} removeON={true} onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
                             <Button outline className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}

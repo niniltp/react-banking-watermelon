@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {isWithdrawValid} from "../../../services/fundsManager";
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
+import Card from "../Cards/Card";
 
 class Withdraw extends Component {
     constructor(props) {
@@ -118,7 +119,10 @@ class Withdraw extends Component {
     displayWithdrawConfirmed = () => {
         return (
             <div>
-                <p>Your withdraw has been confirmed !</p>
+                <p><strong>{this.state.amount}</strong>₩M has been successfully withdrawn from your card !</p>
+                {this.state.selectedCardIndex !== null ?
+                    <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
+                    : null}
                 <Link to="/account"><Button color="primary" className="creditCardForm-btn">Go back</Button></Link>
             </div>
         );
