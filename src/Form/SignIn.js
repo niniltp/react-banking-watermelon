@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, ButtonToolbar } from 'reactstrap';
 import watermelon from './watermelon.png';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
+import Account from "./Account.js";
 
 //Code written by CHEONG Loïc
 
@@ -67,7 +68,7 @@ class SignIn extends Component {
                 console.log("Vous vous êtes bien connecté !");
                 console.log(user[0].first_name +" " +user[0].last_name);
              }
-            else {
+            else {//the user found but wrong password
                 console.log("Connexion échoué ! Vous ne vous êtes pas connecté !");
                 this.MsgErr("wrongUser","There is an error somewhere");
                 condition++;
@@ -77,9 +78,12 @@ class SignIn extends Component {
             condition++;
         }
         
-        return console.log(condition === 0 ? true : false);
+        return condition === 0 ? true: false;
         // condition = 0 means that there is not any error
     }
+
+
+    signIn()
     
 
     render() {
