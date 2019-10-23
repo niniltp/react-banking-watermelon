@@ -7,6 +7,7 @@ import Withdraw from "./fundsMng/Withdraw";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserId} from "../../backend/wallets_backend";
+import Deposit from "./fundsMng/Deposit";
 
 class Home extends Component {
     constructor(props) {
@@ -48,6 +49,8 @@ class Home extends Component {
                 <Route path="/cards" component={Cards}/>
                 <Route path="/withdraw"
                        render={(props) => <Withdraw {...props} updateWallet={this.handleUpdateWallet}/>}/>
+                <Route path="/deposit"
+                       render={(props) => <Deposit {...props} updateWallet={this.handleUpdateWallet}/>}/>
             </div>
         );
     }
