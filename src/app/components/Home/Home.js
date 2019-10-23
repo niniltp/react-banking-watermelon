@@ -7,9 +7,6 @@ import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -18,6 +15,7 @@ class Home extends Component {
                 <h1>Hi</h1>
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/cards" component={Cards}/>
+                <Route path="/withdraw" component={Withdraw}/>
             </div>
         );
     }
