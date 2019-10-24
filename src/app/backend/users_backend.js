@@ -27,6 +27,17 @@ export function getUsers() {
 }
 
 /*
+This function returns all the users except the one specified in parameter from DB
+*/
+export function getUsersExcept(user_id) {
+    const users = setAndGetDataFromLS("users", usersDB);
+
+    return users.filter((user) => {
+        return user.user_id === user_id
+    });
+}
+
+/*
 * This function adds a user in the DB
 * */
 export function addUser(user) {
