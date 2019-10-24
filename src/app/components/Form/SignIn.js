@@ -33,7 +33,7 @@ class SignIn extends Component {
 
     MsgErr(elt, msg) {
         /*This function will add error messages to the array errors
-        It will be use in the funciton checkFields*/
+        It will be use in the funciton checkForm*/
         this.setState((lastState) => ({errors: [...lastState.errors, {elt, msg}]}));
     }
 

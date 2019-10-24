@@ -20,7 +20,7 @@ class SignUp extends Component {
             password : '',
             errors : [],
             redirect : false
-        }; 
+        };  
             
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
@@ -74,7 +74,7 @@ class SignUp extends Component {
 
     MsgErr(elt,msg){
         /*This function will add error messages to the array errors  
-        It will be use in the funciton checkFields*/
+        It will be use in the funciton signUp*/
         this.setState((lastState) => ({ errors : [...lastState.errors, {elt,msg} ]}));
     }
 

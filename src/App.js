@@ -24,7 +24,7 @@ class App extends Component {
     componentDidMount() {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
-        localStorage.clear(); //TODO: delete this line ?
+        localStorage.clear(); //TODO: delete this line at the at of the project
         if (!isAuth()) disconnectUser();
     }
 
@@ -39,6 +39,7 @@ class App extends Component {
                     <Route path="/signUp" component={SignUp}/>
                     <Route path="/pwdForgot" component={PwdForgot}/>
                     <ProtectedRoute path="/account" component={Home}/>
+                    <ProtectedRoute exact path="/settings" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
                     <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
