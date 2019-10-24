@@ -38,11 +38,12 @@ class App extends Component {
                     <Route exact path="/" component={SignIn}/>
                     <Route path="/signUp" component={SignUp}/>
                     <Route path="/pwdForgot" component={PwdForgot}/>
+                    <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
-                    <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
                     <ProtectedRoute path="/deposit" component={Home}/>
+                    <ProtectedRoute path="/transfer" component={Home}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
                 </Switch>
             </div>

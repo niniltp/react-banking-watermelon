@@ -11,6 +11,7 @@ class Menu extends Component {
                 <Link to="/cards"><Button outline color="secondary" className="menuBtn">Credit Cards</Button></Link>
                 <Link to="/withdraw"><Button outline color="secondary" className="menuBtn">Withdraw</Button></Link>
                 <Link to="/deposit"><Button outline color="secondary" className="menuBtn">Deposit</Button></Link>
+                <Link to="/transfer"><Button outline color="secondary" className="menuBtn">Transfer</Button></Link>
             </div>
         );
     }
