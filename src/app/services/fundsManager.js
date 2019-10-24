@@ -6,15 +6,15 @@ function isAmountValid(amount) {
 }
 
 export function isWithdrawValid(wallet, card, amount) {
-    return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && convertInWM(wallet.balance) - amount >= 0 && isCardValid(card);
+    return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && wallet.balance - convertInAmount(amount) >= 0 && isCardValid(card);
 }
 
 export function isDepositValid(wallet, card, amount) {
     return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && isCardValid(card);
 }
 
-export function isTransferValid(wallet, userCredited, amount) {
-    return true; //TODO: write function
+export function isTransferValid(walletDebited, walletCredited, amount) {
+    return walletDebited.user_id === getUserIDAuth() && walletDebited.balance - convertInAmount(amount) >= 0;
 }
 
 export function convertInWM(amount) {
