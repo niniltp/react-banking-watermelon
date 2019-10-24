@@ -3,7 +3,7 @@ import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {isTransferValid, makeTransfer} from "../../../services/fundsManager";
+import {convertToAmount, isTransferValid, makeTransfer} from "../../../services/fundsManager";
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
@@ -50,19 +50,6 @@ class Transfer extends Component {
         });
     };
 
-   /* makeTransfer = (transfer) => {
-        makeTransfer(transfer);
-        /!*        let newWalletDebited = transfer.walletDebited;
-                let newWalletCredited = transfer.walletCredited;
-                const amount = transfer.amount;
-
-                newWalletDebited.balance = newWalletDebited.balance - convertInAmount(amount);
-                newWalletCredited.balance = newWalletCredited.balance + convertInAmount(amount);
-
-                updateWallet(newWalletDebited);
-                updateWallet(newWalletCredited);*!/
-    };*/
-
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -92,7 +79,7 @@ class Transfer extends Component {
                 id: generateID("transfer"),
                 walletDebited: walletDebited,
                 walletCredited: walletCredited,
-                amount: parseFloat(amount)
+                amount: parseFloat(parseFloat(amount).toFixed(2))
             };
 
             if (this.isValid(transfer)) {

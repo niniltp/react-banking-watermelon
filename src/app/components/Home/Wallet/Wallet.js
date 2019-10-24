@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Wallet.css';
-import {convertInWM} from "../../../services/fundsManager";
+import {convertToWM} from "../../../services/fundsManager";
 
 class Wallet extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class Wallet extends Component {
             <div className="container-in">
                 <div id="wallet">
                     <h3>Wallet</h3>
-                    {this.state.prevIsFetching ? <p>Fetching data...</p> : <span>{convertInWM(this.state.prevWallet.balance).toFixed(2)} ₩M</span>}
+                    {this.state.prevIsFetching ? <p>Fetching data...</p> : <span>{convertToWM(this.state.prevWallet.balance).toFixed(2)} ₩M</span>}
 
                 </div>
             </div>

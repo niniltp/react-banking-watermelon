@@ -4,10 +4,11 @@ import {getCardsByUserId} from "../../../backend/cards_backend";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
-import {convertInAmount, isDepositValid} from "../../../services/fundsManager";
+import {getWalletByUserId} from "../../../backend/wallets_backend";
+import {isDepositValid, makeDeposit} from "../../../services/fundsManager";
 import SimpleCard from "../Cards/SimpleCard";
 import BoxToSelect from "../Boxes/BoxToSelect";
+import {generateID} from "../../../services/idsGeneartor";
 
 class Deposit extends Component {
     constructor(props) {
@@ -17,7 +18,11 @@ class Deposit extends Component {
             userID: getUserIDAuth(),
             isFetching: true,
             cards: [],
-            amount: 0,
+            payin: {
+                id: "",
+                walletCredited: {},
+                amount: 0
+            },
             selectedCardIndex: null,
             depositConfirmed: false
         };
@@ -33,8 +38,8 @@ class Deposit extends Component {
         this.setState({cards: getCardsByUserId(this.state.userID)});
     };
 
-    isValid = (wallet, card, amount) => {
-        return isDepositValid(wallet, card, amount);
+    isValid = (payin, card) => {
+        return isDepositValid(payin, card);
     };
 
     confirmDeposit = () => {
@@ -43,21 +48,16 @@ class Deposit extends Component {
         });
     };
 
-    makeDeposit = (wallet, card, amount) => {
-        let newWallet = wallet;
-
-        newWallet.balance = wallet.balance + convertInAmount(amount);
-        updateWallet(wallet);
-        this.props.updateWallet();
-    };
-
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState({
-            amount: value
-        })
+        this.setState(prevState => ({
+            payin: {
+                ...prevState.payin,
+                amount: value
+            }
+        }));
     };
 
     handleSelect = (index) => {
@@ -68,17 +68,25 @@ class Deposit extends Component {
 
     handleSubmit = (event) => {
         if (this.state.selectedCardIndex !== null) {
-            const wallet = getWalletByUserId(getUserIDAuth());
+            const wallet = getWalletByUserId(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
-            const amount = this.state.amount;
-            event.preventDefault();
+            const amount = this.state.payin.amount;
 
-            if (this.isValid(wallet, card, amount)) {
-                this.makeDeposit(wallet, card, amount);
+            const payin = {
+                id: generateID("payin"),
+                walletCredited: wallet,
+                amount: parseFloat(parseFloat(amount).toFixed(2))
+            };
+
+            if (this.isValid(payin, card)) {
+                makeDeposit(payin);
+                this.props.updateWallet();
                 this.confirmDeposit();
                 console.log(`make deposit of ${amount}₩M from card (id: ${card.id}) to wallet(id: ${wallet.id})`);
             }
         }
+
+        event.preventDefault();
     };
 
     displayDepositForm = () => {
@@ -89,9 +97,9 @@ class Deposit extends Component {
                 </div>
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
-                        <Input type="number" step="0.01" min="0" max="999999999999" id="amount"
+                        <Input type="number" min="0" max="999999999999" id="amount"
                                className="boxForm-input amount-input"
-                               name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                               name="amount" value={this.state.payin.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
                     </FormGroup>
                     <div id="boxesContainer">
@@ -120,7 +128,8 @@ class Deposit extends Component {
     displayDepositConfirmed = () => {
         return (
             <div>
-                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully deposited to
+                <p><strong>{(parseFloat(this.state.payin.amount)).toFixed(2)}</strong>₩M has been successfully deposited
+                    to
                     your card !</p>
                 {this.state.selectedCardIndex !== null ?
                     <SimpleCard data={this.state.cards[this.state.selectedCardIndex]}/>

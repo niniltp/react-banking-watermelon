@@ -1,5 +1,6 @@
 import transfersDB from "../../database/transfers";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
+import {convertToAmount} from "../services/fundsManager";
 
 /*
 * This function returns all the transfers from the credited wallet specified by its id from the DB
@@ -57,7 +58,7 @@ export function updateTransfer(transfer) {
 }
 
 /**
- * This function convers the JS transfer object to the DB format
+ * This function converts the JS transfer object to the DB format
  * @param transfer JS obejct
  * @returns {{debited_wallet_id: *, amount: *, walletCredited: *, id: *}}
  */
@@ -66,6 +67,6 @@ export function transferJStoDB(transfer) {
         id: transfer.id,
         debited_wallet_id: transfer.walletDebited.id,
         credited_wallet_id: transfer.walletCredited.id,
-        amount: transfer.amount
+        amount: convertToAmount(transfer.amount)
     }
 }

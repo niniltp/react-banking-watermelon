@@ -1,5 +1,6 @@
 import payoutsDB from "../../database/payouts";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
+import {convertToAmount} from "../services/fundsManager";
 
 /*
 * This function returns all the payouts of the wallet specified by its id from the DB
@@ -43,4 +44,17 @@ export function updatePayout(payout) {
     let index = payouts.findIndex(obj => obj.id === payout.id);
     payouts[index] = payout;
     updatePayouts(payouts);
+}
+
+/**
+ * This function converts the JS payout object to the DB format
+ * @param payout
+ * @returns {{wallet_id: *, amount: *, id: *}}
+ */
+export function payoutJStoDB(payout) {
+    return {
+        id: payout.id,
+        wallet_id: payout.walletDebited.id,
+        amount: convertToAmount(payout.amount)
+    }
 }
