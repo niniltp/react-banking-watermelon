@@ -29,13 +29,14 @@ class Deposit extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({isFetching: true});
         this.fetchData();
-        this.setState({isFetching: false});
     };
 
     fetchData = () => {
-        this.setState({cards: getCardsByUserId(this.state.userID)});
+        this.setState({isFetching: true});
+        this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
+            this.setState({isFetching: false});
+        });
     };
 
     isValid = (payin, card) => {

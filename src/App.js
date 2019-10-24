@@ -40,7 +40,6 @@ class App extends Component {
                     <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/account" component={Home}/>
                     <ProtectedRoute path="/settings" component={Home}/>
-                    <ProtectedRoute path="/activity" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
                     <ProtectedRoute path="/deposit" component={Home}/>

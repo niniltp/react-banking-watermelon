@@ -34,13 +34,14 @@ class Cards extends Component {
     }
 
     componentDidMount = () => {
-        this.setState({isFetching: true});
         this.fetchData();
-        this.setState({isFetching: false});
     };
 
     fetchData = () => {
-        this.setState({cards: getCardsByUserId(this.state.userID)});
+        this.setState({isFetching: true});
+        this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
+            this.setState({isFetching: false});
+        });
     };
 
     enableAddingCard = () => {
@@ -209,7 +210,8 @@ class Cards extends Component {
                                   onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
-                            <Button outline color="success" className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
+                            <Button outline color="success" className="addCreditCard-btn"
+                                    onClick={this.enableAddingCard}>+</Button>}
                     </div>
                 </div>
             </div>

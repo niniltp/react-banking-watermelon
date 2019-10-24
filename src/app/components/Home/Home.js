@@ -7,7 +7,6 @@ import Withdraw from "./fundsMng/Withdraw";
 import Settings from "./Settings/Settings.js";
 import Deposit from "./fundsMng/Deposit";
 import Transfer from "./fundsMng/Transfer";
-import Activity from "./fundsMng/Activity";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserId} from "../../backend/wallets_backend";
@@ -28,14 +27,15 @@ class Home extends Component {
     }
 
     refreshData = () => {
-        this.setState({isFetchingWallet: true});
         this.fetchData();
-        this.setState({isFetchingWallet: false});
     };
 
     fetchData = () => {
+        this.setState({isFetchingWallet: true});
         this.setState({
             wallet: getWalletByUserId(this.state.userID)
+        }, () => {
+            this.setState({isFetchingWallet: false});
         });
     };
 
@@ -50,7 +50,6 @@ class Home extends Component {
                 <h1>Hi</h1>
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/settings" component={Settings}/>
-                <Route path="/activity" component={Activity}/>
                 <Route path="/cards" component={Cards}/>
                 <Route path="/withdraw"
                        render={(props) => <Withdraw {...props} updateWallet={this.handleUpdateWallet}/>}/>
