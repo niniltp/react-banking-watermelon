@@ -10,7 +10,7 @@ export function isWithdrawValid(wallet, card, amount) {
 }
 
 export function isDepositValid(wallet, card, amount) {
-    return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && convertInWM(wallet.balance) - amount >= 0 && isCardValid(card);
+    return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && isCardValid(card);
 }
 
 export function convertInWM(amount) {
