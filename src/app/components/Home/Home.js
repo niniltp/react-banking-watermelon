@@ -9,6 +9,7 @@ import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserId} from "../../backend/wallets_backend";
 import Deposit from "./fundsMng/Deposit";
+import Transfer from "./fundsMng/Transfer";
 
 class Home extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Home extends Component {
 
         this.state = ({
             isFetchingWallet: true,
-            user_id: getUserIDAuth(),
+            userID: getUserIDAuth(),
             wallet: {}
         });
     }
@@ -33,7 +34,7 @@ class Home extends Component {
 
     fetchData = () => {
         this.setState({
-            wallet: getWalletByUserId(this.state.user_id)
+            wallet: getWalletByUserId(this.state.userID)
         });
     };
 
@@ -53,6 +54,8 @@ class Home extends Component {
                        render={(props) => <Withdraw {...props} updateWallet={this.handleUpdateWallet}/>}/>
                 <Route path="/deposit"
                        render={(props) => <Deposit {...props} updateWallet={this.handleUpdateWallet}/>}/>
+                <Route path="/transfer"
+                       render={(props) => <Transfer {...props} updateWallet={this.handleUpdateWallet}/>}/>
             </div>
         );
     }

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import CardToSelect from "../Cards/CardToSelect";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {isWithdrawValid} from "../../../services/fundsManager";
-import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
-import Card from "../Cards/Card";
+import {isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
+import {getWalletByUserId} from "../../../backend/wallets_backend";
+import BoxToSelect from "../Boxes/BoxToSelect";
+import SimpleCard from "../Cards/SimpleCard";
+import {generateID} from "../../../services/idsGeneartor";
 
 class Withdraw extends Component {
     constructor(props) {
@@ -17,7 +18,11 @@ class Withdraw extends Component {
             userID: getUserIDAuth(),
             isFetching: true,
             cards: [],
-            amount: 0,
+            payout: {
+                id: "",
+                walletDebited: {},
+                amount: 0
+            },
             selectedCardIndex: null,
             withdrawConfirmed: false
         };
@@ -33,8 +38,8 @@ class Withdraw extends Component {
         this.setState({cards: getCardsByUserId(this.state.userID)});
     };
 
-    isValid = (wallet, card, amount) => {
-        return isWithdrawValid(wallet, card, amount);
+    isValid = (payout, card) => {
+        return isWithdrawValid(payout, card);
     };
 
     confirmWithdraw = () => {
@@ -43,21 +48,16 @@ class Withdraw extends Component {
         });
     };
 
-    makeWithdraw = (wallet, card, amount) => {
-        let newWallet = wallet;
-
-        newWallet.balance = wallet.balance - amount;
-        updateWallet(wallet);
-        this.props.updateWallet();
-    };
-
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState({
-            amount: value
-        })
+        this.setState(prevState => ({
+            payout: {
+                ...prevState.payout,
+                amount: value
+            }
+        }));
     };
 
     handleSelect = (index) => {
@@ -68,17 +68,25 @@ class Withdraw extends Component {
 
     handleSubmit = (event) => {
         if (this.state.selectedCardIndex !== null) {
-            const wallet = getWalletByUserId(getUserIDAuth());
+            const wallet = getWalletByUserId(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
-            const amount = this.state.amount;
-            event.preventDefault();
+            const amount = this.state.payout.amount;
 
-            if (this.isValid(wallet, card, amount)) {
-                this.makeWithdraw(wallet, card, amount);
+            const payout = {
+                id: generateID("payout"),
+                walletDebited: wallet,
+                amount: parseFloat(parseFloat(amount).toFixed(2))
+            };
+
+            if (this.isValid(payout, card)) {
+                makeWithdraw(payout);
+                this.props.updateWallet();
                 this.confirmWithdraw();
                 console.log(`make withdraw of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
             }
         }
+
+        event.preventDefault();
     };
 
     displayWithdrawForm = () => {
@@ -91,24 +99,26 @@ class Withdraw extends Component {
                     <FormGroup row className={"fundsMng-formGroup"}>
                         <Input type="number" min="0" max="999999999999" id="amount"
                                className="creditCardForm-input amount-input"
-                               name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                               name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
                     </FormGroup>
-                    <div id="creditCardsContainer">
+                    <div id="boxesContainer">
                         <h3>Choose your card</h3>
-                        <div id="creditCardsList">
+                        <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <CardToSelect key={index} index={index} card={card}
-                                              selectedCardIndex={this.state.selectedCardIndex}
-                                              handleSelect={this.handleSelect}/>))}
+                                <BoxToSelect key={index} index={index} container={SimpleCard}
+                                             classNames="box" data={card}
+                                             selectedIndex={this.state.selectedCardIndex}
+                                             handleSelect={this.handleSelect}/>
+                            ))}
                         </div>
                     </div>
-                    <FormGroup check className="creditCard-formGroup reset-margin" row>
+                    <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>
-                            <Button color="success" className="creditCardForm-btn"
+                            <Button color="success" className="boxForm-btn"
                                     onClick={this.handleSubmit}>Confirm</Button>
                             <Link to="/account"><Button color="danger"
-                                                        className="creditCardForm-btn">Cancel</Button></Link>
+                                                        className="boxForm-btn">Cancel</Button></Link>
                         </Col>
                     </FormGroup>
                 </Form>
@@ -119,11 +129,13 @@ class Withdraw extends Component {
     displayWithdrawConfirmed = () => {
         return (
             <div>
-                <p><strong>{this.state.amount}</strong>₩M has been successfully withdrawn from your card !</p>
+                <p><strong>{(parseFloat(this.state.payout.amount)).toFixed(2)}</strong>₩M has been successfully
+                    withdrawn from
+                    your card !</p>
                 {this.state.selectedCardIndex !== null ?
-                    <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
+                    <SimpleCard data={this.state.cards[this.state.selectedCardIndex]}/>
                     : null}
-                <Link to="/account"><Button color="primary" className="creditCardForm-btn">Go back</Button></Link>
+                <Link to="/account"><Button color="primary" className="boxForm-btn">Go back</Button></Link>
             </div>
         );
     };

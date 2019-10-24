@@ -1,30 +1,27 @@
 import React, {Component} from 'react';
-import {getYearMonthFromExpirationDateCard} from "../../../services/dateManager";
+import './BoxToSelect.css';
+import './Boxes.css';
 
-
-/*
-* NOT USED
-* */
-class CardToSelect extends Component {
+class BoxToSelect extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             mouseHover: false,
             isSelected: false,
-            prevSelectedCardIndex: this.props.selectedCardIndex,
-            card: this.props.card
+            prevSelectedIndex: this.props.selectedIndex,
+            data: this.props.data
         }
     }
 
     static getDerivedStateFromProps(props, state) {
         // Re-run the filter whenever props change
-        if (state.prevSelectedCardIndex !== props.selectedCardIndex) {
+        if (state.prevSelectedIndex !== props.selectedIndex) {
             return {
                 mouseHover: state.mouseHover,
-                isSelected: props.selectedCardIndex === props.index,
-                prevSelectedCardIndex: props.selectedCardIndex,
-                card: props.card
+                isSelected: props.selectedIndex === props.index,
+                prevSelectedIndex: props.selectedIndex,
+                data: props.data
             };
         }
 
@@ -60,16 +57,11 @@ class CardToSelect extends Component {
     };
 
     displayCard = () => {
+        const Cont = this.props.container;
         return (
-            <div className={this.state.isSelected ? "creditCard toSelect selected" : "creditCard toSelect deselected"}
+            <div className={this.state.isSelected ? "boxToSelect selected" : "boxToSelect deselected"}
                  onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover} onClick={this.handleClick}>
-                <ul>
-                    <li><span className="labelInfoCard">Brand: </span>{this.state.card.brand}</li>
-                    <li><span className="labelInfoCard">Card number: </span>**** **** **** {this.state.card.last_4}</li>
-                    <li><span
-                        className="labelInfoCard">Expiration date: </span>{getYearMonthFromExpirationDateCard(this.state.card.expired_at)}
-                    </li>
-                </ul>
+                <Cont data={this.state.data} classNames={this.props.classNames}/>
             </div>
         )
     };
@@ -81,4 +73,4 @@ class CardToSelect extends Component {
     }
 }
 
-export default CardToSelect;
+export default BoxToSelect;

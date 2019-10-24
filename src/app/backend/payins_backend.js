@@ -1,5 +1,6 @@
 import payinsDB from "../../database/payins";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
+import {convertToAmount} from "../services/fundsManager";
 
 /*
 * This function returns all the payins of the wallet specified by its id from the DB
@@ -43,4 +44,17 @@ export function updatePayin(payin) {
     let index = payins.findIndex(obj => obj.id === payin.id);
     payins[index] = payin;
     updatePayins(payins);
+}
+
+/**
+ * This function converts the JS payin object to the DB format
+ * @param payin
+ * @returns {{wallet_id: *, amount: *, id: *}}
+ */
+export function payinJStoDB(payin) {
+    return {
+        id: payin.id,
+        wallet_id: payin.walletCredited.id,
+        amount: convertToAmount(payin.amount)
+    }
 }

@@ -4,11 +4,11 @@ import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager"
 /*
 * This function returns all the cards of the user specified by its id from the DB
 * */
-export function getCardsByUserId(user_id) {
+export function getCardsByUserId(userID) {
     const cards = getCards();
 
     return cards.filter( (card) => {
-        return card.user_id === user_id
+        return card.user_id === userID
     });
 }
 

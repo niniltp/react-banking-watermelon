@@ -1,9 +1,9 @@
 /*
 This function is used to authenticate and connect the user
 */
-export function authenticateUser(user_id) {
+export function authenticateUser(userID) {
     localStorage.setItem("isAuth", "true");
-    localStorage.setItem("userID", user_id);
+    localStorage.setItem("userID", userID);
 }
 
 /*

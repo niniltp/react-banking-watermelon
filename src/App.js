@@ -11,7 +11,6 @@ import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
 import {isAuth} from "./app/services/authenticationManager";
 
-//TODO: Home -> change user_id with user auth
 class App extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +23,7 @@ class App extends Component {
     componentDidMount() {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
-        localStorage.clear(); //TODO: delete this line at the at of the project
+        // localStorage.clear(); //TODO: delete this line ?
         if (!isAuth()) disconnectUser();
     }
 
@@ -32,18 +31,19 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <Link exact to="/"><img src={logo} className="App-logo" alt="logo"/></Link>
+                    <Link to="/"><img src={logo} className="App-logo" alt="logo"/></Link>
                 </header>
                 <Switch>
                     <Route exact path="/" component={SignIn}/>
                     <Route path="/signUp" component={SignUp}/>
                     <Route path="/pwdForgot" component={PwdForgot}/>
-                    <ProtectedRoute path="/account" component={Home}/>
-                    <ProtectedRoute exact path="/settings" component={Home}/>
-                    <ProtectedRoute path="/cards" component={Home}/>
                     <Route path="/changePwd" component={changePwd}/>
+                    <ProtectedRoute path="/account" component={Home}/>
+                    <ProtectedRoute path="/settings" component={Home}/>
+                    <ProtectedRoute path="/cards" component={Home}/>
                     <ProtectedRoute path="/withdraw" component={Home}/>
                     <ProtectedRoute path="/deposit" component={Home}/>
+                    <ProtectedRoute path="/transfer" component={Home}/>
                     <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
                 </Switch>
             </div>

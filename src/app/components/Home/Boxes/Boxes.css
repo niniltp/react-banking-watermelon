@@ -1,15 +1,14 @@
-/* CARDS */
-/*TODO: CHECK IF NEEDED !*/
+/* CONTAINERS */
 
-#creditCardsContainer {
+#boxesContainer {
     margin: 50px 0;
 }
 
-#creditCardsList {
+#boxesList {
     margin: 20px 0;
 }
 
-.creditCard {
+.box {
     text-align: left;
     background-color: rgba(49, 54, 64, 0.4);
     border-radius: 20px;
@@ -18,38 +17,43 @@
     position: relative;
 }
 
-.creditCard ul li {
+.box-hover:hover {
+    background-color: rgb(73, 81, 96);
+    transition: 0.8s;
+}
+
+.box ul li {
     list-style: none;
 }
 
-.destroyCreditCard {
+.destroyBox {
     font-weight: 300;
     font-size: x-large;
     color: grey;
     position: absolute;
     top: 50%;
-    right: 5%;
+    right:  5%;
     transform: translateY(-50%);
     cursor: pointer;
 }
 
-.modifyCreditCard {
+.modifyBox {
     height: 3vmin;
     position: absolute;
     top: 53%;
-    right: 8%;
+    right:  8%;
     transform: translateY(-50%);
     cursor: pointer;
 }
 
 /* ADDING CARD FORM */
 
-.addCreditCard-btn {
+.addBoxbtn {
     margin-top: 10px;
     border-radius: 15px !important;
 }
 
-.creditCard-form {
+.box-form {
     background-color: #31363f;
     border-radius: 20px;
     padding-top: 10px;
@@ -58,12 +62,12 @@
     margin-bottom: 2px;
 }
 
-.creditCard-formGroup {
+.box-formGroup {
     padding: 10px 40px;
     margin-bottom: 0 !important;
 }
 
-.creditCard-formGroup input, .creditCard-formGroup select {
+.box-formGroup input, .box-formGroup select{
     background-color: inherit !important;
     border-radius: 0;
     border: none !important;
@@ -72,33 +76,32 @@
 }
 
 
-.creditCard-formGroup input:focus, .creditCard-formGroup select:focus {
+.box-formGroup input:focus, .box-formGroup select:focus{
     background-color: rgba(59, 65, 77, 0.4) !important;
     border: none !important;
     border-bottom: 1px solid #545c6e !important;
     box-shadow: none;
 }
 
-.creditCard-formGroup select option {
+.box-formGroup select option {
     background-color: rgb(59, 65, 77) !important;
     border: none;
 }
 
-.creditCardForm-input {
+.boxForm-input {
     min-width: 80px;
 }
 
-.labelInfoCard {
+.labelInfoBox {
     font-weight: 500;
 }
 
-
-.creditCardForm-btn {
+.boxForm-btn {
     margin-left: 5px;
 }
 
 @media (max-width: 995px) {
-    .labelInfoCard {
+    .labelInfoBox {
         margin-right: 5px;
     }
 }
