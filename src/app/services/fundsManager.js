@@ -9,6 +9,10 @@ function isAmountValid(amount) {
     return amount > 0;
 }
 
+export function isFundSufficient(walletDebited, amount) {
+    return walletDebited.balance - convertToAmount(amount) >= 0;
+}
+
 export function isWithdrawValid(payout, card) {
     const wallet = payout.walletDebited;
     const amount = payout.amount;

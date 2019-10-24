@@ -22,7 +22,7 @@ export function getMonthFromExpirationDateCard(date) {
 
 export function getYearFromExpirationDateCard(date) {
     if(date) {
-        if(date.length >= 7)
+        if(date.length >= 4)
             return date.substring(0, 4);
     }
 

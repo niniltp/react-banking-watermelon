@@ -47,6 +47,7 @@ class BoxToSelect extends Component {
 
     deselect = () => {
         this.setState({isSelected: false});
+        this.props.handleSelect(null);
     };
 
     handleClick = () => {

@@ -4,7 +4,7 @@ import {getCardsByUserId} from "../../../backend/cards_backend";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
+import {isFundSufficient, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
 import {getWalletByUserId} from "../../../backend/wallets_backend";
 import BoxToSelect from "../Boxes/BoxToSelect";
 import SimpleCard from "../Cards/SimpleCard";
@@ -24,7 +24,8 @@ class Withdraw extends Component {
                 amount: 0
             },
             selectedCardIndex: null,
-            withdrawConfirmed: false
+            withdrawConfirmed: false,
+            errors: {}
         };
     }
 
@@ -34,7 +35,15 @@ class Withdraw extends Component {
 
     fetchData = () => {
         this.setState({isFetching: true});
-        this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
+        this.setState((prevState) => ({
+                cards: getCardsByUserId(prevState.userID),
+                payout: {
+                    id: "",
+                    walletDebited: getWalletByUserId(prevState.userID),
+                    amount: 0
+                }
+            }
+        ), () => {
             this.setState({isFetching: false});
         });
     };
@@ -62,12 +71,14 @@ class Withdraw extends Component {
     };
 
     handleSelect = (index) => {
-        this.setState({
+        this.setState(() => ({
             selectedCardIndex: index
-        });
+        }));
     };
 
     handleSubmit = (event) => {
+        this.validateForm(this.state.payout, this.state.selectedCardIndex);
+
         if (this.state.selectedCardIndex !== null) {
             const wallet = getWalletByUserId(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
@@ -90,7 +101,19 @@ class Withdraw extends Component {
         event.preventDefault();
     };
 
+    validateForm = (payout, selectedCardIndex) => {
+        this.setState({
+            errors: {
+                amountEmpty: payout.amount === 0 || payout.amount === null ? "Required" : false,
+                amountNegative: payout.amount < 0 ? "Must be positive" : false,
+                fundInsufficient: payout.amount < 0 || isFundSufficient(payout.walletDebited, payout.amount) ? false : "Not enough fund",
+                cardNotSelected: selectedCardIndex === null ? "A card must be selected" : false
+            }
+        });
+    };
+
     displayWithdrawForm = () => {
+        const errors = this.state.errors;
         return (
             <div className="container-in">
                 <div className={"fundsMng-title"}>
@@ -102,7 +125,14 @@ class Withdraw extends Component {
                                className="creditCardForm-input amount-input"
                                name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
+
                     </FormGroup>
+                    {errors.amountEmpty ?
+                        <p className="error-input">{errors.amountEmpty}</p> : null}
+                    {errors.amountNegative ?
+                        <p className="error-input">{errors.amountNegative}</p> : null}
+                    {errors.fundInsufficient ?
+                        <p className="error-input">{errors.fundInsufficient}</p> : null}
                     <div id="boxesContainer">
                         <h3>Choose your card</h3>
                         <div id="boxesList">
@@ -113,6 +143,8 @@ class Withdraw extends Component {
                                              handleSelect={this.handleSelect}/>
                             ))}
                         </div>
+                        {errors.cardNotSelected ?
+                            <p className="error-input">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>
