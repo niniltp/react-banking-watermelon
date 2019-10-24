@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
 import Card from "../Cards/Card";
+import {convertInAmount, exchangeRate, isDepositValid} from "../../../services/fundsManager";
 
 class Deposit extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Deposit extends Component {
     };
 
     isValid = (wallet, card, amount) => {
-        // return isDepositValid(wallet, card, amount);
+        return isDepositValid(wallet, card, amount);
     };
 
     confirmDeposit = () => {
@@ -45,7 +46,7 @@ class Deposit extends Component {
     makeDeposit = (wallet, card, amount) => {
         let newWallet = wallet;
 
-        newWallet.balance = wallet.balance - amount;
+        newWallet.balance = wallet.balance + convertInAmount(amount);
         updateWallet(wallet);
         this.props.updateWallet();
     };
@@ -75,7 +76,7 @@ class Deposit extends Component {
             if (this.isValid(wallet, card, amount)) {
                 this.makeDeposit(wallet, card, amount);
                 this.confirmDeposit();
-                console.log(`make deposit of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
+                console.log(`make deposit of ${amount}₩M from card (id: ${card.id}) to wallet(id: ${wallet.id})`);
             }
         }
     };
@@ -84,11 +85,11 @@ class Deposit extends Component {
         return (
             <div className="container-in">
                 <div className={"fundsMng-title"}>
-                    <h3>How much do you want to deposit from your wallet ?</h3>
+                    <h3>How much do you want to deposit to your wallet ?</h3>
                 </div>
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
-                        <Input type="number" min="0" max="999999999999" id="amount"
+                        <Input type="number" step="0.01" min="0" max="999999999999" id="amount"
                                className="creditCardForm-input amount-input"
                                name="amount" value={this.state.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>

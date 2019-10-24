@@ -5,7 +5,7 @@ import CardToSelect from "../Cards/CardToSelect";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {isWithdrawValid} from "../../../services/fundsManager";
+import {convertInAmount, isWithdrawValid} from "../../../services/fundsManager";
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
 import Card from "../Cards/Card";
 
@@ -46,7 +46,7 @@ class Withdraw extends Component {
     makeWithdraw = (wallet, card, amount) => {
         let newWallet = wallet;
 
-        newWallet.balance = wallet.balance - amount;
+        newWallet.balance = wallet.balance - convertInAmount(amount);
         updateWallet(wallet);
         this.props.updateWallet();
     };
