@@ -13,6 +13,10 @@ export function isDepositValid(wallet, card, amount) {
     return wallet.user_id === getUserIDAuth() && isAmountValid(amount) && isCardValid(card);
 }
 
+export function isTransferValid(wallet, userCredited, amount) {
+    return true; //TODO: write function
+}
+
 export function convertInWM(amount) {
     return amount / 100;
 }

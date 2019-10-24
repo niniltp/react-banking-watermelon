@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import CardToSelect from "../Cards/CardToSelect";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
+import Card from "../Cards/Card";
 import './fundsMngForm.css';
 import {convertInAmount, isWithdrawValid} from "../../../services/fundsManager";
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
-import Card from "../Cards/Card";
+import ContainerToSelect from "../ContainerToSelect";
+import SimpleCard from "../Cards/SimpleCard";
 
 class Withdraw extends Component {
     constructor(props) {
@@ -98,9 +99,10 @@ class Withdraw extends Component {
                         <h3>Choose your card</h3>
                         <div id="creditCardsList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <CardToSelect key={index} index={index} card={card}
-                                              selectedCardIndex={this.state.selectedCardIndex}
-                                              handleSelect={this.handleSelect}/>))}
+                                <ContainerToSelect key={index} index={index} container={SimpleCard} classNames="creditCard" data={card}
+                                                   selectedIndex={this.state.selectedCardIndex}
+                                                   handleSelect={this.handleSelect}/>
+                            ))}
                         </div>
                     </div>
                     <FormGroup check className="creditCard-formGroup reset-margin" row>
@@ -119,7 +121,7 @@ class Withdraw extends Component {
     displayWithdrawConfirmed = () => {
         return (
             <div>
-                <p><strong>{this.state.amount}</strong>₩M has been successfully withdrawn from your card !</p>
+                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully withdrawn from your card !</p>
                 {this.state.selectedCardIndex !== null ?
                     <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
                     : null}

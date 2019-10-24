@@ -1,0 +1,18 @@
+/* CONTAINER TO SELECT */
+
+.containerToSelect {
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.containerToSelect:hover {
+    background-color: rgb(73, 81, 96);
+    transition: 0.6s;
+    border-radius: 20px;
+}
+
+.containerToSelect.selected {
+    background-color: rgb(63, 70, 83);
+    transition: 0.3s;
+    border-radius: 20px;
+}

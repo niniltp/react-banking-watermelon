@@ -17,21 +17,6 @@
     position: relative;
 }
 
-.creditCard.toSelect {
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.creditCard.toSelect:hover {
-    background-color: rgb(73, 81, 96);
-    transition: 0.3s;
-}
-
-.creditCard.selected {
-    background-color: rgb(63, 70, 83);
-    transition: 0.3s;
-}
-
 .creditCard ul li {
     list-style: none;
 }
