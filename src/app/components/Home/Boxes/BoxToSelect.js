@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './BoxToSelect.css';
 import './Boxes.css';
 
-
 class BoxToSelect extends Component {
     constructor(props) {
         super(props);

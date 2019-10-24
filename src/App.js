@@ -11,7 +11,6 @@ import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
 import {isAuth} from "./app/services/authenticationManager";
 
-//TODO: Home -> change user_id with user auth
 class App extends Component {
     constructor(props) {
         super(props);

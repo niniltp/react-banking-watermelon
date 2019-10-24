@@ -16,7 +16,7 @@ class Home extends Component {
 
         this.state = ({
             isFetchingWallet: true,
-            user_id: getUserIDAuth(),
+            userID: getUserIDAuth(),
             wallet: {}
         });
     }
@@ -33,7 +33,7 @@ class Home extends Component {
 
     fetchData = () => {
         this.setState({
-            wallet: getWalletByUserId(this.state.user_id)
+            wallet: getWalletByUserId(this.state.userID)
         });
     };
 

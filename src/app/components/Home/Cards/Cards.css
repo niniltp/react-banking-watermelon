@@ -1,4 +1,5 @@
 /* CARDS */
+/*TODO: CHECK IF NEEDED !*/
 
 #creditCardsContainer {
     margin: 50px 0;
@@ -27,7 +28,7 @@
     color: grey;
     position: absolute;
     top: 50%;
-    right:  5%;
+    right: 5%;
     transform: translateY(-50%);
     cursor: pointer;
 }
@@ -36,7 +37,7 @@
     height: 3vmin;
     position: absolute;
     top: 53%;
-    right:  8%;
+    right: 8%;
     transform: translateY(-50%);
     cursor: pointer;
 }
@@ -62,7 +63,7 @@
     margin-bottom: 0 !important;
 }
 
-.creditCard-formGroup input, .creditCard-formGroup select{
+.creditCard-formGroup input, .creditCard-formGroup select {
     background-color: inherit !important;
     border-radius: 0;
     border: none !important;
@@ -71,7 +72,7 @@
 }
 
 
-.creditCard-formGroup input:focus, .creditCard-formGroup select:focus{
+.creditCard-formGroup input:focus, .creditCard-formGroup select:focus {
     background-color: rgba(59, 65, 77, 0.4) !important;
     border: none !important;
     border-bottom: 1px solid #545c6e !important;

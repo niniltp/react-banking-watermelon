@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
-import Card from "../Cards/Card";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {isTransferValid} from "../../../services/fundsManager";
+import {convertInAmount, isTransferValid} from "../../../services/fundsManager";
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
+import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
 
 class Transfer extends Component {
     constructor(props) {
@@ -29,11 +29,62 @@ class Transfer extends Component {
 
     fetchData = () => {
         this.setState({isFetching: true});
-        this.setState({users: getUsersExcept(this.state.userID)}, () => {this.setState({isFetching: false});});
+        this.setState({users: getUsersExcept(this.state.userID)}, () => {
+            this.setState({isFetching: false});
+        });
     };
 
-    isValid = (wallet, userCredited, amount) => {
-        return isTransferValid(wallet, userCredited, amount);
+    isValid = (walletDebited, walletCredited, amount) => {
+        return isTransferValid(walletDebited, walletCredited, amount);
+    };
+
+    confirmTransfer = () => {
+        this.setState({
+            transferConfirmed: true
+        });
+    };
+
+    makeTransfer = (walletDebited, walletCredited, amount) => {
+        let newWalletDebited = walletDebited;
+        let newWalletCredited = walletCredited;
+
+        newWalletDebited.balance = walletDebited.balance - convertInAmount(amount);
+        newWalletCredited.balance = walletCredited.balance + convertInAmount(amount);
+
+        updateWallet(newWalletDebited);
+        updateWallet(newWalletCredited);
+        this.props.updateWallet();
+    };
+
+    handleChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+
+        this.setState({
+            amount: value
+        })
+    };
+
+    handleSelect = (index) => {
+        this.setState({
+            selectedUserIndex: index
+        });
+    };
+
+    handleSubmit = (event) => {
+        if (this.state.selectedUserIndex !== null) {
+            const userCredited = this.state.users[this.state.selectedUserIndex];
+            const walletCredited = getWalletByUserId(userCredited.id);
+            const walletDebited = getWalletByUserId(this.state.userID);
+            const amount = this.state.amount;
+            event.preventDefault();
+
+            if (this.isValid(walletDebited, walletCredited, amount)) {
+                this.makeTransfer(walletDebited, walletCredited, amount);
+                this.confirmTransfer();
+                console.log(`transfer of ${amount}₩M from wallet (id: ${walletDebited.id}) to wallet (id: ${walletCredited.id})`);
+            }
+        }
     };
 
     displayTransferForm = () => {
@@ -53,8 +104,9 @@ class Transfer extends Component {
                         <h3>Choose who you want to transfer money to</h3>
                         <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.users.map((user, index) => (
-                                <BoxToSelect key={index} index={index} container={SimpleUser} classNames={"box"} data={user}
-                                             selectedUserIndex={this.state.selectedUserIndex}
+                                <BoxToSelect key={index} index={index} container={SimpleUser} classNames={"box"}
+                                             data={user}
+                                             selectedIndex={this.state.selectedUserIndex}
                                              handleSelect={this.handleSelect}/>))}
                         </div>
                     </div>
@@ -74,10 +126,10 @@ class Transfer extends Component {
     displayTransferConfirmed = () => {
         return (
             <div>
-                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully withdrawn from
-                    your card !</p>
+                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully transfered from
+                    your wallet to the wallet of !</p>
                 {this.state.selectedCardIndex !== null ?
-                    <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
+                    <SimpleUser data={this.state.users[this.state.selectedUserIndex]} classNames={"box"}/>
                     : null}
                 <Link to="/account"><Button color="primary" className="boxForm-btn">Go back</Button></Link>
             </div>
