@@ -20,7 +20,7 @@ export function isExpirationDateValid(expirationDate) {
     const month = getMonthFromExpirationDateCard(expirationDate);
     const year = getYearFromExpirationDateCard(expirationDate);
 
-    return expirationDate !== '' && !isDateBeforeToday(new Date(year, month-1, 1));
+    return expirationDate !== '' && expirationDate !== '-01'  && !isDateBeforeToday(new Date(year, month-1, 1));
 }
 
 export function isCardValid(card) {

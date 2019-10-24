@@ -3,13 +3,28 @@ export function isDateBeforeToday(date) {
 }
 
 export function getYearMonthFromExpirationDateCard(date) {
-    return date.substring(0, 7);
+    if(date) {
+        if(date.length >= 7)
+            return date.substring(0, 7);
+    }
+
+    return date;
 }
 
 export function getMonthFromExpirationDateCard(date) {
-    return date.substring(5, 7);
+    if(date) {
+        if(date.length >= 7)
+            return date.substring(5, 7);
+    }
+
+    return date;
 }
 
 export function getYearFromExpirationDateCard(date) {
-    return date.substring(0, 4);
+    if(date) {
+        if(date.length >= 7)
+            return date.substring(0, 4);
+    }
+
+    return date;
 }

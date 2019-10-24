@@ -9,9 +9,14 @@ import {
 } from "../../../backend/cards_backend";
 import './Cards.css';
 import '../Boxes/Boxes.css';
-import {isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
+import {is4digitsCardValid, isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {generateID} from "../../../services/idsGeneartor";
+import {
+    getMonthFromExpirationDateCard,
+    getYearFromExpirationDateCard,
+    isDateBeforeToday
+} from "../../../services/dateManager";
 
 class Cards extends Component {
     constructor(props) {
@@ -29,7 +34,8 @@ class Cards extends Component {
                 numberCard2: '',
                 numberCard3: '',
                 expirationDate: ''
-            }
+            },
+            errors: {}
         };
     }
 
@@ -41,6 +47,7 @@ class Cards extends Component {
         this.setState({isFetching: true});
         this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
             this.setState({isFetching: false});
+            console.log(this.state.cards)
         });
     };
 
@@ -118,19 +125,19 @@ class Cards extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-
+        this.validateForm(this.state.newCard);
         if (this.isNewCardValid()) {
             this.addCard();
             console.log("New card added");
             this.setState({
                 isAddingCard: false,
                 newCard: {
-                    brand: '',
-                    numberCard0: '',
-                    numberCard1: '',
-                    numberCard2: '',
-                    numberCard3: '',
-                    expirationDate: ''
+                    brand: "",
+                    numberCard0: "",
+                    numberCard1: "",
+                    numberCard2: "",
+                    numberCard3: "",
+                    expirationDate: ""
                 }
             });
         }
@@ -146,7 +153,23 @@ class Cards extends Component {
         console.log(`remove card ${index}, ${id}`);
     };
 
+    validateForm = (card) => {
+        const month = getMonthFromExpirationDateCard(card.expirationDate);
+        const year = getYearFromExpirationDateCard(card.expirationDate);
+        this.setState({
+            errors: {
+                creditCardDigits0: is4digitsCardValid(card.numberCard0) ? false : "Must be 4 digits",
+                creditCardDigits1: is4digitsCardValid(card.numberCard1) ? false : "Must be 4 digits",
+                creditCardDigits2: is4digitsCardValid(card.numberCard2) ? false : "Must be 4 digits",
+                creditCardDigits3: is4digitsCardValid(card.numberCard3) ? false : "Must be 4 digits",
+                expirationDateEmpty: !(card.expirationDate === "" || card.expirationDate === null) ? false : "Required",
+                expirationDateAfterToday: !isDateBeforeToday(new Date(year, month - 1, 1)) ? false : "Must be after this month"
+            }
+        });
+    };
+
     displayAddCard = () => {
+        const errors = this.state.errors;
         return (
             <Form className="box-form">
                 <FormGroup className="box-formGroup reset-margin" row>
@@ -165,18 +188,26 @@ class Cards extends Component {
                     <Col sm={2}>
                         <Input type="number" min="0" max="9999" id="numberCard0" className="boxForm-input"
                                name="numberCard0" value={this.state.newCard.numberCard0} onChange={this.handleChange}/>
+                        {errors.creditCardDigits0 ?
+                            <span className="error-input">{errors.creditCardDigits0}</span> : null}
                     </Col>
                     <Col sm={2}>
                         <Input type="number" min="0" max="9999" id="numberCard1" className="boxForm-input"
                                name="numberCard1" value={this.state.newCard.numberCard1} onChange={this.handleChange}/>
+                        {errors.creditCardDigits1 ?
+                            <span className="error-input">{errors.creditCardDigits1}</span> : null}
                     </Col>
                     <Col sm={2}>
                         <Input type="number" min="0" max="9999" id="numberCard2" className="boxForm-input"
                                name="numberCard2" value={this.state.newCard.numberCard2} onChange={this.handleChange}/>
+                        {errors.creditCardDigits2 ?
+                            <span className="error-input">{errors.creditCardDigits2}</span> : null}
                     </Col>
                     <Col sm={2}>
                         <Input type="number" min="0" max="9999" id="numberCard3" className="boxForm-input"
                                name="numberCard3" value={this.state.newCard.numberCard3} onChange={this.handleChange}/>
+                        {errors.creditCardDigits3 ?
+                            <span className="error-input">{errors.creditCardDigits3}</span> : null}
                     </Col>
                 </FormGroup>
                 <FormGroup className="box-formGroup reset-margin" row>
@@ -185,6 +216,10 @@ class Cards extends Component {
                         <Input type="month" id="expirationDateCard" className="boxForm-input"
                                name="expirationDate" value={this.state.newCard.expirationDate}
                                onChange={this.handleChange}/>
+                        {errors.expirationDateEmpty ?
+                            <p className="error-input">{errors.expirationDateEmpty}</p> : null}
+                        {errors.expirationDateAfterToday ?
+                            <p className="error-input">{errors.expirationDateAfterToday}</p> : null}
                     </Col>
                 </FormGroup>
                 <FormGroup check className="box-formGroup reset-margin" row>

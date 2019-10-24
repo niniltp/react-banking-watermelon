@@ -50,8 +50,13 @@
   }
 }
 
-
 .reset-margin {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+.error-input {
+  font-size: x-small;
+  font-weight: bold;
+  color: #C82333;
 }
