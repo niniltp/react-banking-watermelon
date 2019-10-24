@@ -5,11 +5,12 @@ import Cards from './Cards/Cards.js';
 import Menu from './Menu/Menu';
 import Withdraw from "./fundsMng/Withdraw";
 import Settings from "./Settings/Settings.js";
+import Deposit from "./fundsMng/Deposit";
+import Transfer from "./fundsMng/Transfer";
+import Activity from "./fundsMng/Activity";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserId} from "../../backend/wallets_backend";
-import Deposit from "./fundsMng/Deposit";
-import Transfer from "./fundsMng/Transfer";
 
 class Home extends Component {
     constructor(props) {
@@ -49,6 +50,7 @@ class Home extends Component {
                 <h1>Hi</h1>
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/settings" component={Settings}/>
+                <Route path="/activity" component={Activity}/>
                 <Route path="/cards" component={Cards}/>
                 <Route path="/withdraw"
                        render={(props) => <Withdraw {...props} updateWallet={this.handleUpdateWallet}/>}/>
