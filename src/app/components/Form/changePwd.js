@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, ButtonToolbar } from 'reactstrap';
-import { Link, Redirect} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import {getDataFromLS} from "../../services/localStorageManager.js";
-import {getUsers, updateUsers} from "../../backend/users_backend";
+import {getUsers, updateUser} from "../../backend/users_backend";
 
 //Code written by CHEONG Loïc 
 
@@ -55,10 +55,9 @@ class changePwd extends Component{
         if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length<8 && this.state.pwd1 != "") {
             this.MsgErr("PwdLength","You password is too short !");
         }
-        if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length>8 ) {
-            //OK !
-            //WHAT TO DO NEXT   ?????
-            console.log("Your password has been changed successfully !");
+        if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length>=8 ) {
+            //console.log("Your password has been changed successfully !");
+            this.setState({redirect: true});
             this.updatePwd();
         }
         
@@ -79,29 +78,10 @@ class changePwd extends Component{
                 password: this.state.pwd1, 
                 is_admin: "false"
             };
-            console.log(userUpdated);
+            //console.log(userUpdated);
 
-            let array1 = []; 
-            let array2 = [];
-            if (index>0 && index<users.length-1){
-                array1.concat(users.slice(0,index-1));
-                array2.concat(users.slice(index+1,users.length-1));
-                array1.push(userUpdated).concat(array2);
-            } else if (index === users.length-1) {
-                array1 = users.slice(0,index-1);
-                array2 = array2.push(userUpdated);
-                array1 = array1.concat(array2);
-            } else if (index === 0) {
-                array1.push(userUpdated);
-                array2 = users.slice(index+1,users.length-1);
-                //array2.concat(users.slice(index+1,users.length-1));
-                array1.concat(array2);
-            }
-            
-            console.log(array1);
-            console.log(array2);
-
-
+            updateUser(userUpdated);
+            //console.log(getUsers("users"));
     }
 
 
@@ -110,6 +90,15 @@ class changePwd extends Component{
         if (getDataFromLS("userID") === null) return <h1>ERROR 404 PAGE NOT FOUND</h1>;
 
         else {
+            if(this.state.redirect) return (
+                <div>
+                    <br/>
+                    <h1>Your password has been changed successfully !</h1> 
+                    <br/>
+                    <h6><Link to="/">Go to the login page</Link></h6>
+                </div>
+            );
+
             let passwordErr = null;
 
             for (let err of this.state.errors) {
