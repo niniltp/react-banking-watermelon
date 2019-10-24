@@ -47,6 +47,12 @@
 .addCreditCard-btn {
     margin-top: 10px;
     border-radius: 15px !important;
+    transition: 0.5s;
+}
+
+.addCreditCard-btn:hover {
+    border-radius: 5px !important;
+    transition: 0.5s;
 }
 
 .creditCard-form {

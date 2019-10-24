@@ -209,7 +209,7 @@ class Cards extends Component {
                                   onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
-                            <Button outline className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
+                            <Button outline color="success" className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
                     </div>
                 </div>
             </div>
