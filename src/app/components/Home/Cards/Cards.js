@@ -11,6 +11,7 @@ import './Cards.css';
 import '../Boxes/Boxes.css';
 import {isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
 import {getUserIDAuth} from "../../../services/authenticationManager";
+import {generateID} from "../../../services/idsGeneartor";
 
 class Cards extends Component {
     constructor(props) {
@@ -67,7 +68,7 @@ class Cards extends Component {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
         let card = {
-            id: this.state.cards.length + 2, //TODO: Generate unique ID !!!
+            id: generateID("card"), //TODO: Generate unique ID !!!
             last_4: newCard.numberCard3,
             brand: newCard.brand,
             expired_at: expirationDate,
