@@ -32,7 +32,7 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <Link exact to="/"><img src={logo} className="App-logo" alt="logo"/></Link>
+                    <Link to="/"><img src={logo} className="App-logo" alt="logo"/></Link>
                 </header>
                 <Switch>
                     <Route exact path="/" component={SignIn}/>
