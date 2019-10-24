@@ -55,3 +55,17 @@ export function updateTransfer(transfer) {
     transfers[index] = transfer;
     updateTransfers(transfers);
 }
+
+/**
+ * This function convers the JS transfer object to the DB format
+ * @param transfer JS obejct
+ * @returns {{debited_wallet_id: *, amount: *, walletCredited: *, id: *}}
+ */
+export function transferJStoDB(transfer) {
+    return {
+        id: transfer.id,
+        debited_wallet_id: transfer.walletDebited.id,
+        credited_wallet_id: transfer.walletCredited.id,
+        amount: transfer.amount
+    }
+}

@@ -3,11 +3,12 @@ import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {convertInAmount, isTransferValid} from "../../../services/fundsManager";
+import {isTransferValid, makeTransfer} from "../../../services/fundsManager";
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
-import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
+import {getWalletByUserId} from "../../../backend/wallets_backend";
+import {generateID} from "../../../services/idsGeneartor";
 
 class Transfer extends Component {
     constructor(props) {
@@ -17,7 +18,12 @@ class Transfer extends Component {
             userID: getUserIDAuth(),
             isFetching: true,
             users: [],
-            amount: 0,
+            transfer: {
+                id: "",
+                walletDebited: {},
+                walletCredited: {},
+                amount: 0
+            },
             selectedUserIndex: null,
             transferConfirmed: false
         };
@@ -34,8 +40,8 @@ class Transfer extends Component {
         });
     };
 
-    isValid = (walletDebited, walletCredited, amount) => {
-        return isTransferValid(walletDebited, walletCredited, amount);
+    isValid = (transfer) => {
+        return isTransferValid(transfer);
     };
 
     confirmTransfer = () => {
@@ -44,25 +50,29 @@ class Transfer extends Component {
         });
     };
 
-    makeTransfer = (walletDebited, walletCredited, amount) => {
-        let newWalletDebited = walletDebited;
-        let newWalletCredited = walletCredited;
+   /* makeTransfer = (transfer) => {
+        makeTransfer(transfer);
+        /!*        let newWalletDebited = transfer.walletDebited;
+                let newWalletCredited = transfer.walletCredited;
+                const amount = transfer.amount;
 
-        newWalletDebited.balance = walletDebited.balance - convertInAmount(amount);
-        newWalletCredited.balance = walletCredited.balance + convertInAmount(amount);
+                newWalletDebited.balance = newWalletDebited.balance - convertInAmount(amount);
+                newWalletCredited.balance = newWalletCredited.balance + convertInAmount(amount);
 
-        updateWallet(newWalletDebited);
-        updateWallet(newWalletCredited);
-        this.props.updateWallet();
-    };
+                updateWallet(newWalletDebited);
+                updateWallet(newWalletCredited);*!/
+    };*/
 
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState({
-            amount: value
-        })
+        this.setState(prevState => ({
+            transfer: {
+                ...prevState.transfer,
+                amount: value
+            }
+        }));
     };
 
     handleSelect = (index) => {
@@ -76,15 +86,24 @@ class Transfer extends Component {
             const userCredited = this.state.users[this.state.selectedUserIndex];
             const walletCredited = getWalletByUserId(userCredited.id);
             const walletDebited = getWalletByUserId(this.state.userID);
-            const amount = this.state.amount;
-            event.preventDefault();
+            const amount = this.state.transfer.amount;
 
-            if (this.isValid(walletDebited, walletCredited, amount)) {
-                this.makeTransfer(walletDebited, walletCredited, amount);
+            const transfer = {
+                id: generateID("transfer"),
+                walletDebited: walletDebited,
+                walletCredited: walletCredited,
+                amount: parseFloat(amount)
+            };
+
+            if (this.isValid(transfer)) {
+                makeTransfer(transfer);
                 this.confirmTransfer();
+                this.props.updateWallet();
                 console.log(`transfer of ${amount}₩M from wallet (id: ${walletDebited.id}) to wallet (id: ${walletCredited.id})`);
             }
         }
+
+        event.preventDefault();
     };
 
     displayTransferForm = () => {
@@ -97,7 +116,7 @@ class Transfer extends Component {
                     <FormGroup row className={"fundsMng-formGroup"}>
                         <Input type="number" min="0" max="999999999999" id="amount"
                                className="boxForm-input amount-input"
-                               name="amount" value={this.state.amount} onChange={this.handleChange}/>
+                               name="amount" value={this.state.transfer.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
                     </FormGroup>
                     <div id="boxesContainer">
@@ -126,7 +145,8 @@ class Transfer extends Component {
     displayTransferConfirmed = () => {
         return (
             <div>
-                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully transfered from
+                <p><strong>{(parseFloat(this.state.transfer.amount)).toFixed(2)}</strong>₩M has been successfully
+                    transfered from
                     your wallet to the wallet of !</p>
                 {this.state.selectedCardIndex !== null ?
                     <SimpleUser data={this.state.users[this.state.selectedUserIndex]} classNames={"box"}/>
