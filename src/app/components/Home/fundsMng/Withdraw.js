@@ -3,11 +3,10 @@ import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
-import Card from "../Cards/Card";
 import './fundsMngForm.css';
 import {convertInAmount, isWithdrawValid} from "../../../services/fundsManager";
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
-import ContainerToSelect from "../ContainerToSelect";
+import BoxToSelect from "../Boxes/BoxToSelect";
 import SimpleCard from "../Cards/SimpleCard";
 
 class Withdraw extends Component {
@@ -95,23 +94,23 @@ class Withdraw extends Component {
                                name="amount" value={this.state.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
                     </FormGroup>
-                    <div id="creditCardsContainer">
+                    <div id="boxesContainer">
                         <h3>Choose your card</h3>
-                        <div id="creditCardsList">
+                        <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <ContainerToSelect key={index} index={index} container={SimpleCard}
-                                                   classNames="creditCard" data={card}
-                                                   selectedIndex={this.state.selectedCardIndex}
-                                                   handleSelect={this.handleSelect}/>
+                                <BoxToSelect key={index} index={index} container={SimpleCard}
+                                             classNames="box" data={card}
+                                             selectedIndex={this.state.selectedCardIndex}
+                                             handleSelect={this.handleSelect}/>
                             ))}
                         </div>
                     </div>
-                    <FormGroup check className="creditCard-formGroup reset-margin" row>
+                    <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>
-                            <Button color="success" className="creditCardForm-btn"
+                            <Button color="success" className="boxForm-btn"
                                     onClick={this.handleSubmit}>Confirm</Button>
                             <Link to="/account"><Button color="danger"
-                                                        className="creditCardForm-btn">Cancel</Button></Link>
+                                                        className="boxForm-btn">Cancel</Button></Link>
                         </Col>
                     </FormGroup>
                 </Form>
@@ -125,9 +124,9 @@ class Withdraw extends Component {
                 <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully withdrawn from
                     your card !</p>
                 {this.state.selectedCardIndex !== null ?
-                    <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
+                    <SimpleCard data={this.state.cards[this.state.selectedCardIndex]}/>
                     : null}
-                <Link to="/account"><Button color="primary" className="creditCardForm-btn">Go back</Button></Link>
+                <Link to="/account"><Button color="primary" className="boxForm-btn">Go back</Button></Link>
             </div>
         );
     };

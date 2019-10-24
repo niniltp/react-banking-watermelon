@@ -113,12 +113,12 @@ class Card extends Component {
 
     displayCard = () => {
         return (
-            <div className="creditCard" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
+            <div className="box box-hover" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
                 <SimpleCard data={this.state.card}/>
                 {this.state.mouseHover && this.props.removeON ?
-                    <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                    <p className="destroyBox" onClick={this.handleRemove}> x </p> : null}
                 {this.state.mouseHover && this.props.modifON ?
-                    <img src={settings} alt="logo-modify" className="modifyCreditCard"
+                    <img src={settings} alt="logo-modify" className="modifyBox"
                          onClick={this.handleModify}/> : null}
             </div>
         )
@@ -126,12 +126,12 @@ class Card extends Component {
 
     displayModifyCard = () => {
         return (
-            <div className="creditCard" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
-                <Form className="creditCard-form">
-                    <FormGroup className="creditCard-formGroup reset-margin" row>
+            <div className="box" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
+                <Form className="box-form">
+                    <FormGroup className="box-formGroup reset-margin" row>
                         <Label for="brandCard" sm={2} className="labelInfoCard">Brand</Label>
                         <Col sm={10}>
-                            <Input type="select" id="brandCard" className="creditCardForm-input" name="brand"
+                            <Input type="select" id="brandCard" className="boxForm-input" name="brand"
                                    defaultValue={this.state.newCard.brand} onChange={this.handleChange}>
                                 <option value="american_express">American Express</option>
                                 <option value="master_card">Master Card</option>
@@ -139,45 +139,45 @@ class Card extends Component {
                             </Input>
                         </Col>
                     </FormGroup>
-                    <FormGroup className="creditCard-formGroup reset-margin" row>
+                    <FormGroup className="box-formGroup reset-margin" row>
                         <Label for="numberCard" sm={2} className="labelInfoCard">Card Number</Label>
                         <Col sm={2}>
                             <Input type="number" disabled placeholder="****" id="numberCard0"
-                                   className="creditCardForm-input"/>
+                                   className="boxForm-input"/>
                         </Col>
                         <Col sm={2}>
                             <Input type="number" disabled placeholder="****" id="numberCard1"
-                                   className="creditCardForm-input"/>
+                                   className="boxForm-input"/>
                         </Col>
                         <Col sm={2}>
                             <Input type="number" disabled placeholder="****" id="numberCard2"
-                                   className="creditCardForm-input"/>
+                                   className="boxForm-input"/>
                         </Col>
                         <Col sm={2}>
-                            <Input type="number" min="0" max="9999" id="numberCard3" className="creditCardForm-input"
+                            <Input type="number" min="0" max="9999" id="numberCard3" className="boxForm-input"
                                    name="numberCard3" defaultValue={this.state.newCard.numberCard3}
                                    onChange={this.handleChange}/>
                         </Col>
                     </FormGroup>
-                    <FormGroup className="creditCard-formGroup reset-margin" row>
+                    <FormGroup className="box-formGroup reset-margin" row>
                         <Label for="expirationDateCard" sm={2} className="labelInfoCard">Expiration Date</Label>
                         <Col sm={10}>
-                            <Input type="month" id="expirationDateCard" className="creditCardForm-input"
+                            <Input type="month" id="expirationDateCard" className="boxForm-input"
                                    name="expirationDate" defaultValue={this.state.newCard.expirationDate}
                                    onChange={this.handleChange}/>
                         </Col>
                     </FormGroup>
-                    <FormGroup check className="creditCard-formGroup reset-margin" row>
+                    <FormGroup check className="box-formGroup reset-margin" row>
                         <Col sm={{size: 10, offset: 2}} style={{textAlign: "right"}}>
-                            <Button color="success" className="creditCardForm-btn"
+                            <Button color="success" className="boxForm-btn"
                                     onClick={this.handleSubmitModification}>Save</Button>
-                            <Button color="danger" className="creditCardForm-btn"
+                            <Button color="danger" className="boxForm-btn"
                                     onClick={this.disableModifying}>Cancel</Button>
                         </Col>
                     </FormGroup>
                 </Form>
                 {this.state.mouseHover && this.props.removeON ?
-                    <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                    <p className="destroyBox" onClick={this.handleRemove}> x </p> : null}
             </div>
         )
     };

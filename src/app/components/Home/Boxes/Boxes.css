@@ -1,0 +1,107 @@
+/* CONTAINERS */
+
+#boxesContainer {
+    margin: 50px 0;
+}
+
+#boxesList {
+    margin: 20px 0;
+}
+
+.box {
+    text-align: left;
+    background-color: rgba(49, 54, 64, 0.4);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.box-hover:hover {
+    background-color: rgb(73, 81, 96);
+    transition: 0.8s;
+}
+
+.box ul li {
+    list-style: none;
+}
+
+.destroyBox {
+    font-weight: 300;
+    font-size: x-large;
+    color: grey;
+    position: absolute;
+    top: 50%;
+    right:  5%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.modifyBox {
+    height: 3vmin;
+    position: absolute;
+    top: 53%;
+    right:  8%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+/* ADDING CARD FORM */
+
+.addBoxbtn {
+    margin-top: 10px;
+    border-radius: 15px !important;
+}
+
+.box-form {
+    background-color: #31363f;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.box-formGroup {
+    padding: 10px 40px;
+    margin-bottom: 0 !important;
+}
+
+.box-formGroup input, .box-formGroup select{
+    background-color: inherit !important;
+    border-radius: 0;
+    border: none !important;
+    border-bottom: 1px solid #404654 !important;
+    color: white !important;
+}
+
+
+.box-formGroup input:focus, .box-formGroup select:focus{
+    background-color: rgba(59, 65, 77, 0.4) !important;
+    border: none !important;
+    border-bottom: 1px solid #545c6e !important;
+    box-shadow: none;
+}
+
+.box-formGroup select option {
+    background-color: rgb(59, 65, 77) !important;
+    border: none;
+}
+
+.boxForm-input {
+    min-width: 80px;
+}
+
+.labelInfoBox {
+    font-weight: 500;
+}
+
+.boxForm-btn {
+    margin-left: 5px;
+}
+
+@media (max-width: 995px) {
+    .labelInfoBox {
+        margin-right: 5px;
+    }
+}

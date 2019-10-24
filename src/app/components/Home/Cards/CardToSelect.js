@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {getYearMonthFromExpirationDateCard} from "../../../services/dateManager";
 
+
+/*
+* NOT USED
+* */
 class CardToSelect extends Component {
     constructor(props) {
         super(props);

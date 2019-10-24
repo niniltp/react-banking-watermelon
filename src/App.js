@@ -24,7 +24,7 @@ class App extends Component {
     componentDidMount() {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
-        localStorage.clear(); //TODO: delete this line ?
+        // localStorage.clear(); //TODO: delete this line ?
         if (!isAuth()) disconnectUser();
     }
 

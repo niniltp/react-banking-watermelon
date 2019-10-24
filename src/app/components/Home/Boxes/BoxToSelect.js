@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import './ContainerToSelect.css';
+import './BoxToSelect.css';
+import './Boxes.css';
 
 
-class ContainerToSelect extends Component {
+class BoxToSelect extends Component {
     constructor(props) {
         super(props);
 
@@ -59,7 +60,7 @@ class ContainerToSelect extends Component {
     displayCard = () => {
         const Cont = this.props.container;
         return (
-            <div className={this.state.isSelected ? "containerToSelect selected" : "containerToSelect deselected"}
+            <div className={this.state.isSelected ? "boxToSelect selected" : "boxToSelect deselected"}
                  onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover} onClick={this.handleClick}>
                 <Cont data={this.state.data} classNames={this.props.classNames}/>
             </div>
@@ -73,4 +74,4 @@ class ContainerToSelect extends Component {
     }
 }
 
-export default ContainerToSelect;
+export default BoxToSelect;

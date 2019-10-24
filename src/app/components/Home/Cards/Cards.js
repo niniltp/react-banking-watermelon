@@ -8,6 +8,7 @@ import {
     updateCard as updateCardDB
 } from "../../../backend/cards_backend";
 import './Cards.css';
+import '../Boxes/Boxes.css';
 import {isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
 import {getUserIDAuth} from "../../../services/authenticationManager";
 
@@ -145,11 +146,11 @@ class Cards extends Component {
 
     displayAddCard = () => {
         return (
-            <Form className="creditCard-form">
-                <FormGroup className="creditCard-formGroup reset-margin" row>
+            <Form className="box-form">
+                <FormGroup className="box-formGroup reset-margin" row>
                     <Label for="brandCard" sm={2} className="labelInfoCard">Brand</Label>
                     <Col sm={10}>
-                        <Input type="select" id="brandCard" className="creditCardForm-input" name="brand"
+                        <Input type="select" id="brandCard" className="boxForm-input" name="brand"
                                value={this.state.newCard.brand} onChange={this.handleChange}>
                             <option value="american_express">American Express</option>
                             <option value="master_card">Master Card</option>
@@ -157,38 +158,38 @@ class Cards extends Component {
                         </Input>
                     </Col>
                 </FormGroup>
-                <FormGroup className="creditCard-formGroup reset-margin" row>
+                <FormGroup className="box-formGroup reset-margin" row>
                     <Label for="numberCard" sm={2} className="labelInfoCard">Card Number</Label>
                     <Col sm={2}>
-                        <Input type="number" min="0" max="9999" id="numberCard0" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard0" className="boxForm-input"
                                name="numberCard0" value={this.state.newCard.numberCard0} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="0" max="9999" id="numberCard1" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard1" className="boxForm-input"
                                name="numberCard1" value={this.state.newCard.numberCard1} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="0" max="9999" id="numberCard2" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard2" className="boxForm-input"
                                name="numberCard2" value={this.state.newCard.numberCard2} onChange={this.handleChange}/>
                     </Col>
                     <Col sm={2}>
-                        <Input type="number" min="0" max="9999" id="numberCard3" className="creditCardForm-input"
+                        <Input type="number" min="0" max="9999" id="numberCard3" className="boxForm-input"
                                name="numberCard3" value={this.state.newCard.numberCard3} onChange={this.handleChange}/>
                     </Col>
                 </FormGroup>
-                <FormGroup className="creditCard-formGroup reset-margin" row>
+                <FormGroup className="box-formGroup reset-margin" row>
                     <Label for="expirationDateCard" sm={2} className="labelInfoCard">Expiration Date</Label>
                     <Col sm={10}>
-                        <Input type="month" id="expirationDateCard" className="creditCardForm-input"
+                        <Input type="month" id="expirationDateCard" className="boxForm-input"
                                name="expirationDate" value={this.state.newCard.expirationDate}
                                onChange={this.handleChange}/>
                     </Col>
                 </FormGroup>
-                <FormGroup check className="creditCard-formGroup reset-margin" row>
+                <FormGroup check className="box-formGroup reset-margin" row>
                     <Col sm={{size: 10, offset: 2}} style={{textAlign: "right"}}>
-                        <Button color="success" className="creditCardForm-btn"
+                        <Button color="success" className="boxForm-btn"
                                 onClick={this.handleSubmit}>Add</Button>
-                        <Button color="danger" className="creditCardForm-btn"
+                        <Button color="danger" className="boxForm-btn"
                                 onClick={this.disableAddingCard}>Cancel</Button>
                     </Col>
                 </FormGroup>
@@ -199,9 +200,9 @@ class Cards extends Component {
     render = () => {
         return (
             <div className="container-in">
-                <div id="creditCardsContainer">
+                <div id="boxesContainer">
                     <h3>Cards</h3>
-                    <div id="creditCardsList">
+                    <div id="boxesList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
                             <Card key={index} index={index} card={card} modifON={true} removeON={true}
                                   onModif={this.handleModif}

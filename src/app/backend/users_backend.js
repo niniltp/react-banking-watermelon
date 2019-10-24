@@ -33,7 +33,7 @@ export function getUsersExcept(user_id) {
     const users = setAndGetDataFromLS("users", usersDB);
 
     return users.filter((user) => {
-        return user.user_id === user_id
+        return user.user_id !== user_id
     });
 }
 
