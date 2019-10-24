@@ -115,14 +115,8 @@ class Card extends Component {
         return (
             <div className="creditCard" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
                 <SimpleCard data={this.state.card}/>
-                {/*<ul>
-                    <li><span className="labelInfoCard">Brand: </span>{this.state.card.brand}</li>
-                    <li><span className="labelInfoCard">Card number: </span>**** **** **** {this.state.card.last_4}</li>
-                    <li><span
-                        className="labelInfoCard">Expiration date: </span>{getYearMonthFromExpirationDateCard(this.state.card.expired_at)}
-                    </li>
-                </ul>*/}
-                {this.state.mouseHover && this.props.removeON ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                {this.state.mouseHover && this.props.removeON ?
+                    <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
                 {this.state.mouseHover && this.props.modifON ?
                     <img src={settings} alt="logo-modify" className="modifyCreditCard"
                          onClick={this.handleModify}/> : null}
@@ -182,7 +176,8 @@ class Card extends Component {
                         </Col>
                     </FormGroup>
                 </Form>
-                {this.state.mouseHover && this.props.removeON ? <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
+                {this.state.mouseHover && this.props.removeON ?
+                    <p className="destroyCreditCard" onClick={this.handleRemove}> x </p> : null}
             </div>
         )
     };

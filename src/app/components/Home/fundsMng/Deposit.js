@@ -99,7 +99,8 @@ class Deposit extends Component {
                         <h3>Choose your card</h3>
                         <div id="creditCardsList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <ContainerToSelect key={index} index={index} container={SimpleCard} classNames="creditCard" data={card}
+                                <ContainerToSelect key={index} index={index} container={SimpleCard}
+                                                   classNames="creditCard" data={card}
                                                    selectedIndex={this.state.selectedCardIndex}
                                                    handleSelect={this.handleSelect}/>))}
                         </div>
@@ -120,7 +121,8 @@ class Deposit extends Component {
     displayDepositConfirmed = () => {
         return (
             <div>
-                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully deposited to your card !</p>
+                <p><strong>{(parseFloat(this.state.amount)).toFixed(2)}</strong>₩M has been successfully deposited to
+                    your card !</p>
                 {this.state.selectedCardIndex !== null ?
                     <Card card={this.state.cards[this.state.selectedCardIndex]} modifON={false} removeON={false}/>
                     : null}
