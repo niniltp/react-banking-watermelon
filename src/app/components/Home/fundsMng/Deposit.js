@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getWalletByUserId, updateWallet} from "../../../backend/wallets_backend";
 import Card from "../Cards/Card";
-import {convertInAmount, exchangeRate, isDepositValid} from "../../../services/fundsManager";
+import {convertInAmount, isDepositValid} from "../../../services/fundsManager";
 
 class Deposit extends Component {
     constructor(props) {
