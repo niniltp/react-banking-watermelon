@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getUserById} from "../../../backend/users_backend";
 import Parameters from "./Parameter";
+import {Button} from "reactstrap";
+import {Link, Prompt} from "react-router-dom";
 
 //code written by CHEONG Loïc
 
@@ -43,9 +45,10 @@ class Settings extends Component {
             <div className="container-in">
                 <br/>
                 <h3>Profile</h3>
-                {
-                    this.state.parameters.map((param,index)=>(<Parameters key={index} index={index} param={param} />))
-                }
+                {this.state.parameters.map((param,index)=>(<Parameters key={index} index={index} param={param} />))}
+                <br/>
+                <br/>
+                <Link to="/account"><Button color="primary">Go back</Button></Link>
             </div>
         );
     }

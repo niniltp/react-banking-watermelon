@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
+import {Link} from "react-router-dom";
 import Card from './Card.js';
 import {
     addCard as addCardDB,
@@ -211,6 +212,9 @@ class Cards extends Component {
                         {this.state.isAddingCard ? this.displayAddCard() :
                             <Button outline className="addCreditCard-btn" onClick={this.enableAddingCard}>+</Button>}
                     </div>
+                    <br/>
+                <br/>
+                <Link to="/account"><Button color="primary">Go back</Button></Link>
                 </div>
             </div>
         );
