@@ -76,7 +76,7 @@ class changePwd extends Component{
                 last_name: users[index].last_name, 
                 email: users[index].email, 
                 password: this.state.pwd1, 
-                is_admin: "false"
+                is_admin: users[index].is_admin
             };
             //console.log(userUpdated);
 
