@@ -10,6 +10,7 @@ import Transfer from "./fundsMng/Transfer";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserId} from "../../backend/wallets_backend";
+import Activity from "./Activity/Activity";
 
 class Home extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ class Home extends Component {
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/settings" component={Settings}/>
                 <Route path="/cards" component={Cards}/>
+                <Route path="/activity" component={Activity}/>
                 <Route path="/withdraw"
                        render={(props) => <Withdraw {...props} updateWallet={this.handleUpdateWallet}/>}/>
                 <Route path="/deposit"
