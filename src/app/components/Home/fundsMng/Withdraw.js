@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {isFundSufficient, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
@@ -148,12 +148,10 @@ class Withdraw extends Component {
                             <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
-                        <Col>
-                            <Button color="success" className="boxForm-btn"
-                                    onClick={this.handleSubmit}>Confirm</Button>
-                            <Link to="/account"><Button color="danger"
-                                                        className="boxForm-btn">Cancel</Button></Link>
-                        </Col>
+                        <Button color="success" className="boxForm-btn"
+                                onClick={this.handleSubmit}>Confirm</Button>
+                        <Link to="/account"><Button color="danger"
+                                                    className="boxForm-btn">Cancel</Button></Link>
                     </FormGroup>
                 </Form>
             </div>

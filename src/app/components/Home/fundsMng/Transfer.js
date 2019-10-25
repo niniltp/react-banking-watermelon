@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
@@ -38,7 +38,7 @@ class Transfer extends Component {
         this.setState({isFetching: true});
         this.setState((prevState) => ({
             users: getUsersExcept(this.state.userID),
-            transfer:{
+            transfer: {
                 id: "",
                 walletDebited: getWalletByUserId(prevState.userID),
                 walletCredited: {},
@@ -148,12 +148,10 @@ class Transfer extends Component {
                     {errors.cardNotSelected ?
                         <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     <FormGroup check className="box-formGroup reset-margin" row>
-                        <Col>
-                            <Button color="success" className="boxForm-btn"
-                                    onClick={this.handleSubmit}>Confirm</Button>
-                            <Link to="/account"><Button color="danger"
-                                                        className="boxForm-btn">Cancel</Button></Link>
-                        </Col>
+                        <Button color="success" className="boxForm-btn"
+                                onClick={this.handleSubmit}>Confirm</Button>
+                        <Link to="/account"><Button color="danger"
+                                                    className="boxForm-btn">Cancel</Button></Link>
                     </FormGroup>
                 </Form>
             </div>

@@ -137,12 +137,10 @@ class Deposit extends Component {
                             <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
-                        <Col>
                             <Button color="success" className="boxForm-btn"
                                     onClick={this.handleSubmit}>Confirm</Button>
                             <Link to="/account"><Button color="danger"
                                                         className="boxForm-btn">Cancel</Button></Link>
-                        </Col>
                     </FormGroup>
                 </Form>
             </div>
