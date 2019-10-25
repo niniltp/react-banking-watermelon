@@ -3,7 +3,7 @@ import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {convertToAmount, isTransferValid, makeTransfer} from "../../../services/fundsManager";
+import {isFundSufficient, isTransferValid, makeTransfer} from "../../../services/fundsManager";
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
@@ -25,7 +25,8 @@ class Transfer extends Component {
                 amount: 0
             },
             selectedUserIndex: null,
-            transferConfirmed: false
+            transferConfirmed: false,
+            errors: {}
         };
     }
 
@@ -35,7 +36,15 @@ class Transfer extends Component {
 
     fetchData = () => {
         this.setState({isFetching: true});
-        this.setState({users: getUsersExcept(this.state.userID)}, () => {
+        this.setState((prevState) => ({
+            users: getUsersExcept(this.state.userID),
+            transfer:{
+                id: "",
+                walletDebited: getWalletByUserId(prevState.userID),
+                walletCredited: {},
+                amount: 0
+            }
+        }), () => {
             this.setState({isFetching: false});
         });
     };
@@ -69,6 +78,8 @@ class Transfer extends Component {
     };
 
     handleSubmit = (event) => {
+        this.validateForm(this.state.transfer, this.state.selectedUserIndex);
+
         if (this.state.selectedUserIndex !== null) {
             const userCredited = this.state.users[this.state.selectedUserIndex];
             const walletCredited = getWalletByUserId(userCredited.id);
@@ -93,7 +104,19 @@ class Transfer extends Component {
         event.preventDefault();
     };
 
+    validateForm = (transfer, selectedUserIndex) => {
+        this.setState({
+            errors: {
+                amountEmpty: transfer.amount === 0 || transfer.amount === "" || transfer.amount === null ? "The amount is required" : false,
+                amountNegative: transfer.amount < 0 ? "The amount must be positive" : false,
+                fundInsufficient: transfer.amount < 0 || isFundSufficient(transfer.walletDebited, transfer.amount) ? false : "Not enough fund",
+                cardNotSelected: selectedUserIndex === null ? "A user must be selected" : false
+            }
+        });
+    };
+
     displayTransferForm = () => {
+        const errors = this.state.errors;
         return (
             <div className="container-in">
                 <div className={"fundsMng-title"}>
@@ -116,6 +139,14 @@ class Transfer extends Component {
                                              handleSelect={this.handleSelect}/>))}
                         </div>
                     </div>
+                    {errors.amountNegative ?
+                        <p className="error-input medium">{errors.amountNegative}</p> : null}
+                    {errors.fundInsufficient ?
+                        <p className="error-input medium">{errors.fundInsufficient}</p> : null}
+                    {errors.amountEmpty ?
+                        <p className="error-input medium">{errors.amountEmpty}</p> : null}
+                    {errors.cardNotSelected ?
+                        <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>
                             <Button color="success" className="boxForm-btn"
