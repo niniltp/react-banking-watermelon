@@ -9,7 +9,7 @@ import Deposit from "./fundsMng/Deposit";
 import Transfer from "./fundsMng/Transfer";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
-import {getWalletByUserId} from "../../backend/wallets_backend";
+import {getWalletByUserID} from "../../backend/wallets_backend";
 import Activity from "./Activity/Activity";
 
 class Home extends Component {
@@ -34,7 +34,7 @@ class Home extends Component {
     fetchData = () => {
         this.setState({isFetchingWallet: true});
         this.setState({
-            wallet: getWalletByUserId(this.state.userID)
+            wallet: getWalletByUserID(this.state.userID)
         }, () => {
             this.setState({isFetchingWallet: false});
         });

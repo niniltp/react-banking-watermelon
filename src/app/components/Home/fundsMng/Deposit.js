@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {getWalletByUserId} from "../../../backend/wallets_backend";
+import {getWalletByUserID} from "../../../backend/wallets_backend";
 import {isDepositValid, makeDeposit} from "../../../services/fundsManager";
 import SimpleCard from "../Cards/SimpleCard";
 import BoxToSelect from "../Boxes/BoxToSelect";
@@ -72,7 +72,7 @@ class Deposit extends Component {
         this.validateForm(this.state.payin, this.state.selectedCardIndex);
 
         if (this.state.selectedCardIndex !== null) {
-            const wallet = getWalletByUserId(this.state.userID);
+            const wallet = getWalletByUserID(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
             const amount = this.state.payin.amount;
 
@@ -137,10 +137,10 @@ class Deposit extends Component {
                             <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
-                            <Button color="success" className="boxForm-btn"
-                                    onClick={this.handleSubmit}>Confirm</Button>
-                            <Link to="/account"><Button color="danger"
-                                                        className="boxForm-btn">Cancel</Button></Link>
+                        <Button color="success" className="boxForm-btn"
+                                onClick={this.handleSubmit}>Confirm</Button>
+                        <Link to="/account"><Button color="danger"
+                                                    className="boxForm-btn">Cancel</Button></Link>
                     </FormGroup>
                 </Form>
             </div>

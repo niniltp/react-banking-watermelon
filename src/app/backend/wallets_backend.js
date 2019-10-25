@@ -1,7 +1,13 @@
 import walletsDB from "../../database/wallets";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 
-export function getWalletByUserId(userID) {
+export function getWalletByID(walletID) {
+    const wallets = getWallets();
+
+    return wallets.find(w => w.id === walletID);
+}
+
+export function getWalletByUserID(userID) {
     const wallets = getWallets();
 
     return wallets.find(w => w.user_id === userID);

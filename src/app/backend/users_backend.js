@@ -1,12 +1,12 @@
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 import usersDB from "../../database/users";
+import {getWalletByID} from "./wallets_backend";
 
 /*
 * This function returns the user specified by its id from the DB
 * */
-export function getUserById(userID) {
+export function getUserByID(userID) {
     const users = getUsers();
-
     return users.find(u => u.id === userID);
 }
 
@@ -15,8 +15,12 @@ export function getUserById(userID) {
 * */
 export function getUserByEmail(email) {
     const users = getUsers();
-
     return users.find(u => u.email === email);
+}
+
+export function getUserByWalletID(walletID) {
+    const wallet = getWalletByID(walletID);
+    return getUserByID(wallet.user_id);
 }
 
 /*

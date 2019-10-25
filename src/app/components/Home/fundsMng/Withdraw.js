@@ -5,7 +5,7 @@ import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {isFundSufficient, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
-import {getWalletByUserId} from "../../../backend/wallets_backend";
+import {getWalletByUserID} from "../../../backend/wallets_backend";
 import BoxToSelect from "../Boxes/BoxToSelect";
 import SimpleCard from "../Cards/SimpleCard";
 import {generateID} from "../../../services/idsGeneartor";
@@ -39,7 +39,7 @@ class Withdraw extends Component {
                 cards: getCardsByUserId(prevState.userID),
                 payout: {
                     id: "",
-                    walletDebited: getWalletByUserId(prevState.userID),
+                    walletDebited: getWalletByUserID(prevState.userID),
                     amount: 0
                 }
             }
@@ -80,7 +80,7 @@ class Withdraw extends Component {
         this.validateForm(this.state.payout, this.state.selectedCardIndex);
 
         if (this.state.selectedCardIndex !== null) {
-            const wallet = getWalletByUserId(this.state.userID);
+            const wallet = getWalletByUserID(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
             const amount = this.state.payout.amount;
 

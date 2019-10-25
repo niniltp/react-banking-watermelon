@@ -7,7 +7,6 @@ class BoxToSelect extends Component {
         super(props);
 
         this.state = {
-            mouseHover: false,
             isSelected: false,
             prevSelectedIndex: this.props.selectedIndex,
             data: this.props.data
@@ -18,7 +17,6 @@ class BoxToSelect extends Component {
         // Re-run the filter whenever props change
         if (state.prevSelectedIndex !== props.selectedIndex) {
             return {
-                mouseHover: state.mouseHover,
                 isSelected: props.selectedIndex === props.index,
                 prevSelectedIndex: props.selectedIndex,
                 data: props.data
@@ -27,18 +25,6 @@ class BoxToSelect extends Component {
 
         return null;
     }
-
-    setMouseHover = () => {
-        this.setState({
-            mouseHover: true
-        })
-    };
-
-    setMouseNotHover = () => {
-        this.setState({
-            mouseHover: false
-        })
-    };
 
     select = () => {
         this.setState({isSelected: true});
@@ -57,11 +43,11 @@ class BoxToSelect extends Component {
             this.deselect();
     };
 
-    displayCard = () => {
+    displayBox = () => {
         const Cont = this.props.container;
         return (
             <div className={this.state.isSelected ? "boxToSelect selected" : "boxToSelect deselected"}
-                 onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover} onClick={this.handleClick}>
+                  onClick={this.handleClick}>
                 <Cont data={this.state.data} classNames={this.props.classNames}/>
             </div>
         )
@@ -69,7 +55,7 @@ class BoxToSelect extends Component {
 
     render() {
         return (
-            this.displayCard()
+            this.displayBox()
         );
     }
 }

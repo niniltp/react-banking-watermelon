@@ -7,7 +7,7 @@ import {isFundSufficient, isTransferValid, makeTransfer} from "../../../services
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
-import {getWalletByUserId} from "../../../backend/wallets_backend";
+import {getWalletByUserID} from "../../../backend/wallets_backend";
 import {generateID} from "../../../services/idsGeneartor";
 
 class Transfer extends Component {
@@ -40,7 +40,7 @@ class Transfer extends Component {
             users: getUsersExcept(this.state.userID),
             transfer: {
                 id: "",
-                walletDebited: getWalletByUserId(prevState.userID),
+                walletDebited: getWalletByUserID(prevState.userID),
                 walletCredited: {},
                 amount: 0
             }
@@ -82,8 +82,8 @@ class Transfer extends Component {
 
         if (this.state.selectedUserIndex !== null) {
             const userCredited = this.state.users[this.state.selectedUserIndex];
-            const walletCredited = getWalletByUserId(userCredited.id);
-            const walletDebited = getWalletByUserId(this.state.userID);
+            const walletCredited = getWalletByUserID(userCredited.id);
+            const walletDebited = getWalletByUserID(this.state.userID);
             const amount = this.state.transfer.amount;
 
             const transfer = {
