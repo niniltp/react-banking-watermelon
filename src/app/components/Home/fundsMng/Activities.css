@@ -1,0 +1,53 @@
+.activity {
+    text-align: left;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: 0.5s;
+}
+
+.activity:hover {
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.activity .amount {
+    text-align: right;
+    font-weight: bold;
+}
+
+.activity ul li {
+    list-style: none;
+}
+
+.payout {
+    background-color: rgba(96, 22, 32, 0.7);
+}
+
+.payout:hover {
+    background-color: rgb(117, 26, 39);
+}
+
+.amount.debited {
+    color: #a5232e;
+}
+
+.payin {
+    background-color: rgba(7, 96, 32, 0.7);
+}
+
+.payin:hover {
+    background-color: rgb(37, 127, 56);
+}
+
+.amount.credited {
+    color: #54c85d;
+}
+
+.transfer {
+    background-color: rgba(49, 86, 121, 0.7);
+}
+
+.transfer:hover {
+    background-color: rgb(68, 116, 164);
+}

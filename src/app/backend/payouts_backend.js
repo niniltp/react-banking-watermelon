@@ -17,7 +17,16 @@ export function getPayoutsByWalletId(wallet_id) {
 * This function returns all the payouts from the DB
 * */
 export function getPayouts() {
-    return setAndGetDataFromLS("payouts", payoutsDB);
+    let payouts =  setAndGetDataFromLS("payouts", payoutsDB);
+
+    payouts = payouts.map((payout) => {
+        return {
+            ...payout,
+            type: "payout"
+        }
+    });
+
+    return payouts;
 }
 
 /*

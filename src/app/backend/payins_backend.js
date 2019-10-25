@@ -17,7 +17,16 @@ export function getPayinsByWalletId(wallet_id) {
 * This function returns all the payins from the DB
 * */
 export function getPayins() {
-    return setAndGetDataFromLS("payins", payinsDB);
+    let payins = setAndGetDataFromLS("payins", payinsDB);
+
+    payins = payins.map((payin) => {
+        return {
+            ...payin,
+            type: "payin"
+        }
+    });
+
+    return payins;
 }
 
 /*

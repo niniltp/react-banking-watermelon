@@ -4,7 +4,7 @@ import './Activities.css';
 import {getUserByWalletID} from "../../../backend/users_backend";
 import {convertToWM} from "../../../services/fundsManager";
 
-class SimpleWithdrawal extends Component {
+class SimpleDeposit extends Component {
     constructor(props) {
         super(props);
 
@@ -36,9 +36,9 @@ class SimpleWithdrawal extends Component {
         return (
             this.state.isFetching ? <p>Fetching data...</p> :
                 <ul>
-                    <li><span className="labelInfoBox">Type: </span>Withdrawal</li>
+                    <li><span className="labelInfoBox">Type: </span>Deposit</li>
                     <li><span className="labelInfoBox">From: </span>{user.first_name} {user.last_name}</li>
-                    <li className="labelInfoBox amount debited">- {amountWM} ₩M</li>
+                    <li className="labelInfoBox amount credited">+ {amountWM} ₩M</li>
                 </ul>
         )
     };
@@ -50,4 +50,4 @@ class SimpleWithdrawal extends Component {
     }
 }
 
-export default SimpleWithdrawal;
+export default SimpleDeposit;

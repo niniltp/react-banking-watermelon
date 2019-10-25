@@ -4,8 +4,8 @@ import {getPayinsByWalletId} from "../../../backend/payins_backend";
 import {getWalletByUserID} from "../../../backend/wallets_backend";
 import {Button, ButtonGroup} from "reactstrap";
 import {getPayoutsByWalletId} from "../../../backend/payouts_backend";
-import Box from "../Boxes/Box";
 import SimpleActivity from "../fundsMng/SimpleActivity";
+import {getTransfersByCreditedWalletId, getTransfersByDebitedWalletId} from "../../../backend/transfers_backend";
 
 class Activity extends Component {
     constructor(props) {
@@ -47,8 +47,22 @@ class Activity extends Component {
                     break;
                 }
                 case "transfers": {
-                    // transfersIn = getTransfersByCreditedWalletId(this.state.walletID);
-                    // transfersOut = getTransfersByDebitedWalletId(this.state.walletID);
+                    transfersIn = getTransfersByCreditedWalletId(this.state.walletID);
+                    transfersOut = getTransfersByDebitedWalletId(this.state.walletID);
+
+                    transfersIn = transfersIn.map((transfer) => {
+                        return {
+                            ...transfer,
+                            way: "in"
+                        }
+                    });
+
+                    transfersOut = transfersOut.map((transfer) => {
+                        return {
+                            ...transfer,
+                            way: "out"
+                        }
+                    });
                     break;
                 }
                 default:
@@ -59,15 +73,12 @@ class Activity extends Component {
         activities = payins.concat(payouts).concat(transfersIn).concat(transfersOut);
 
         this.setState({
-            isFetching: false,
             activities: activities
+        }, () => {
+            this.setState({
+                isFetching: false
+            })
         });
-    };
-
-    buildActivitiesArray = (payins, payouts, transfersIn, transfersOut) => {
-        let activities = payins.concat(payouts).concat(transfersIn).concat(transfersOut);
-        console.log(activities);
-        return activities;
     };
 
     addFilter = (filter) => {
@@ -104,11 +115,9 @@ class Activity extends Component {
 
     displayActivities = () => {
         return (
-            <div id="boxesContainer">
-                <div id="boxesList">
-                    {this.state.isFetching ? <p>Fetching data...</p> : this.state.activities.map((activity, index) => (
-                        <Box key={index} container={SimpleActivity} data={activity}/>))}
-                </div>
+            <div id="boxesList">
+                {this.state.isFetching ? <p>Fetching data...</p> : this.state.activities.map((activity, index) => (
+                    <SimpleActivity key={index} data={activity}/>))}
             </div>
         );
     };
@@ -126,9 +135,7 @@ class Activity extends Component {
                         <Button color="primary" onClick={() => this.handleClickFilter("transfers")}
                                 active={this.isFilterActive("transfers")}>Transfers</Button>
                     </ButtonGroup>
-                    <div id="boxesList">
-                        {this.state.isFetching ? <p>Fetching data...</p> : this.displayActivities()}
-                    </div>
+                    {this.state.isFetching ? <p>Fetching data...</p> : this.displayActivities()}
                 </div>
             </div>
         );

@@ -28,7 +28,16 @@ export function getTransfersByDebitedWalletId(wallet_id) {
 * This function returns all the transfers from the DB
 * */
 export function getTransfers() {
-    return setAndGetDataFromLS("transfers", transfersDB);
+    let transfers = setAndGetDataFromLS("transfers", transfersDB);
+
+    transfers = transfers.map((transfer) => {
+        return {
+            ...transfer,
+            type: "transfer"
+        }
+    });
+
+    return transfers;
 }
 
 /*
