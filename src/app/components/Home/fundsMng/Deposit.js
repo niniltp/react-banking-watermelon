@@ -24,7 +24,8 @@ class Deposit extends Component {
                 amount: 0
             },
             selectedCardIndex: null,
-            depositConfirmed: false
+            depositConfirmed: false,
+            errors: {}
         };
     }
 
@@ -68,6 +69,8 @@ class Deposit extends Component {
     };
 
     handleSubmit = (event) => {
+        this.validateForm(this.state.payin, this.state.selectedCardIndex);
+
         if (this.state.selectedCardIndex !== null) {
             const wallet = getWalletByUserId(this.state.userID);
             const card = this.state.cards[this.state.selectedCardIndex];
@@ -90,7 +93,19 @@ class Deposit extends Component {
         event.preventDefault();
     };
 
+    validateForm = (payin, selectedCardIndex) => {
+        this.setState({
+            errors: {
+                amountEmpty: payin.amount === 0 || payin.amount === "" || payin.amount === null ? "The amount is required" : false,
+                amountNegative: payin.amount < 0 ? "The amount must be positive" : false,
+                cardNotSelected: selectedCardIndex === null ? "A card must be selected" : false
+            }
+        });
+    };
+
     displayDepositForm = () => {
+        const errors = this.state.errors;
+
         return (
             <div className="container-in">
                 <div className={"fundsMng-title"}>
@@ -112,6 +127,14 @@ class Deposit extends Component {
                                              selectedIndex={this.state.selectedCardIndex}
                                              handleSelect={this.handleSelect}/>))}
                         </div>
+                    </div>
+                    <div>
+                        {errors.amountEmpty ?
+                            <p className="error-input medium">{errors.amountEmpty}</p> : null}
+                        {errors.amountNegative ?
+                            <p className="error-input medium">{errors.amountNegative}</p> : null}
+                        {errors.cardNotSelected ?
+                            <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>

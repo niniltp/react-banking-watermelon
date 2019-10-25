@@ -60,3 +60,7 @@
   font-weight: bold;
   color: #C82333;
 }
+
+.error-input.medium {
+  font-size: medium;
+}

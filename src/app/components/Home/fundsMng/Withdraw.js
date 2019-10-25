@@ -104,8 +104,8 @@ class Withdraw extends Component {
     validateForm = (payout, selectedCardIndex) => {
         this.setState({
             errors: {
-                amountEmpty: payout.amount === 0 || payout.amount === null ? "Required" : false,
-                amountNegative: payout.amount < 0 ? "Must be positive" : false,
+                amountEmpty: payout.amount === 0 || payout.amount === "" || payout.amount === null ? "The amount is required" : false,
+                amountNegative: payout.amount < 0 ? "The amount must be positive" : false,
                 fundInsufficient: payout.amount < 0 || isFundSufficient(payout.walletDebited, payout.amount) ? false : "Not enough fund",
                 cardNotSelected: selectedCardIndex === null ? "A card must be selected" : false
             }
@@ -125,14 +125,7 @@ class Withdraw extends Component {
                                className="creditCardForm-input amount-input"
                                name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
-
                     </FormGroup>
-                    {errors.amountEmpty ?
-                        <p className="error-input">{errors.amountEmpty}</p> : null}
-                    {errors.amountNegative ?
-                        <p className="error-input">{errors.amountNegative}</p> : null}
-                    {errors.fundInsufficient ?
-                        <p className="error-input">{errors.fundInsufficient}</p> : null}
                     <div id="boxesContainer">
                         <h3>Choose your card</h3>
                         <div id="boxesList">
@@ -143,8 +136,16 @@ class Withdraw extends Component {
                                              handleSelect={this.handleSelect}/>
                             ))}
                         </div>
+                    </div>
+                    <div>
+                        {errors.amountNegative ?
+                            <p className="error-input medium">{errors.amountNegative}</p> : null}
+                        {errors.fundInsufficient ?
+                            <p className="error-input medium">{errors.fundInsufficient}</p> : null}
+                        {errors.amountEmpty ?
+                            <p className="error-input medium">{errors.amountEmpty}</p> : null}
                         {errors.cardNotSelected ?
-                            <p className="error-input">{errors.cardNotSelected}</p> : null}
+                            <p className="error-input medium">{errors.cardNotSelected}</p> : null}
                     </div>
                     <FormGroup check className="box-formGroup reset-margin" row>
                         <Col>
