@@ -1,27 +1,56 @@
 import React, {Component} from 'react';
+import {getUserIDAuth} from "../../../services/authenticationManager";
+import {getUserById} from "../../../backend/users_backend";
+import Parameters from "./Parameter";
+import {Button} from "reactstrap";
+import {Link, Prompt} from "react-router-dom";
 
+//code written by CHEONG Loïc
 
 class Settings extends Component {
 
     constructor(props){
         super(props);
             this.state = ({
-            email : '',
-            password : '',
-            errors : [],
-            isModifying : false
+            parameters : []
         });
     }
 
-
-    MsgErr(elt,msg){
-        /*This function will add error messages to the array errors*/
-        this.setState((lastState) => ({ errors : [...lastState.errors, {elt,msg} ]}));
+    componentDidMount(){
+        //to delete at the end or maybe not ...
+        console.log("You are in settings !");
+        this.initParam();
     }
 
+    addParam(elt,value,msgError,isChanging){
+        this.setState((prevState) => ({ parameters : [...prevState.parameters, {name : elt, val : value}]}));
+    }
+    
+    initParam(){
+        /*This function initializes the array parameters
+        with the user's data*/
+        let array = [];
+        const user = getUserById(getUserIDAuth()); //it's an Object
+        array.push(user);
+        this.addParam("First name",array[0].first_name);
+        this.addParam("Last name",array[0].last_name);
+        this.addParam("Email",array[0].email);
+        this.addParam("Password",array[0].password);  
+        //console.log(this.state.parameters);
+    }
+    
 
     render(){
-        return ("J'essaie de comprendre ce que tu as fait dans credit cards ...");
+        return (
+            <div className="container-in">
+                <br/>
+                <h3>Profile</h3>
+                {this.state.parameters.map((param,index)=>(<Parameters key={index} index={index} param={param} />))}
+                <br/>
+                <br/>
+                <Link to="/account"><Button color="primary">Go back</Button></Link>
+            </div>
+        );
     }
 }
 

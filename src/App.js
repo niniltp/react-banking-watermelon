@@ -45,7 +45,11 @@ class App extends Component {
                     <ProtectedRoute path="/withdraw" component={Home}/>
                     <ProtectedRoute path="/deposit" component={Home}/>
                     <ProtectedRoute path="/transfer" component={Home}/>
-                    <Route path="*" component={() => "ERROR 404 PAGE NOT FOUND"}/>
+                    <Route path="*" component={() => <div>
+                            <h1>ERROR 404 PAGE NOT FOUND</h1>
+                            <br/>
+                            <h6><Link to="/">Go to the login page</Link></h6>
+                        </div>}/>
                 </Switch>
             </div>
         );
