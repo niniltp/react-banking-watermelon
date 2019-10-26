@@ -31,3 +31,7 @@ export function setAndGetDataFromLS(key, data) {
 
     return dataFromLS;
 }
+
+export function resetLS() {
+    localStorage.clear();
+}

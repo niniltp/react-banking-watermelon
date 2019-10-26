@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import {Link} from "react-router-dom";
 import './Menu.css';
-import {disconnectUser} from "../../../services/authenticationManager";
+import {disconnectUser, isAdmin} from "../../../services/authenticationManager";
+import {resetLS} from "../../../services/localStorageManager";
 
 class Menu extends Component {
     handleResetDB = () => {
-        localStorage.clear();
+        if(isAdmin())
+            resetLS();
     };
 
     handleDisconnect = () => {
@@ -23,8 +25,8 @@ class Menu extends Component {
                 <Link to="/deposit"><Button outline color="primary" className="menuBtn">Deposit</Button></Link>
                 <Link to="/transfer"><Button outline color="primary" className="menuBtn">Transfer</Button></Link>
                 <Link to="/"><Button outline color="danger" className="menuBtn" onClick={this.handleDisconnect}>Disconnect</Button></Link>
-                <Link to="/"><Button outline color="danger" className="menuBtn" onClick={this.handleResetDB}>Reset
-                    DB</Button></Link>
+                {isAdmin() ? <Link to="/"><Button outline color="danger" className="menuBtn" onClick={this.handleResetDB}>Reset
+                    DB</Button></Link> : null}
             </div>
         );
     }
