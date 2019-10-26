@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import {Link} from "react-router-dom";
 import Card from './Card.js';
-import './Cards.css';
 import '../Boxes/Boxes.css';
 import {
     is4digitsCardValid,
@@ -53,7 +52,6 @@ class Cards extends Component {
         this.setState({isFetching: true});
         this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
             this.setState({isFetching: false});
-            console.log(this.state.cards)
         });
     };
 
@@ -304,7 +302,7 @@ class Cards extends Component {
                                   onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
-                            <Button outline color="success" className="addCreditCard-btn"
+                            <Button outline color="success" className="add-btn"
                                     onClick={this.enableAddingCard}>+</Button>}
                     </div>
                     <br/>

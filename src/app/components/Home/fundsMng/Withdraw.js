@@ -143,7 +143,7 @@ class Withdraw extends Component {
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
                         <Input type="number" min="0" max="999999999999" id="amount"
-                               className="creditCardForm-input amount-input"
+                               className="boxForm-input amount-input"
                                name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
                         <Label for="amount" className="amount-label">₩M</Label>
                     </FormGroup>

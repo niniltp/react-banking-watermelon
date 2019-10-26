@@ -1,6 +1,5 @@
 import cardsDB from "../../database/cards";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
-import {generateID} from "../services/idsGeneartor";
 import {getUserIDAuth} from "../services/authenticationManager";
 
 /*
@@ -9,7 +8,7 @@ import {getUserIDAuth} from "../services/authenticationManager";
 export function getCardsByUserId(userID) {
     const cards = getCards();
 
-    return cards.filter( (card) => {
+    return cards.filter((card) => {
         return card.user_id === userID
     });
 }
