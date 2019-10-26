@@ -57,6 +57,10 @@ class Card extends Component {
         this.setState({isModifying: false});
     };
 
+    /**
+     * This function checks if the new card stored in the component"s state is valid
+     * @returns true if valid | false if not
+     */
     isNewCardValid = () => {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
@@ -70,11 +74,19 @@ class Card extends Component {
         return isCardValid(card);
     };
 
+    /**
+     * This function sends the remove order to the parent using the props, so it can remove the card from the data
+     * @param event
+     */
     handleRemove = (event) => {
         event.preventDefault();
         this.props.onRemove(this.state.index, this.state.card.id);
     };
 
+    /**
+     * This function handles the submit of the modification card form
+     * @param event
+     */
     handleSubmitModification = (event) => {
         event.preventDefault();
         const expirationDate = this.state.newCard.expirationDate + "-01";
@@ -109,6 +121,10 @@ class Card extends Component {
         }
     };
 
+    /**
+     * This functions handles the activation of the modification mode
+     * @param event
+     */
     handleModify = (event) => {
         event.preventDefault();
         this.enableModifying();
@@ -116,6 +132,11 @@ class Card extends Component {
         console.log(this.state.card);
     };
 
+    /**
+     * This function handles the change in any input of the form.
+     * It also prevents non valid inputs
+     * @param event
+     */
     handleChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -131,6 +152,11 @@ class Card extends Component {
         }
     };
 
+    /**
+     * This function checks if the inputs of the form are valid are not
+     * Display error messages if the input isn't valid
+     * @param card : object which we want to check the input
+     */
     validateForm = (card) => {
         const month = getMonthFromExpirationDateCard(card.expirationDate);
         const year = getYearFromExpirationDateCard(card.expirationDate);
@@ -143,6 +169,10 @@ class Card extends Component {
         });
     };
 
+    /**
+     * This function displays the card
+     * @returns {*}
+     */
     displayCard = () => {
         return (
             <div className="box box-hover" onMouseEnter={this.setMouseHover} onMouseLeave={this.setMouseNotHover}>
@@ -156,6 +186,10 @@ class Card extends Component {
         )
     };
 
+    /**
+     * This function displays the modification card form
+     * @returns {*}
+     */
     displayModifyCard = () => {
         const errors = this.state.errors;
         return (

@@ -65,6 +65,23 @@ class Cards extends Component {
         this.setState({isAddingCard: false});
     };
 
+    resetNewCardInputs = () => {
+        this.setState({
+            newCard: {
+                brand: "",
+                numberCard0: "",
+                numberCard1: "",
+                numberCard2: "",
+                numberCard3: "",
+                expirationDate: ""
+            }
+        });
+    };
+
+    /**
+     * This function checks if the new card stored in the component"s state is valid
+     * @returns true if valid | false if not
+     */
     isNewCardValid = () => {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
@@ -78,6 +95,9 @@ class Cards extends Component {
         return isCardValid(card) && isNumberCardValid_divided(newCard.numberCard0, newCard.numberCard1, newCard.numberCard2, newCard.numberCard3);
     };
 
+    /**
+     * This function adds the new card stored in the component's state
+     */
     addCard = () => {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
@@ -93,6 +113,11 @@ class Cards extends Component {
         addCardDB(card);
     };
 
+    /**
+     * This function updates the card in the data
+     * @param index : index of the card
+     * @param card : new data of the ward
+     */
     modifyCard = (index, card) => {
         let cards = this.state.cards;
         cards[index] = card;
@@ -104,6 +129,10 @@ class Cards extends Component {
         updateCardDB(card);
     };
 
+    /**
+     * This function removes the card from the data
+     * @param id : id of the card
+     */
     removeCard = (id) => {
         this.setState(prevState => ({
             cards: prevState.cards.filter(card => card.id !== id)
@@ -114,6 +143,11 @@ class Cards extends Component {
 
     };
 
+    /**
+     * This function handles the change in any input of the form.
+     * It also prevents non valid inputs
+     * @param event
+     */
     handleChange = (event) => {
         const target = event.target;
         const name = target.name;
@@ -129,36 +163,46 @@ class Cards extends Component {
         }
     };
 
+    /**
+     * This function handles the submit of the adding card form
+     * @param event
+     */
     handleSubmit = (event) => {
         event.preventDefault();
         this.validateForm(this.state.newCard);
         if (this.isNewCardValid()) {
             this.addCard();
-            console.log("New card added");
-            this.setState({
-                isAddingCard: false,
-                newCard: {
-                    brand: "",
-                    numberCard0: "",
-                    numberCard1: "",
-                    numberCard2: "",
-                    numberCard3: "",
-                    expirationDate: ""
-                }
-            });
+            console.log("new card added");
+            this.disableAddingCard();
+            this.resetNewCardInputs();
         }
     };
 
+    /**
+     * This function handles the modification order sent by the Card child so it can updtate the card with the new data
+     * @param index : index of the card
+     * @param card : new data of the card
+     */
     handleModif = (index, card) => {
         this.modifyCard(index, card);
         console.log(`modify card ${index}, ${card.id}`);
     };
 
+    /**
+     * This function handles the remove order sent by the Card child so it can remove the card from the data
+     * @param index : index of the card
+     * @param id : id of the card
+     */
     handleRemove = (index, id) => {
         this.removeCard(id);
         console.log(`remove card ${index}, ${id}`);
     };
 
+    /**
+     * This function checks if the inputs of the form are valid are not
+     * Display error messages if the input isn't valid
+     * @param card : object which we want to check the input
+     */
     validateForm = (card) => {
         const month = getMonthFromExpirationDateCard(card.expirationDate);
         const year = getYearFromExpirationDateCard(card.expirationDate);
@@ -174,6 +218,10 @@ class Cards extends Component {
         });
     };
 
+    /**
+     * This function displays the adding card form
+     * @returns {*}
+     */
     displayAddCard = () => {
         const errors = this.state.errors;
         return (
@@ -241,6 +289,10 @@ class Cards extends Component {
         )
     };
 
+    /**
+     * This functions renders the list of cards and the adding card form if the mode is active
+     * @returns {*}
+     */
     render = () => {
         return (
             <div className="container-in">
