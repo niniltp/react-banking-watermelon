@@ -254,7 +254,7 @@ class Parameter extends Component {
                         <Row>
                             <Col><Form.Label>New password</Form.Label></Col>
                             <Col>
-                                <Form.Control type="password" placeholder="New password (8 or mor characters)" onChange={this.handleChangePwd2} value={this.state.pwd2}/>
+                                <Form.Control type="password" placeholder="New password (8 or more characters)" onChange={this.handleChangePwd2} value={this.state.pwd2}/>
                                 <p style={{fontSize: 12, color: "red"}}>{passwordErr2 ? passwordErr2 : ""}</p>
                             </Col>
                             <Col></Col>

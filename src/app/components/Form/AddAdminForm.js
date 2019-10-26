@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, Redirect } from 'react-router-dom';
-import { Button, ButtonToolbar} from 'reactstrap';
+import { Link} from 'react-router-dom';
+import { Button} from 'reactstrap';
 import Form from 'react-bootstrap/Form';
 import {getUsers, addUser} from "../../backend/users_backend";
-import {authenticateUser, isAuth} from "../../services/authenticationManager";
+import {authenticateUser} from "../../services/authenticationManager";
 import {getWallets, addWallet} from "../../backend/wallets_backend.js";
 
 //Code written by CHEONG Loïc
@@ -18,15 +18,14 @@ class AddAdminForm extends Component {
             last_name : '',
             email : '',
             password : '',
-            errors : [],
-            redirect : false
+            errors : []
         };  
             
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.signUp= this.signUp.bind(this); 
+        this.checkField= this.checkField.bind(this); 
     }
 
     handleChangeFirstName = event => {
@@ -55,7 +54,7 @@ class AddAdminForm extends Component {
             last_name: this.state.last_name, 
             email: this.state.email, 
             password: this.state.password, 
-            is_admin: false
+            is_admin: true
         };
 
         const wallets = getWallets();
@@ -79,7 +78,7 @@ class AddAdminForm extends Component {
     }
 
 
-    signUp(){
+    checkField(){
         //this function checks if there is what it is expected in the fields
         //Otherwise, it will display a msg error
         this.setState({errors : [] });
@@ -104,13 +103,12 @@ class AddAdminForm extends Component {
         }
 
         if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users
-            this.MsgErr("email","There is already an user under this email address !");
+            this.MsgErr("email","There is already an user under this email address ! This is not here to convert an user into an admin");
             condition++;
         } else if (this.state.email === "") {
             this.MsgErr("email","You have not to fill in this field !");
             condition++;
         }
-
         
         if (condition === 0){// condition = 0 means that there is not any error
             //let newArray = users.concat(this.subscribe());
@@ -121,19 +119,16 @@ class AddAdminForm extends Component {
             //console.log(newUser);
             addUser(newUser);
             //console.log(getUsers());
-            this.setState({redirect: true});
-           
         } 
         
     }
+
+    
 
 
 
     render() {
 
-        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>; //TODO: change with function
-
-        else {
             let  lastNameErr = null, firstNameErr = null, emailErr = null, passwordErr = null;
 
             for(let err of this.state.errors){
@@ -145,7 +140,10 @@ class AddAdminForm extends Component {
 
             return (
                 <Form>
-                    <div className="home-container">
+                    <div>
+                    <br/>
+                    <br/>
+                    <br/>
                         <h4>Please fill in this form :</h4>
                         <br/>
                         <Form.Group>
@@ -154,7 +152,6 @@ class AddAdminForm extends Component {
                         <p style={{fontSize:12, color: "red"}}>{lastNameErr ? lastNameErr : ""}</p>
                         </Form.Group>
                         
-
                         <Form.Group>
                         <Form.Label>First name</Form.Label>
                         <Form.Control type="text" placeholder="First name"  onChange={this.handleChangeFirstName} value={this.state.first_name}/>
@@ -166,19 +163,12 @@ class AddAdminForm extends Component {
                             <Form.Control type="email" placeholder="Email" onChange={this.handleChangeEmail.bind(this)} value={this.state.email}/>
                             <p style={{fontSize:12, color: "red"}}>{emailErr ? emailErr : ""}</p>
                         </Form.Group>
-                        
                     
                         <Form.Group controlId="formGroupPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password (8 or more characters)" onChange={this.handleChangePassword} value={this.state.password}/>
                             <p style={{fontSize:12, color: "red"}}>{passwordErr ? passwordErr : ""}</p>
                         </Form.Group>
-                        
-                        
-                        <br/>
-                        <ButtonToolbar>
-                        <Button type="button" color="primary" onClick={this.signUp} block>Sign Up</Button>
-                        </ButtonToolbar>
                         <br/>
                         <br/>
                         <Button color="success" className="boxForm-btn" onClick={this.checkField}>Add an admin</Button>
@@ -191,7 +181,7 @@ class AddAdminForm extends Component {
                 
             );
         }
-    }
+
     
 }
 
