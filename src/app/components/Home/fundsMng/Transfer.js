@@ -3,7 +3,7 @@ import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {isFundSufficient, isTransferValid, makeTransfer} from "../../../services/fundsManager";
+import {isFundSufficient, isInputAmountValid, isTransferValid, makeTransfer} from "../../../services/fundsManager";
 import {getUsersExcept} from "../../../backend/users_backend";
 import SimpleUser from "../Users/SimpleUser";
 import BoxToSelect from "../Boxes/BoxToSelect";
@@ -59,24 +59,39 @@ class Transfer extends Component {
         });
     };
 
+    /**
+     * This function handles the change in the amount input of the form.
+     * It also prevents non valid inputs
+     * @param event
+     */
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState(prevState => ({
-            transfer: {
-                ...prevState.transfer,
-                amount: value
-            }
-        }));
+        if (isInputAmountValid(value)) {
+            this.setState(prevState => ({
+                transfer: {
+                    ...prevState.transfer,
+                    amount: value
+                }
+            }));
+        }
     };
 
+    /**
+     * This function handles the selection of a user
+     * @param index : index of the user
+     */
     handleSelect = (index) => {
         this.setState({
             selectedUserIndex: index
         });
     };
 
+    /**
+     * This function handles the submit of the form
+     * @param event
+     */
     handleSubmit = (event) => {
         this.validateForm(this.state.transfer, this.state.selectedUserIndex);
 
@@ -104,6 +119,12 @@ class Transfer extends Component {
         event.preventDefault();
     };
 
+    /**
+     * This function checks if the inputs of the form are valid are not
+     * Display error messages if the input isn't valid
+     * @param transfer : object which we want to check the input
+     * @param selectedUserIndex : index of the user selected
+     */
     validateForm = (transfer, selectedUserIndex) => {
         this.setState({
             errors: {

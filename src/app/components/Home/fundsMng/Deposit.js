@@ -5,7 +5,7 @@ import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getWalletByUserID} from "../../../backend/wallets_backend";
-import {isDepositValid, makeDeposit} from "../../../services/fundsManager";
+import {isDepositValid, isInputAmountValid, makeDeposit} from "../../../services/fundsManager";
 import SimpleCard from "../Cards/SimpleCard";
 import BoxToSelect from "../Boxes/BoxToSelect";
 import {generateID} from "../../../services/idsGeneartor";
@@ -50,24 +50,39 @@ class Deposit extends Component {
         });
     };
 
+    /**
+     * This function handles the change in the amount input of the form.
+     * It also prevents non valid inputs
+     * @param event
+     */
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState(prevState => ({
-            payin: {
-                ...prevState.payin,
-                amount: value
-            }
-        }));
+        if (isInputAmountValid(value)) {
+            this.setState(prevState => ({
+                payin: {
+                    ...prevState.payin,
+                    amount: value
+                }
+            }));
+        }
     };
 
+    /**
+     * This function handles the selection of a card
+     * @param index : index of the card
+     */
     handleSelect = (index) => {
         this.setState({
             selectedCardIndex: index
         });
     };
 
+    /**
+     * This function handles the submit of the form
+     * @param event
+     */
     handleSubmit = (event) => {
         this.validateForm(this.state.payin, this.state.selectedCardIndex);
 
@@ -93,6 +108,12 @@ class Deposit extends Component {
         event.preventDefault();
     };
 
+    /**
+     * This function checks if the inputs of the form are valid are not
+     * Display error messages if the input isn't valid
+     * @param payin : object which we want to check the input
+     * @param selectedCardIndex : index of the card selected
+     */
     validateForm = (payin, selectedCardIndex) => {
         this.setState({
             errors: {

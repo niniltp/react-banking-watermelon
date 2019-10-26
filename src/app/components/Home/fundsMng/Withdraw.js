@@ -4,7 +4,7 @@ import {getCardsByUserId} from "../../../backend/cards_backend";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
-import {isFundSufficient, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
+import {isFundSufficient, isInputAmountValid, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
 import {getWalletByUserID} from "../../../backend/wallets_backend";
 import BoxToSelect from "../Boxes/BoxToSelect";
 import SimpleCard from "../Cards/SimpleCard";
@@ -58,24 +58,39 @@ class Withdraw extends Component {
         });
     };
 
+    /**
+     This function handles the change in the amount input of the form.
+     * It also prevents non valid inputs
+     * @param event
+     */
     handleChange = (event) => {
         const target = event.target;
         const value = target.value;
 
-        this.setState(prevState => ({
-            payout: {
-                ...prevState.payout,
-                amount: value
-            }
-        }));
+        if (isInputAmountValid(value)) {
+            this.setState(prevState => ({
+                payout: {
+                    ...prevState.payout,
+                    amount: value
+                }
+            }));
+        }
     };
 
+    /**
+     * This function handles the selection of a card
+     * @param index : index of the card
+     */
     handleSelect = (index) => {
         this.setState(() => ({
             selectedCardIndex: index
         }));
     };
 
+    /**
+     * This function handles the submit of the form
+     * @param event
+     */
     handleSubmit = (event) => {
         this.validateForm(this.state.payout, this.state.selectedCardIndex);
 
@@ -94,13 +109,19 @@ class Withdraw extends Component {
                 makeWithdraw(payout);
                 this.props.updateWallet();
                 this.confirmWithdraw();
-                console.log(`make withdraw of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
+                console.log(`withdraw of ${amount}₩M from wallet (id: ${wallet.id}) to card (id: ${card.id})`);
             }
         }
 
         event.preventDefault();
     };
 
+    /**
+     * This function checks if the inputs of the form are valid are not
+     * Display error messages if the input isn't valid
+     * @param payout : object which we want to check the input
+     * @param selectedCardIndex : index of the card selected
+     */
     validateForm = (payout, selectedCardIndex) => {
         this.setState({
             errors: {

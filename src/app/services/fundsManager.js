@@ -9,6 +9,11 @@ function isAmountValid(amount) {
     return amount > 0;
 }
 
+export function isInputAmountValid(input) {
+    const regex = /^(\s*|\d+(\.\d{1,2})?)$/;
+    return input.match(regex);
+}
+
 export function isFundSufficient(walletDebited, amount) {
     return walletDebited.balance - convertToAmount(amount) >= 0;
 }
