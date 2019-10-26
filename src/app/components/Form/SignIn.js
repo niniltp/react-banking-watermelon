@@ -101,7 +101,7 @@ class SignIn extends Component {
             if (err.elt === "wrongUser") wrongUserErr = err.msg;
         }
 
-        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>; //TODO: change with function
+        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>;
         return (
 
             <Form>

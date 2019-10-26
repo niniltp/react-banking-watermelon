@@ -135,7 +135,7 @@ class SignUp extends Component {
 
     render() {
 
-        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>; //TODO: change with function
+        if(this.state.redirect || isAuth()) return <Redirect to='/account'/>;
 
         else {
             let  lastNameErr = null, firstNameErr = null, emailErr = null, passwordErr = null;
