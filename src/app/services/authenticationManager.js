@@ -19,6 +19,7 @@ export function authenticateUser(user) {
 export function disconnectUser() {
     localStorage.setItem("isAuth", "false");
     localStorage.setItem("userID", null);
+    localStorage.setItem("isAdmin", "false");
 }
 
 /**

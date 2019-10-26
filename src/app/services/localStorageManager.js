@@ -32,6 +32,24 @@ export function setAndGetDataFromLS(key, data) {
     return dataFromLS;
 }
 
+export function setdbIDinLS() {
+    localStorage.setItem("dbID", "lcqnp");
+}
+
+export function getdbIDFromLS() {
+    return localStorage.getItem("dbID");
+}
+
+export function checkResetLS() {
+    if(getdbIDFromLS() === "lcqnp" )
+        return true;
+    else{
+        resetLS();
+        setdbIDinLS();
+        return false;
+    }
+}
+
 export function resetLS() {
     localStorage.clear();
 }

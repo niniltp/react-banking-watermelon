@@ -10,6 +10,7 @@ import Home from './app/components/Home/Home.js';
 import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
 import {isAuth} from "./app/services/authenticationManager";
+import {checkResetLS} from "./app/services/localStorageManager";
 
 class App extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class App extends Component {
     componentDidMount() {
         /*this fonction fires after the initial render
         Set the database in localStorage*/
-        // localStorage.clear(); //TODO: delete this line ?
+        checkResetLS();
         if (!isAuth()) disconnectUser();
     }
 
