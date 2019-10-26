@@ -10,6 +10,7 @@ import Transfer from "./fundsMng/Transfer";
 import './Home.css';
 import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserID} from "../../backend/wallets_backend";
+import {getUserByID} from "../../backend/users_backend";
 import Activity from "./Activity/Activity";
 
 class Home extends Component {
@@ -45,10 +46,11 @@ class Home extends Component {
     };
 
     render() {
+        const user = getUserByID(this.state.userID);
         return (
             <div className="container" id="home">
                 <Wallet wallet={this.state.wallet} isFetching={this.state.isFetchingWallet}/>
-                <h1>Hi</h1>
+                <h1>Hi, {user.first_name} {user.last_name}</h1>
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/settings" component={Settings}/>
                 <Route path="/cards" component={Cards}/>
