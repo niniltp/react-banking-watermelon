@@ -67,7 +67,7 @@ class SignIn extends Component {
 
         if (user.length === 1) {//the user has been found in the array users
             if (user[0].email === this.state.email && user[0].password === this.state.password) {
-                authenticateUser(user[0].id);
+                authenticateUser(user[0]);
                 // localStorage.setItem("isAuth", true);
                 // localStorage.setItem("userID", user[0].id);
                 console.log("Vous vous êtes bien connecté !");

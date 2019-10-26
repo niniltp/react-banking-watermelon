@@ -55,7 +55,7 @@ class SignUp extends Component {
             last_name: this.state.last_name, 
             email: this.state.email, 
             password: this.state.password, 
-            is_admin: "false"
+            is_admin: false
         };
 
         const wallets = getWallets();
@@ -65,7 +65,7 @@ class SignUp extends Component {
                 balance: 0
         };
 
-        authenticateUser(users[users.length-1].id+1);
+        authenticateUser(newUser);
         addWallet(newWallet);
         //console.log(newUser);
         console.log(newWallet);

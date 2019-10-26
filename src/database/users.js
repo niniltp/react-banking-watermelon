@@ -5,7 +5,7 @@ const users = [
         last_name: 'Santiago',
         email: 'amy.santiago@brkln.com',
         password: 'superpuzzler2',
-        is_admin: 'false'
+        is_admin: false
     },
     {
         id: 1,
@@ -13,7 +13,7 @@ const users = [
         last_name: 'Peralta',
         email: 'jake.peralta@brkln.com',
         password: 'mynameisJake11',
-        is_admin: 'false'
+        is_admin: false
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ const users = [
         last_name: 'Holt',
         email: 'raymond.holt@brkln.com',
         password: 'captaincaptain',
-        is_admin: 'true'
+        is_admin: true
     }
 ];
 

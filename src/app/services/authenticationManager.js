@@ -1,24 +1,32 @@
-/*
-This function is used to authenticate and connect the user
-*/
-export function authenticateUser(userID) {
-    localStorage.setItem("isAuth", "true");
-    localStorage.setItem("userID", userID);
+/**
+ * This function is used to authenticate and connect the user
+ * @param user
+ */
+export function authenticateUser(user) {
+    if (user) {
+        localStorage.setItem("isAuth", "true");
+        localStorage.setItem("userID", user.id);
+        if (user.is_admin === true)
+            localStorage.setItem("isAdmin", "true");
+        else
+            localStorage.setItem("isAdmin", "false");
+    }
 }
 
-/*
-This function is used to disconnect the user
-*/
+/**
+ * This function is used to disconnect the user
+ */
 export function disconnectUser() {
     localStorage.setItem("isAuth", "false");
     localStorage.setItem("userID", null);
 }
 
-/*
-This function is used to know if the user is authenticated or not
-*/
+/**
+ * This function is used to know if the user is authenticated or not
+ * @returns {boolean}
+ */
 export function isAuth() {
-    if(localStorage.getItem("isAuth") === "true" && localStorage.getItem("userID") !== null) {
+    if (localStorage.getItem("isAuth") === "true" && localStorage.getItem("userID") !== null) {
         return true;
     }
 
@@ -26,9 +34,19 @@ export function isAuth() {
     return false;
 }
 
-/*
-This function is used to get the ID of the authenticated user (if he is connected)
-*/
+/**
+ * This function is used to know if the user is an admin or not
+ * @returns {boolean}
+ */
+export function isAdmin() {
+    return (isAuth() && localStorage.getItam("isAdmin") === "true");
+}
+
+/**
+ * This function is used to get the ID of the authenticated user (if he is connected)
+ * @returns {null|number}
+ */
 export function getUserIDAuth() {
-    if(isAuth()) return parseInt(localStorage.getItem("userID"));
+    if (isAuth()) return parseInt(localStorage.getItem("userID"));
+    else return null;
 }
