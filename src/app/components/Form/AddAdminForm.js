@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import {getUsers, addUser} from "../../backend/users_backend";
 import {authenticateUser} from "../../services/authenticationManager";
 import {getWallets, addWallet} from "../../backend/wallets_backend.js";
+import {isEmail} from "./IsEmail";
 
 //Code written by CHEONG Loïc
 
@@ -108,6 +109,9 @@ class AddAdminForm extends Component {
         } else if (this.state.email === "") {
             this.MsgErr("email","You have not to fill in this field !");
             condition++;
+        } else if (!(isEmail(this.state.email)) && this.state.email.length>0){
+            this.MsgErr("NotAnEmail","This is not an email address !");
+            condition++;
         }
         
         if (condition === 0){// condition = 0 means that there is not any error
@@ -135,16 +139,17 @@ class AddAdminForm extends Component {
                 if (err.elt === "lastName") lastNameErr = err.msg;
                 if (err.elt === "firstName") firstNameErr = err.msg;
                 if (err.elt === "email") emailErr = err.msg;
+                if (err.elt === "NotAnEmail") emailErr = err.msg;
                 if (err.elt === "password") passwordErr = err.msg;
             }
 
             return (
                 <Form>
-                    <div>
+                    <div className="container-in">
                     <br/>
                     <br/>
                     <br/>
-                        <h4>Please fill in this form :</h4>
+                        <h4>Add a new administrator in Watermelon :</h4>
                         <br/>
                         <Form.Group>
                         <Form.Label>Last name</Form.Label>
