@@ -12,17 +12,17 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            parameters: []
+            parameters: [] //This array will contain objects with the name of the parameter and its value
         });
     }
 
     componentDidMount() {
-        //to delete at the end or maybe not ...
-        console.log("You are in settings !");
+        //console.log("You are in settings !");
         this.initParam();
     }
 
-    addParam(elt, value, msgError, isChanging) {
+    addParam(elt, value) {
+        //THis function adds a new parameter in the array parameters
         this.setState((prevState) => ({parameters: [...prevState.parameters, {name: elt, val: value}]}));
     }
 

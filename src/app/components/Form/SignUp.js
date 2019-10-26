@@ -68,7 +68,7 @@ class SignUp extends Component {
         authenticateUser(users[users.length-1].id+1);
         addWallet(newWallet);
         //console.log(newUser);
-        console.log(newWallet);
+        //console.log(newWallet);
         return newUser;
     }
 
@@ -116,11 +116,11 @@ class SignUp extends Component {
             //let newArray = users.concat(this.subscribe());
             //console.log(newArray);
             //localStorage.setItem("users",JSON.stringify(newArray));
-            console.log("Successful registration !");
+            //console.log("Successful registration !");
             let newUser = this.subscribe();
-            console.log(newUser);
+            //console.log(newUser);
             addUser(newUser);
-            console.log(getUsers());
+            //console.log(getUsers());
             this.setState({redirect: true});
            
         } 

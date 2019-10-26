@@ -21,7 +21,6 @@ class changePwd extends Component{
         this.handleChangePwd1 = this.handleChangePwd1.bind(this);
         this.handleChangePwd2 = this.handleChangePwd2.bind(this);
         this.checkField = this.checkField.bind(this);
-        //this.Submit = this.Submit.bind(this);
     }
 
     handleChangePwd1(event) {
@@ -42,17 +41,17 @@ class changePwd extends Component{
     checkField(){
         //this function checks if there is what it is expected in the fields
         //Otherwise, it will display a msg error
-        const validation = 1;
+        
         this.setState({errors : [] }); //reinitiate the array errors
-        console.log(this.state.email);
+        //console.log(this.state.email);
 
         if (this.state.pwd1 === this.state.pwd2 && this.state.pwd1=== "" ) {
            this.MsgErr("Empty","You have not to fill in this field !");
         }
-        if (this.state.pwd1 !=  this.state.pwd2){
+        if (this.state.pwd1 !==  this.state.pwd2){
             this.MsgErr("NotSamePwd","You password is not the same in these two fields !");
         }
-        if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length<8 && this.state.pwd1 != "") {
+        if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length<8 && this.state.pwd1 !== "") {
             this.MsgErr("PwdLength","You password is too short !");
         }
         if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length>=8 ) {
@@ -60,28 +59,25 @@ class changePwd extends Component{
             this.setState({redirect: true});
             this.updatePwd();
         }
-        
-        return validation === 0 ? true : false;
     }
 
     updatePwd = () =>{
         //this function records new user's data in the Watermelon database
-            const users = getUsers();
-            const user_ID = getDataFromLS("userID");
-            const index = users.findIndex((user) => user.id === user_ID);
-            //console.log(index);
-            const userUpdated = {
-                id: user_ID,
-                first_name: users[index].first_name,
-                last_name: users[index].last_name, 
-                email: users[index].email, 
-                password: this.state.pwd1, 
-                is_admin: users[index].is_admin
-            };
-            //console.log(userUpdated);
-
-            updateUser(userUpdated);
-            //console.log(getUsers("users"));
+        const users = getUsers();
+       const user_ID = getDataFromLS("userID");
+        const index = users.findIndex((user) => user.id === user_ID);
+        //console.log(index);
+        const userUpdated = {
+           id: user_ID,
+            first_name: users[index].first_name,
+            last_name: users[index].last_name, 
+            email: users[index].email, 
+            password: this.state.pwd1, 
+            is_admin: users[index].is_admin
+        };
+        //console.log(userUpdated);
+        updateUser(userUpdated);
+        //console.log(getUsers("users"));
     }
 
 
@@ -110,7 +106,7 @@ class changePwd extends Component{
             return (
                 <div className="home-container">
                 <Form>
-                    <h4>Choose  password :</h4>
+                    <h4>Choose a password :</h4>
                     <br/>
                     <Form.Group controlId="formGroupPassword">
                             <Form.Label>Password</Form.Label>
