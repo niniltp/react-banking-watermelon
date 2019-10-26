@@ -27,7 +27,6 @@ class Users extends Component {
             users: getUsersExcept(prevState.userID),
         }), () => {
             this.setState({isFetching: false});
-            console.log(this.state.users);
         });
     };
 
@@ -42,9 +41,6 @@ class Users extends Component {
         users[index] = newUser;
         this.setState({
             users: users
-        }, () => {
-            console.log(this.state.users);
-            console.log(newUser);
         });
         updateUser(newUser);
     };

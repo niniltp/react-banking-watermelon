@@ -51,7 +51,6 @@ class Box extends Component {
                                  className="switch-input"
                                  checked={this.state.switchState} onChange={this.handleSwitch}
                                  label={this.props.switchLabel}/> : null}
-                }
             </div>
         )
     };
