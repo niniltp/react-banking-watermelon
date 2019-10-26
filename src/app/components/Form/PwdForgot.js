@@ -17,7 +17,6 @@ class PwdForgot extends Component {
             redirect: false
         };
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        //this.checkField = this.checkField.bind(this);
         this.Submit=this.Submit.bind(this);
     }
 
@@ -27,7 +26,7 @@ class PwdForgot extends Component {
 
     MsgErr(elt,msg){
         /*This function will add error messages to the array errors  
-        It will be use in the funciton Submit*/
+        It will be use in the function Submit*/
         this.setState((lastState) => ({ errors : [...lastState.errors, {elt,msg} ]}));
     }
 
@@ -37,8 +36,8 @@ class PwdForgot extends Component {
         
         //Step 1 : check if there are empty fiels
         this.setState({errors : [] }); //reinitiate the array errors
-        console.log("Vous aviez appuyé sur le bouton signUp!");
-        console.log(this.state.email);
+        //console.log("Vous aviez appuyé sur le bouton signUp!");
+        //console.log(this.state.email);
 
         if (this.state.email === "") {
            this.MsgErr("Empty","You have not to fill in this field !");
@@ -52,7 +51,7 @@ class PwdForgot extends Component {
         const user = users.filter((user)=> {return user.email===this.state.email;});
         //console.log(user);
         if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users
-            console.log("Email reconnu ! Vous allez procéder au changement de mot de passe");
+            //console.log("Email reconnu ! Vous allez procéder au changement de mot de passe");
             setDataInLS("userID",user[0].id);
             this.setState({redirect: true});
         } 

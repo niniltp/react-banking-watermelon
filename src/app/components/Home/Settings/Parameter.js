@@ -26,11 +26,11 @@ class Parameter extends Component {
         this.handleChangePwd2 = this.handleChangePwd2.bind(this);
         this.handleChangePwd3 = this.handleChangePwd3.bind(this);
         this.wantChangeParam = this.wantChangeParam.bind(this);
-        //this.confirmChange = this.confirmChange.bind(this);
         this.cancelChange = this.cancelChange.bind(this);
         this.checkField = this.checkField.bind(this);
     }
 
+    //basic functions handling changes with setState
     handleChangeOtherParamsValue(event){
         this.setState({otherParamsValue: event.target.value});
     }
@@ -46,9 +46,13 @@ class Parameter extends Component {
     handleChangePwd3(event) {
         this.setState({pwd3: event.target.value});
     }
+    
+    cancelChange(){
+        this.setState({isModifying: false});
+    }
 
     wantChangeParam(){
-        //The user wants to change a parameter bu pressing th button change (gearwheel)
+        //The user wants to change a parameter by pressing th button change (gearwheel)
         this.setState({
             isModifying: true, //the user can modify the chosen parameter
             errors : [],  //reinitialize an empty array errors
@@ -60,18 +64,8 @@ class Parameter extends Component {
         //console.log(this.state.isModifying);
     }
 
-    confirmChange(){
-        this.setState({isModifying: false});
-        //TO COMPLETE
-    }
-
-    cancelChange(){
-        this.setState({isModifying: false});
-    }
-
     MsgErr(elt, msg) {
-        /*This function will add error messages to the array errors
-        It will be use in the funciton checkField*/
+        /*This function will add error messages to the array errors*/
         this.setState((lastState) => ({errors: [...lastState.errors, {elt, msg}]}));
     }
 
@@ -80,8 +74,8 @@ class Parameter extends Component {
         //this function checks if there is what it is expected in the fields
         //Otherwise, it will display a msg error
         //If everything is correct, then update data
+
         this.setState({errors : [] });
-        const validation = 1;
         //console.log(this.state.email);
         const elt = this.props.param.name;
 
@@ -89,21 +83,20 @@ class Parameter extends Component {
             if (this.state.pwd1=== "" || this.state.pwd2=== "" || this.state.pwd3=== "") {
                 this.MsgErr("Empty","One of those fields is empty !");
              }
-             if (this.state.pwd2 !=  this.state.pwd3){
+             if (this.state.pwd2 !==  this.state.pwd3){
                  this.MsgErr("NotSamePwd","You password is not the same in these two fields !");
              }
-             if ((this.state.pwd2 ===  this.state.pwd3) && this.state.pwd2.length<8 && this.state.pwd2 != "") {
+             if ((this.state.pwd2 ===  this.state.pwd3) && this.state.pwd2.length<8 && this.state.pwd2 !== "") {
                  this.MsgErr("PwdLength","You password is too short !");
              }
-            if (this.props.val != this.state.pwd1 && this.state.pwd1 != "" ){
+            if (this.props.val !== this.state.pwd1 && this.state.pwd1 !== "" ){
                 this.MsgErr("wrongPwd","Wrong password");
             }
             if ((this.state.parameters.val === this.state.pwd1) && (this.state.pwd2 ===  this.state.pwd3) && this.state.pwd1.length>=8 ) {
-                console.log("Your password has been changed successfully !");
-                
+                //console.log("Your password has been changed successfully !");
                 const value = this.state.pwd2;
-                console.log(elt);
-                console.log(value);
+                //console.log(elt);
+                //console.log(value);
                 this.updateParam(elt,value);
                 this.setState({isModifying: false});
              }
@@ -117,6 +110,7 @@ class Parameter extends Component {
                     if (user.length === 1 && user[0].email===this.state.otherParamsValue) {//the user has been found in the array users
                         this.MsgErr("wrongEmail","There is already an user under this email address ! 1 email = 1 account");
                     } else {
+                        //the user's email has been changed
                         const value = this.state.otherParamsValue;
                         this.updateParam(elt,value);
                         this.setState({isModifying: false});
@@ -124,19 +118,18 @@ class Parameter extends Component {
                 } else{
                     const value = this.state.otherParamsValue;
                     //console.log(value);
-                    if (elt === "First name") this.updateParam(elt,value);
-                    if (elt === "Last name") this.updateParam(elt,value);
+                    if (elt === "First name") this.updateParam(elt,value);//the user's first name has been changed
+                    if (elt === "Last name") this.updateParam(elt,value);//the user's last name has been changed
                     this.setState({isModifying: false});
-                    //TO COMPLETE
                 }
                 
             }
         }
-        return validation === 0 ? true : false;
     }
 
     updateParam = (ParamName, ParamValue) =>{
         //this function updates new user's data in the Watermelon database
+
         const users = getUsers();
         const user_ID = getDataFromLS("userID");
         const i = users.findIndex((user) => user.id === user_ID); //index
@@ -165,14 +158,14 @@ class Parameter extends Component {
            };
             break;
             case "Email" : 
-                    userUpdated = {
-                        id: user_ID,
-                        first_name: users[i].first_name,
-                        last_name: users[i].last_name, 
-                        email: ParamValue, 
-                        password: users[i].password, 
-                        is_admin: users[i].is_admin
-                    };
+                userUpdated = {
+                    id: user_ID,
+                    first_name: users[i].first_name,
+                    last_name: users[i].last_name, 
+                    email: ParamValue, 
+                    password: users[i].password, 
+                    is_admin: users[i].is_admin
+                };
             break;
             case "Password" : 
                 userUpdated = {
@@ -184,6 +177,7 @@ class Parameter extends Component {
                     is_admin: users[i].is_admin
                 };
             break;
+            default: return null;
         }
         const par =  {name : ParamName, val : ParamValue};
         this.setState({parameters : par});
@@ -221,10 +215,12 @@ class Parameter extends Component {
 
 
     displayChangingParam(elt){
-    //this function display the form in order to allow th user to change its data   
+    //this function display the form in order to allow the user to change its data   
+
         //console.log("You are in the function displayChangingParam()");
         let passwordErr1 = null, passwordErr2 = null, OtherParamsValueErr = null;
 
+        //the loop checks if there are errors in the form to display them
         for (let err of this.state.errors) {
             if (err.elt === "Empty") {
                 passwordErr1 = err.msg;
