@@ -39,7 +39,7 @@ export function isAuth() {
  * @returns {boolean}
  */
 export function isAdmin() {
-    return (isAuth() && localStorage.getItam("isAdmin") === "true");
+    return (isAuth() && localStorage.getItem("isAdmin") === "true");
 }
 
 /**
