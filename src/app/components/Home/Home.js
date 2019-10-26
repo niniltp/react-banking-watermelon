@@ -12,6 +12,7 @@ import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserID} from "../../backend/wallets_backend";
 import {getUserByID} from "../../backend/users_backend";
 import Activity from "./Activity/Activity";
+import AddAdminForm from '../Form/AddAdminForm';
 import Users from "./Users/Users";
 
 class Home extends Component {
@@ -55,6 +56,7 @@ class Home extends Component {
                 <Route exact path="/account" component={Menu}/>
                 <Route path="/users" component={Users}/>
                 <Route path="/settings" component={Settings}/>
+                <Route path="/addAdmin" component={AddAdminForm}/>
                 <Route path="/cards" component={Cards}/>
                 <Route path="/activity" component={Activity}/>
                 <Route path="/withdraw"
