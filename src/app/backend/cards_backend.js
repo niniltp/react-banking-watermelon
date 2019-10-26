@@ -1,6 +1,5 @@
 import cardsDB from "../../database/cards";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
-import {generateID} from "../services/idsGeneartor";
 import {getUserIDAuth} from "../services/authenticationManager";
 
 /*
@@ -9,7 +8,7 @@ import {getUserIDAuth} from "../services/authenticationManager";
 export function getCardsByUserId(userID) {
     const cards = getCards();
 
-    return cards.filter( (card) => {
+    return cards.filter((card) => {
         return card.user_id === userID
     });
 }
@@ -59,7 +58,7 @@ export function removeCard(id) {
 
 export function cardJStoDB(card, userID) {
     return {
-        id: generateID("card"),
+        id: card.id,
         last_4: card.numberCard3,
         brand: card.brand,
         expired_at: card.expirationDate + "-01", // YYYY-MM-DD

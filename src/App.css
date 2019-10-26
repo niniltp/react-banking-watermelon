@@ -55,6 +55,17 @@
   margin-right: 0 !important;
 }
 
+.add-btn {
+  margin-top: 10px;
+  border-radius: 15px !important;
+  transition: 0.8s;
+}
+
+.add-btn:hover {
+  border-radius: 5px !important;
+  transition: 0.8s;
+}
+
 .error-input {
   font-size: x-small;
   font-weight: bold;

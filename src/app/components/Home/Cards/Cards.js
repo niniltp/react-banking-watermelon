@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import {Link} from "react-router-dom";
 import Card from './Card.js';
-import './Cards.css';
 import '../Boxes/Boxes.css';
 import {
     is4digitsCardValid,
@@ -53,7 +52,6 @@ class Cards extends Component {
         this.setState({isFetching: true});
         this.setState({cards: getCardsByUserId(this.state.userID)}, () => {
             this.setState({isFetching: false});
-            console.log(this.state.cards)
         });
     };
 
@@ -102,7 +100,7 @@ class Cards extends Component {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
         let card = {
-            id: generateID("card"),
+            id: generateID(),
             last_4: newCard.numberCard3,
             brand: newCard.brand,
             expired_at: expirationDate, // YYYY-MM-DD
@@ -123,8 +121,6 @@ class Cards extends Component {
         cards[index] = card;
         this.setState({
             cards: cards
-        }, () => {
-            console.log(this.state.cards);
         });
         updateCardDB(card);
     };
@@ -136,11 +132,8 @@ class Cards extends Component {
     removeCard = (id) => {
         this.setState(prevState => ({
             cards: prevState.cards.filter(card => card.id !== id)
-        }), () => {
-            console.log(this.state.cards);
-        });
+        }));
         removeCardDB(id);
-
     };
 
     /**
@@ -300,11 +293,11 @@ class Cards extends Component {
                     <h3>Cards</h3>
                     <div id="boxesList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                            <Card key={index} index={index} card={card} modifON={true} removeON={true}
+                            <Card key={card.id} index={index} card={card} modifON={true} removeON={true}
                                   onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :
-                            <Button outline color="success" className="addCreditCard-btn"
+                            <Button outline color="success" className="add-btn"
                                     onClick={this.enableAddingCard}>+</Button>}
                     </div>
                     <br/>
