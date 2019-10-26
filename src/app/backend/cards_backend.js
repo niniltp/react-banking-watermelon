@@ -59,7 +59,7 @@ export function removeCard(id) {
 
 export function cardJStoDB(card, userID) {
     return {
-        id: generateID("card"),
+        id: card.id,
         last_4: card.numberCard3,
         brand: card.brand,
         expired_at: card.expirationDate + "-01", // YYYY-MM-DD

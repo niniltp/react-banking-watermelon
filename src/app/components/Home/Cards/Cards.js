@@ -102,7 +102,7 @@ class Cards extends Component {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
         let card = {
-            id: generateID("card"),
+            id: generateID(),
             last_4: newCard.numberCard3,
             brand: newCard.brand,
             expired_at: expirationDate, // YYYY-MM-DD

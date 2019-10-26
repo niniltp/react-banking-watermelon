@@ -7,6 +7,7 @@ import {getPayoutsByWalletId} from "../../../backend/payouts_backend";
 import SimpleActivity from "../fundsMng/SimpleActivity";
 import {getTransfersByCreditedWalletId, getTransfersByDebitedWalletId} from "../../../backend/transfers_backend";
 import {Link} from "react-router-dom";
+import {generateID} from "../../../services/idsGeneartor";
 
 class Activity extends Component {
     constructor(props) {
@@ -118,7 +119,7 @@ class Activity extends Component {
         return (
             <div id="boxesList">
                 {this.state.isFetching ? <p>Fetching data...</p> : this.state.activities.map((activity, index) => (
-                    <SimpleActivity key={index} data={activity}/>))}
+                    <SimpleActivity key={generateID()+activity.id.toString()} index={index} data={activity}/>))}
             </div>
         );
     };

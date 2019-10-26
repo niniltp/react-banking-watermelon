@@ -92,7 +92,7 @@ class Deposit extends Component {
             const amount = this.state.payin.amount;
 
             const payin = {
-                id: generateID("payin"),
+                id: generateID(),
                 walletCredited: wallet,
                 amount: parseFloat(parseFloat(amount).toFixed(2))
             };

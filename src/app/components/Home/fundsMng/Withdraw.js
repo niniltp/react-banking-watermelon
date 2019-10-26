@@ -100,7 +100,7 @@ class Withdraw extends Component {
             const amount = this.state.payout.amount;
 
             const payout = {
-                id: generateID("payout"),
+                id: generateID(),
                 walletDebited: wallet,
                 amount: parseFloat(parseFloat(amount).toFixed(2))
             };

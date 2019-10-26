@@ -80,7 +80,8 @@ class Card extends Component {
      */
     handleRemove = (event) => {
         event.preventDefault();
-        this.props.onRemove(this.state.index, this.state.card.id);
+        console.log(this.state.card);
+        this.props.onRemove(this.props.index, this.state.card.id);
     };
 
     /**

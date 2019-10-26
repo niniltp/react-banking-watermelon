@@ -102,7 +102,7 @@ class Transfer extends Component {
             const amount = this.state.transfer.amount;
 
             const transfer = {
-                id: generateID("transfer"),
+                id: generateID(),
                 walletDebited: walletDebited,
                 walletCredited: walletCredited,
                 amount: parseFloat(parseFloat(amount).toFixed(2))
