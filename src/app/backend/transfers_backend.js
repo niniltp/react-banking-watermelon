@@ -2,9 +2,11 @@ import transfersDB from "../../database/transfers";
 import {setAndGetDataFromLS, setDataInLS} from "../services/localStorageManager";
 import {convertToAmount} from "../services/fundsManager";
 
-/*
-* This function returns all the transfers from the credited wallet specified by its id from the DB
-* */
+/**
+ * This function returns all the transfers from the credited wallet specified by its id from the DB
+ * @param wallet_id
+ * @returns {*}
+ */
 export function getTransfersByCreditedWalletId(wallet_id) {
     const transfers = getTransfers();
 
@@ -13,9 +15,11 @@ export function getTransfersByCreditedWalletId(wallet_id) {
     });
 }
 
-/*
-* This function returns all the transfers from the debited wallet specified by its id from the DB
-* */
+/**
+ * This function returns all the transfers from the debited wallet specified by its id from the DB
+ * @param wallet_id
+ * @returns {*}
+ */
 export function getTransfersByDebitedWalletId(wallet_id) {
     const transfers = getTransfers();
 
@@ -24,9 +28,10 @@ export function getTransfersByDebitedWalletId(wallet_id) {
     });
 }
 
-/*
-* This function returns all the transfers from the DB
-* */
+/**
+ * This function returns all the transfers from the DB
+ * @returns {*}
+ */
 export function getTransfers() {
     let transfers = setAndGetDataFromLS("transfers", transfersDB);
 
@@ -40,25 +45,28 @@ export function getTransfers() {
     return transfers;
 }
 
-/*
-* This function adds a transfer in the DB
-* */
+/**
+ * This function adds a transfer in the DB
+ * @param transfer
+ */
 export function addTransfer(transfer) {
     let transfers = getTransfers();
     transfers.push(transfer);
     updateTransfers(transfers);
 }
 
-/*
-* This function updates all the transfers of the DB
-* */
+/**
+ * This function updates all the transfers of the DB
+ * @param transfers
+ */
 export function updateTransfers(transfers) {
     setDataInLS("transfers", transfers);
 }
 
-/*
-* This function updates the transfer specified in parameter in the DB
-* */
+/**
+ * This function updates the transfer specified in parameter in the DB
+ * @param transfer
+ */
 export function updateTransfer(transfer) {
     let transfers = getTransfers();
     let index = transfers.findIndex(obj => obj.id === transfer.id);
