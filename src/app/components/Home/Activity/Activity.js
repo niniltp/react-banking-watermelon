@@ -6,6 +6,7 @@ import {Button, ButtonGroup} from "reactstrap";
 import {getPayoutsByWalletId} from "../../../backend/payouts_backend";
 import SimpleActivity from "../fundsMng/SimpleActivity";
 import {getTransfersByCreditedWalletId, getTransfersByDebitedWalletId} from "../../../backend/transfers_backend";
+import {Link} from "react-router-dom";
 
 class Activity extends Component {
     constructor(props) {
@@ -137,6 +138,7 @@ class Activity extends Component {
                     </ButtonGroup>
                     {this.state.isFetching ? <p>Fetching data...</p> : this.displayActivities()}
                 </div>
+                <Link to="/account"><Button color="primary" className="boxForm-btn">Go back</Button></Link>
             </div>
         );
     }
