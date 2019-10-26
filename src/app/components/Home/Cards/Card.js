@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import settings from '../../../img/settings.svg';
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
-import {is4digitsCardValid, isCardValid} from "../../../services/checkCardValidity";
+import {is4digitsCardValid, isCardValid, isInput4digitsCardValid} from "../../../services/checkCardValidity";
 import {
     getMonthFromExpirationDateCard,
     getYearFromExpirationDateCard,
@@ -121,7 +121,7 @@ class Card extends Component {
         const name = target.name;
         const value = target.value;
 
-        if (!(name === "numberCard3") || ((name === "numberCard3") && value.length <= 4)) {
+        if (!(name === "numberCard3") || ((name === "numberCard3") && isInput4digitsCardValid(value))) {
             this.setState(prevState => ({
                 newCard: {
                     ...prevState.newCard,
@@ -165,7 +165,7 @@ class Card extends Component {
                         <Label for="brandCard" sm={2} className="labelInfoCard">Brand</Label>
                         <Col sm={10}>
                             <Input type="select" id="brandCard" className="boxForm-input" name="brand"
-                                   defaultValue={this.state.newCard.brand} onChange={this.handleChange}>
+                                   value={this.state.newCard.brand} onChange={this.handleChange}>
                                 <option value="american_express">American Express</option>
                                 <option value="master_card">Master Card</option>
                                 <option value="visa">Visa</option>
@@ -188,7 +188,7 @@ class Card extends Component {
                         </Col>
                         <Col sm={2}>
                             <Input type="number" min="0" max="9999" id="numberCard3" className="boxForm-input"
-                                   name="numberCard3" defaultValue={this.state.newCard.numberCard3}
+                                   name="numberCard3" value={this.state.newCard.numberCard3}
                                    onChange={this.handleChange}/>
                             {errors.creditCardDigits3 ?
                                 <span className="error-input">{errors.creditCardDigits3}</span> : null}
@@ -198,7 +198,7 @@ class Card extends Component {
                         <Label for="expirationDateCard" sm={2} className="labelInfoCard">Expiration Date</Label>
                         <Col sm={10}>
                             <Input type="month" id="expirationDateCard" className="boxForm-input"
-                                   name="expirationDate" defaultValue={this.state.newCard.expirationDate}
+                                   name="expirationDate" value={this.state.newCard.expirationDate}
                                    onChange={this.handleChange}/>
                             {errors.expirationDateEmpty ?
                                 <p className="error-input">{errors.expirationDateEmpty}</p> : null}

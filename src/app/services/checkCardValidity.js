@@ -26,3 +26,8 @@ export function isExpirationDateValid(expirationDate) {
 export function isCardValid(card) {
     return isBrandValid(card.brand) && isNumberCardValid(card.last_4) && isExpirationDateValid(card.expired_at);
 }
+
+export function isInput4digitsCardValid(input) {
+    const regex = /^(\s*|\d+)$/;
+    return input.length <= 4 && input.match(regex);
+}

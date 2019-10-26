@@ -2,17 +2,22 @@ import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import {Link} from "react-router-dom";
 import Card from './Card.js';
+import './Cards.css';
+import '../Boxes/Boxes.css';
+import {
+    is4digitsCardValid,
+    isCardValid,
+    isInput4digitsCardValid,
+    isNumberCardValid_divided
+} from "../../../services/checkCardValidity";
+import {getUserIDAuth} from "../../../services/authenticationManager";
+import {generateID} from "../../../services/idsGeneartor";
 import {
     addCard as addCardDB,
     getCardsByUserId,
     removeCard as removeCardDB,
     updateCard as updateCardDB
 } from "../../../backend/cards_backend";
-import './Cards.css';
-import '../Boxes/Boxes.css';
-import {is4digitsCardValid, isCardValid, isNumberCardValid_divided} from "../../../services/checkCardValidity";
-import {getUserIDAuth} from "../../../services/authenticationManager";
-import {generateID} from "../../../services/idsGeneartor";
 import {
     getMonthFromExpirationDateCard,
     getYearFromExpirationDateCard,
@@ -34,7 +39,7 @@ class Cards extends Component {
                 numberCard1: '',
                 numberCard2: '',
                 numberCard3: '',
-                expirationDate: ''
+                expirationDate: '' // YYYY-MM
             },
             errors: {}
         };
@@ -67,7 +72,7 @@ class Cards extends Component {
             id: newCard.id,
             last_4: newCard.numberCard3,
             brand: newCard.brand,
-            expired_at: expirationDate,
+            expired_at: expirationDate, // YYYY-MM-DD
             user_id: getUserIDAuth()
         };
         return isCardValid(card) && isNumberCardValid_divided(newCard.numberCard0, newCard.numberCard1, newCard.numberCard2, newCard.numberCard3);
@@ -77,10 +82,10 @@ class Cards extends Component {
         const newCard = this.state.newCard;
         const expirationDate = newCard.expirationDate + "-01";
         let card = {
-            id: generateID("card"), //TODO: Generate unique ID !!!
+            id: generateID("card"),
             last_4: newCard.numberCard3,
             brand: newCard.brand,
-            expired_at: expirationDate,
+            expired_at: expirationDate, // YYYY-MM-DD
             user_id: getUserIDAuth()
         };
 
@@ -114,7 +119,7 @@ class Cards extends Component {
         const name = target.name;
         const value = target.value;
 
-        if (!(name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") || ((name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") && value.length <= 4)) {
+        if (!(name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") || ((name === "numberCard0" || name === "numberCard1" || name === "numberCard2" || name === "numberCard3") && isInput4digitsCardValid(value))) {
             this.setState(prevState => ({
                 newCard: {
                     ...prevState.newCard,
@@ -187,7 +192,8 @@ class Cards extends Component {
                 <FormGroup className="box-formGroup reset-margin" row>
                     <Label for="numberCard" sm={2} className="labelInfoCard">Card Number</Label>
                     <Col sm={2}>
-                        <Input type="number" min="0" max="9999" id="numberCard0" className="boxForm-input"
+                        <Input type="number" min="0" max="9999" step="1" pattern="\d+" id="numberCard0"
+                               className="boxForm-input"
                                name="numberCard0" value={this.state.newCard.numberCard0} onChange={this.handleChange}/>
                         {errors.creditCardDigits0 ?
                             <span className="error-input">{errors.creditCardDigits0}</span> : null}
@@ -250,8 +256,8 @@ class Cards extends Component {
                                     onClick={this.enableAddingCard}>+</Button>}
                     </div>
                     <br/>
-                <br/>
-                <Link to="/account"><Button color="primary">Go back</Button></Link>
+                    <br/>
+                    <Link to="/account"><Button color="primary">Go back</Button></Link>
                 </div>
             </div>
         );
