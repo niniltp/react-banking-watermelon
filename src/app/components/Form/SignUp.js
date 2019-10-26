@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import {getUsers, addUser} from "../../backend/users_backend";
 import {authenticateUser, isAuth} from "../../services/authenticationManager";
 import {getWallets, addWallet} from "../../backend/wallets_backend.js";
+import {isEmail} from "./IsEmail";
 
 //Code written by CHEONG Loïc
 
@@ -109,6 +110,9 @@ class SignUp extends Component {
         } else if (this.state.email === "") {
             this.MsgErr("email","You have not to fill in this field !");
             condition++;
+        } else if (!(isEmail(this.state.email)) && this.state.email.length>0){
+            this.MsgErr("NotAnEmail","This is not an email address !");
+            condition++;
         }
 
         
@@ -140,6 +144,7 @@ class SignUp extends Component {
                 if (err.elt === "lastName") lastNameErr = err.msg;
                 if (err.elt === "firstName") firstNameErr = err.msg;
                 if (err.elt === "email") emailErr = err.msg;
+                if (err.elt === "NotAnEmail") emailErr = err.msg;
                 if (err.elt === "password") passwordErr = err.msg;
             }
 
