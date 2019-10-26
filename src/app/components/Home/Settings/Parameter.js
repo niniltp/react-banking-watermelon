@@ -5,6 +5,7 @@ import {Button, Col, Row, FormGroup, Label} from "reactstrap";
 import Form from 'react-bootstrap/Form';
 import {getUsers, updateUser} from "../../../backend/users_backend";
 import {getDataFromLS} from "../../../services/localStorageManager";
+import {isEmail} from "../../Form/IsEmail";
 
 //code written by CHEONG Loïc
 
@@ -109,6 +110,8 @@ class Parameter extends Component {
                     const user = users.filter((user)=> {return user.email===this.state.otherParamsValue;});
                     if (user.length === 1 && user[0].email===this.state.otherParamsValue) {//the user has been found in the array users
                         this.MsgErr("wrongEmail","There is already an user under this email address ! 1 email = 1 account");
+                    } else if (!(isEmail(this.state.otherParamsValue)) && this.state.otherParamsValue.length>0){
+                        this.MsgErr("NotAnEmail","This is not an email address !");
                     } else {
                         //the user's email has been changed
                         const value = this.state.otherParamsValue;
@@ -231,6 +234,7 @@ class Parameter extends Component {
             if (err.elt === "PwdLength") passwordErr2 = err.msg;
             if (err.elt === "wrongPwd") passwordErr1  = err.msg;
             if (err.elt === "wrongEmail") OtherParamsValueErr  = err.msg;
+            if (err.elt === "NotAnEmail") OtherParamsValueErr = err.msg;
         }
 
         if (elt === "Password"){
