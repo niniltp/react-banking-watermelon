@@ -121,8 +121,6 @@ class Cards extends Component {
         cards[index] = card;
         this.setState({
             cards: cards
-        }, () => {
-            console.log(this.state.cards);
         });
         updateCardDB(card);
     };
@@ -134,11 +132,8 @@ class Cards extends Component {
     removeCard = (id) => {
         this.setState(prevState => ({
             cards: prevState.cards.filter(card => card.id !== id)
-        }), () => {
-            console.log(this.state.cards);
-        });
+        }));
         removeCardDB(id);
-
     };
 
     /**
@@ -298,7 +293,7 @@ class Cards extends Component {
                     <h3>Cards</h3>
                     <div id="boxesList">
                         {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                            <Card key={index} index={index} card={card} modifON={true} removeON={true}
+                            <Card key={card.id} index={index} card={card} modifON={true} removeON={true}
                                   onModif={this.handleModif}
                                   onRemove={this.handleRemove}/>))}
                         {this.state.isAddingCard ? this.displayAddCard() :

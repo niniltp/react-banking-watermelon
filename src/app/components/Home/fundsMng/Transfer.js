@@ -154,7 +154,7 @@ class Transfer extends Component {
                         <h3>Choose who you want to transfer money to</h3>
                         <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.users.map((user, index) => (
-                                <BoxToSelect key={index} index={index} container={SimpleUser} classNames={"box"}
+                                <BoxToSelect key={user.id} index={index} container={SimpleUser} classNames={"box"}
                                              data={user}
                                              selectedIndex={this.state.selectedUserIndex}
                                              handleSelect={this.handleSelect}/>))}

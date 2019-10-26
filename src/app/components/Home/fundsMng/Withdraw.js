@@ -151,7 +151,7 @@ class Withdraw extends Component {
                         <h3>Choose your card</h3>
                         <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <BoxToSelect key={index} index={index} container={SimpleCard}
+                                <BoxToSelect key={card.id} index={index} container={SimpleCard}
                                              classNames="box" data={card}
                                              selectedIndex={this.state.selectedCardIndex}
                                              handleSelect={this.handleSelect}/>
