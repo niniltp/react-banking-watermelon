@@ -11,6 +11,11 @@ class SimpleUser extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.props.initSwitch)
+            this.props.initSwitch(this.state.user.is_admin);
+    }
+
     displayUser = () => {
         return (
             <div className={this.state.classNames}>

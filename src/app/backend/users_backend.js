@@ -70,8 +70,9 @@ export function updateUser(user) {
 /*
 * This function removes the user specified by its id from the DB
 * */
+/*
 export function removeUser(userID) {
     let users = getUsers();
     users = users.filter((item) => item.id !== userID);
     updateUsers(users);
-}
+}*/

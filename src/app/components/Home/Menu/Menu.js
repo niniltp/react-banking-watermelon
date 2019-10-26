@@ -19,6 +19,7 @@ class Menu extends Component {
         return (
             <div id="menu">
                 <Link to="/settings"><Button outline color="primary" className="menuBtn">Settings</Button></Link>
+                <Link to="/users"><Button outline color="primary" className="menuBtn">Users</Button></Link>
                 <Link to="/cards"><Button outline color="primary" className="menuBtn">Credit Cards</Button></Link>
                 <Link to="/activity"><Button outline color="primary" className="menuBtn">My Activity</Button></Link>
                 <Link to="/withdraw"><Button outline color="primary" className="menuBtn">Withdraw</Button></Link>

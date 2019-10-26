@@ -12,6 +12,7 @@ import {getUserIDAuth} from "../../services/authenticationManager";
 import {getWalletByUserID} from "../../backend/wallets_backend";
 import {getUserByID} from "../../backend/users_backend";
 import Activity from "./Activity/Activity";
+import Users from "./Users/Users";
 
 class Home extends Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class Home extends Component {
                 <Wallet wallet={this.state.wallet} isFetching={this.state.isFetchingWallet}/>
                 <h1>Hi, {user.first_name} {user.last_name}</h1>
                 <Route exact path="/account" component={Menu}/>
+                <Route path="/users" component={Users}/>
                 <Route path="/settings" component={Settings}/>
                 <Route path="/cards" component={Cards}/>
                 <Route path="/activity" component={Activity}/>

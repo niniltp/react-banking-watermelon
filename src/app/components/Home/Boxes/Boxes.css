@@ -46,7 +46,12 @@
     cursor: pointer;
 }
 
-/* ADDING CARD FORM */
+.switch-input {
+    margin-left: 38px !important;
+    font-weight: bold;
+}
+
+/* ADDING FORM */
 
 .addBoxbtn {
     margin-top: 10px;
