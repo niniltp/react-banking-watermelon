@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Button} from "reactstrap";
 import {Link} from "react-router-dom";
 import {getUserIDAuth} from "../../../services/authenticationManager";
-import {getUsersExcept, updateUser} from "../../../backend/users_backend";
+import {getUserByID, getUsersExcept, updateUser} from "../../../backend/users_backend";
 import SimpleUser from "./SimpleUser";
 import Box from "../Boxes/Box";
+import Searchbar from "../../Searchbar/Searchbar";
 
 class Users extends Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class Users extends Component {
         this.state = {
             userID: getUserIDAuth(),
             isFetching: true,
-            users: []
+            users: [],
+            usersSearched: []
         };
     }
 
@@ -25,13 +27,14 @@ class Users extends Component {
         this.setState({isFetching: true});
         this.setState((prevState) => ({
             users: getUsersExcept(prevState.userID),
+            usersSearched: getUsersExcept(prevState.userID)
         }), () => {
             this.setState({isFetching: false});
         });
     };
 
     modifyUser = (index, state) => {
-        let users = this.state.users;
+        let users = this.state.usersSearched;
         let newUser = users[index];
 
         newUser = {
@@ -49,17 +52,47 @@ class Users extends Component {
         this.modifyUser(index, state);
     };
 
+    convertUsersForSearchbar = (users) => {
+        const usersForSearchbar = [];
+
+        users.forEach((user) => {
+            usersForSearchbar.push({
+                id: user.id,
+                value: user.first_name + " " + user.last_name
+            })
+        });
+
+        return usersForSearchbar;
+    };
+
+    handleSearchResults = (resultsID) => {
+        const users = [];
+
+        resultsID.forEach((resultID) => {
+            users.push(getUserByID(resultID));
+        });
+
+        this.setState({
+            usersSearched: users
+        });
+    };
+
     displayUsers = () => {
         return (
             <div className="container-in">
                 <div id="boxesContainer">
                     <h3>List of users</h3>
-                    <div id="boxesList">
-                        {this.state.isFetching ? <p>Fetching data...</p> : this.state.users.map((user, index) => (
-                            <Box key={index} index={index} container={SimpleUser} data={user} modifON={false}
-                                 removeON={false} switchON={true} switchLabel="Admin"
-                                 onSwitch={this.handleSwitch} classNames="box box-hover"/>))}
-                    </div>
+                    {this.state.isFetching ? <p>Fetching data...</p> :
+                        <div id="boxesList">
+                            <Searchbar autoFocus={true}
+                                       items={this.convertUsersForSearchbar(this.state.users)}
+                                       searchResults={this.handleSearchResults}/>
+                            {this.state.usersSearched.map((user, index) => (
+                                <Box key={user.id} index={index} container={SimpleUser} data={user} modifON={false}
+                                     removeON={false} switchON={true} switchLabel="Admin"
+                                     onSwitch={this.handleSwitch} classNames="box box-hover"/>))}
+                        </div>
+                    }
                 </div>
                 <Link to="/account"><Button color="primary" className="boxForm-btn">Go back</Button></Link>
             </div>

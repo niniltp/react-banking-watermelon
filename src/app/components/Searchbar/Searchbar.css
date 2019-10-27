@@ -1,0 +1,26 @@
+.searchbar {
+    margin: 20px;
+}
+
+.searchbar-results {
+    padding: 0 0 5px;
+    margin: 0;
+    height: auto;
+    background-color: #2c2f38;
+    border: none;
+    border-radius: 10px;
+}
+
+.searchbar-result {
+    list-style: none;
+    text-align: left;
+    font-size: 1.1em;
+    padding: 4px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.searchbar-result:hover {
+    background-color: #007bff;
+    transition: 0.8s;
+}

@@ -14,6 +14,7 @@ import {getUserByID} from "../../backend/users_backend";
 import Activity from "./Activity/Activity";
 import AddAdminForm from '../Form/AddAdminForm';
 import Users from "./Users/Users";
+import Activities from "./Activity/Activities";
 import { ProtectedRouteAdmin } from '../ProtectedRouteAdmin';
 
 class Home extends Component {
@@ -55,9 +56,10 @@ class Home extends Component {
                 <Wallet wallet={this.state.wallet} isFetching={this.state.isFetchingWallet}/>
                 <h1>Hi, {user.first_name} {user.last_name}</h1>
                 <Route exact path="/account" component={Menu}/>
-                <ProtectedRouteAdmin path="/users" component={Users}/>
                 <Route path="/settings" component={Settings}/>
+                <ProtectedRouteAdmin path="/users" component={Users}/>
                 <ProtectedRouteAdmin path="/addAdmin" component={AddAdminForm}/>
+                <ProtectedRouteAdmin path="/all-activities" component={Activities}/>
                 <Route path="/cards" component={Cards}/>
                 <Route path="/activity" component={Activity}/>
                 <Route path="/withdraw"
