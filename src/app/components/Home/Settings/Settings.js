@@ -12,25 +12,13 @@ class Settings extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            parameters: [], //This array will contain objects with the name of the parameter and its value
-            admin : true
+            parameters: [] //This array will contain objects with the name of the parameter and its value
         });
-        this.goToAdminSetting = this.goToAdminSetting.bind(this);
-        this.goToOthersSetting = this.goToOthersSetting.bind(this);
     }
 
     componentDidMount() {
         //console.log("You are in settings !");
         this.initParam();
-    }
-
-
-    goToAdminSetting(){
-        this.setState({admin : true});
-    }
-
-    goToOthersSetting(){
-        this.setState({admin : false});
     }
 
     addParam(elt, value) {
@@ -57,14 +45,7 @@ class Settings extends Component {
             <div className="container-in">
                 <br/>
                 <h3>Profile</h3>
-                <br/>
-                <Button color="primary" onClick={this.goToAdminSetting}>Me</Button><Button color="primary" onClick={this.goToOthersSetting}>Others</Button>
-                <br/>
-                {this.state.admin ? 
-                this.state.parameters.map((param, index) => (<Parameters key={index} index={index} param={param}/>))
-                :
-                null
-                }
+                {this.state.parameters.map((param, index) => (<Parameters key={index} index={index} param={param}/>))}
                 <br/>
                 <br/>
                 <Link to="/account"><Button color="primary">Go back</Button></Link>
