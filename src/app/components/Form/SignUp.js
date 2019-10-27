@@ -89,18 +89,18 @@ class SignUp extends Component {
         let condition = 0;
 
        if (this.state.last_name === "") {
-           this.MsgErr("lastName","You have not to fill in this field !");
+           this.MsgErr("lastName","You have to fill in this field !");
            condition++;
         }
         if (this.state.first_name === "") {
-           this.MsgErr("firstName","You have not to fill in this field !");
+           this.MsgErr("firstName","You have to fill in this field !");
            condition++;
         }
         if (this.state.password === "") {
-           this.MsgErr("password","You have not to fill in this field !");
+           this.MsgErr("password","You have to fill in this field !");
            condition++;
         } else if (this.state.password.length < 8) {
-            this.MsgErr("password","Your password need to be longer !");
+            this.MsgErr("password","Your password needs to be longer !");
             condition++;
         }
 
@@ -108,7 +108,7 @@ class SignUp extends Component {
             this.MsgErr("email","There is already an user under this email address !");
             condition++;
         } else if (this.state.email === "") {
-            this.MsgErr("email","You have not to fill in this field !");
+            this.MsgErr("email","You have to fill in this field !");
             condition++;
         } else if (!(isEmail(this.state.email)) && this.state.email.length>0){
             this.MsgErr("NotAnEmail","This is not an email address !");

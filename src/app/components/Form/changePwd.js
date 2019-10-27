@@ -46,13 +46,13 @@ class changePwd extends Component{
         //console.log(this.state.email);
 
         if (this.state.pwd1 === this.state.pwd2 && this.state.pwd1=== "" ) {
-           this.MsgErr("Empty","You have not to fill in this field !");
+           this.MsgErr("Empty","You have to fill in this field !");
         }
         if (this.state.pwd1 !==  this.state.pwd2){
-            this.MsgErr("NotSamePwd","You password is not the same in these two fields !");
+            this.MsgErr("NotSamePwd","Your password is not the same in these two fields !");
         }
         if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length<8 && this.state.pwd1 !== "") {
-            this.MsgErr("PwdLength","You password is too short !");
+            this.MsgErr("PwdLength","Your password is too short !");
         }
         if ((this.state.pwd1 ===  this.state.pwd2) && this.state.pwd1.length>=8 ) {
             //console.log("Your password has been changed successfully !");

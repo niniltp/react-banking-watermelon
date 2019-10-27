@@ -85,10 +85,10 @@ class Parameter extends Component {
                 this.MsgErr("Empty","One of those fields is empty !");
              }
              if (this.state.pwd2 !==  this.state.pwd3){
-                 this.MsgErr("NotSamePwd","You password is not the same in these two fields !");
+                 this.MsgErr("NotSamePwd","Your password is not the same in these two fields !");
              }
              if ((this.state.pwd2 ===  this.state.pwd3) && this.state.pwd2.length<8 && this.state.pwd2 !== "") {
-                 this.MsgErr("PwdLength","You password is too short !");
+                 this.MsgErr("PwdLength","Your password is too short !");
              }
             if (this.props.val !== this.state.pwd1 && this.state.pwd1 !== "" ){
                 this.MsgErr("wrongPwd","Wrong password");
@@ -103,7 +103,7 @@ class Parameter extends Component {
              }
         } else {
             if (this.state.otherParamsValue === "") {
-                this.MsgErr("Empty","You have not to fill in this field !");
+                this.MsgErr("Empty","You have to fill in this field !");
             } else {
                 if (elt === "Email") {
                     const users = getUsers(); 
