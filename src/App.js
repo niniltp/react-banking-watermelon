@@ -11,6 +11,7 @@ import {ProtectedRoute} from './app/components/ProtectedRoute';
 import {disconnectUser} from "./app/services/authenticationManager.js";
 import {isAuth} from "./app/services/authenticationManager";
 import {checkResetLS} from "./app/services/localStorageManager";
+import { ProtectedRouteAdmin } from './app/components/ProtectedRouteAdmin';
 
 class App extends Component {
     constructor(props) {
@@ -40,8 +41,8 @@ class App extends Component {
                     <Route path="/pwdForgot" component={PwdForgot}/>
                     <Route path="/changePwd" component={changePwd}/>
                     <ProtectedRoute path="/account" component={Home}/>
-                    <ProtectedRoute path="/users" component={Home}/>
-                    <ProtectedRoute path="/addAdmin" component={Home}/>
+                    <ProtectedRouteAdmin path="/users" component={Home}/>
+                    <ProtectedRouteAdmin path="/addAdmin" component={Home}/>
                     <ProtectedRoute path="/settings" component={Home}/>
                     <ProtectedRoute path="/cards" component={Home}/>
                     <ProtectedRoute path="/activity" component={Home}/>
