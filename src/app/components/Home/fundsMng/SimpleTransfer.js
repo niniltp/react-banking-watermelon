@@ -52,6 +52,7 @@ class SimpleTransfer extends Component {
                     </li>
                     {way === "in" ? <li className="labelInfoBox amount credited">+ {amountWM} ₩M</li> : null}
                     {way === "out" ? <li className="labelInfoBox amount debited">- {amountWM} ₩M</li> : null}
+                    {way === "" ? <li className="labelInfoBox amount"> {amountWM} ₩M</li> : null}
 
                 </ul>
         )

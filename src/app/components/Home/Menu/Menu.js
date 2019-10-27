@@ -21,6 +21,7 @@ class Menu extends Component {
                 <Link to="/settings"><Button outline color="primary" className="menuBtn">Settings</Button></Link>
                 <Link to="/addAdmin"><Button outline color="primary" className="menuBtn">Add an admin</Button></Link>
                 <Link to="/users"><Button outline color="primary" className="menuBtn">Users</Button></Link>
+                <Link to="/all-activities"><Button outline color="primary" className="menuBtn">All activites</Button></Link>
                 <Link to="/cards"><Button outline color="primary" className="menuBtn">Credit Cards</Button></Link>
                 <Link to="/activity"><Button outline color="primary" className="menuBtn">My Activity</Button></Link>
                 <Link to="/withdraw"><Button outline color="primary" className="menuBtn">Withdraw</Button></Link>
