@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import {Button, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {isFundSufficient, isInputAmountValid, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
@@ -100,7 +100,7 @@ class Withdraw extends Component {
             const amount = this.state.payout.amount;
 
             const payout = {
-                id: generateID("payout"),
+                id: generateID(),
                 walletDebited: wallet,
                 amount: parseFloat(parseFloat(amount).toFixed(2))
             };
@@ -142,16 +142,18 @@ class Withdraw extends Component {
                 </div>
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
-                        <Input type="number" min="0" max="999999999999" id="amount"
-                               className="creditCardForm-input amount-input"
-                               name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
-                        <Label for="amount" className="amount-label">₩M</Label>
+                        <InputGroup>
+                            <Input type="number" min="0" max="999999999999" id="amount"
+                                   className="boxForm-input amount-input"
+                                   name="amount" value={this.state.payout.amount} onChange={this.handleChange}/>
+                            <InputGroupAddon addonType="append"> ₩M </InputGroupAddon>
+                        </InputGroup>
                     </FormGroup>
                     <div id="boxesContainer">
                         <h3>Choose your card</h3>
                         <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.cards.map((card, index) => (
-                                <BoxToSelect key={index} index={index} container={SimpleCard}
+                                <BoxToSelect key={card.id} index={index} container={SimpleCard}
                                              classNames="box" data={card}
                                              selectedIndex={this.state.selectedCardIndex}
                                              handleSelect={this.handleSelect}/>

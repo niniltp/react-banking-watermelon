@@ -1,6 +1,4 @@
-export function generateID(prefix) {
-    const seperator = "_";
+export function generateID() {
     const date = (Date.now()).toString();
-
-    return prefix + seperator + date;
+    return parseInt(date);
 }

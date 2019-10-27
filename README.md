@@ -5,6 +5,11 @@ This is a react project for the Web Technology course at ECE Paris-Lyon, ING4.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Branches
+
+- "master" includes the basic features of the app
+- "bonus" includes more features (admin features, search bar...)
+
 ## Database
 
 The Database is simulated with the localStorage property which loads the data from the database folder (the data is stored in arrays of javascript objects). The localStorage loads data from files only once, when the app is first run. 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
@@ -102,7 +102,7 @@ class Transfer extends Component {
             const amount = this.state.transfer.amount;
 
             const transfer = {
-                id: generateID("transfer"),
+                id: generateID(),
                 walletDebited: walletDebited,
                 walletCredited: walletCredited,
                 amount: parseFloat(parseFloat(amount).toFixed(2))
@@ -145,16 +145,18 @@ class Transfer extends Component {
                 </div>
                 <Form>
                     <FormGroup row className={"fundsMng-formGroup"}>
-                        <Input type="number" min="0" max="999999999999" id="amount"
-                               className="boxForm-input amount-input"
-                               name="amount" value={this.state.transfer.amount} onChange={this.handleChange}/>
-                        <Label for="amount" className="amount-label">₩M</Label>
+                        <InputGroup>
+                            <Input type="number" min="0" max="999999999999" id="amount"
+                                   className="boxForm-input amount-input"
+                                   name="amount" value={this.state.transfer.amount} onChange={this.handleChange}/>
+                            <InputGroupAddon addonType="append"> ₩M </InputGroupAddon>
+                        </InputGroup>
                     </FormGroup>
                     <div id="boxesContainer">
                         <h3>Choose who you want to transfer money to</h3>
                         <div id="boxesList">
                             {this.state.isFetching ? <p>Fetching data...</p> : this.state.users.map((user, index) => (
-                                <BoxToSelect key={index} index={index} container={SimpleUser} classNames={"box"}
+                                <BoxToSelect key={user.id} index={index} container={SimpleUser} classNames={"box"}
                                              data={user}
                                              selectedIndex={this.state.selectedUserIndex}
                                              handleSelect={this.handleSelect}/>))}
@@ -184,7 +186,7 @@ class Transfer extends Component {
             <div>
                 <p><strong>{(parseFloat(this.state.transfer.amount)).toFixed(2)}</strong>₩M has been successfully
                     transfered from
-                    your wallet to the wallet of !</p>
+                    your wallet to the wallet of :</p>
                 {this.state.selectedCardIndex !== null ?
                     <SimpleUser data={this.state.users[this.state.selectedUserIndex]} classNames={"box"}/>
                     : null}
