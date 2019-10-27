@@ -4,7 +4,6 @@ import { Link} from 'react-router-dom';
 import { Button} from 'reactstrap';
 import Form from 'react-bootstrap/Form';
 import {getUsers, addUser} from "../../backend/users_backend";
-import {authenticateUser} from "../../services/authenticationManager";
 import {getWallets, addWallet} from "../../backend/wallets_backend.js";
 import {isEmail} from "./IsEmail";
 
@@ -19,13 +18,15 @@ class AddAdminForm extends Component {
             last_name : '',
             email : '',
             password : '',
-            errors : []
+            errors : [],
+            redirect : false
         };  
             
         this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
         this.handleChangeLastName = this.handleChangeLastName.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeRedirect = this.handleChangeRedirect.bind(this);
         this.checkField= this.checkField.bind(this); 
     }
 
@@ -46,8 +47,13 @@ class AddAdminForm extends Component {
         this.setState({ password: event.target.value });
     }
 
-    subscribe = () =>{
+    handleChangeRedirect() {
+        this.setState({ redirect : false });
+    }
+
+    NewUser = () =>{
     //this function records new user's data in the Watermelon database
+    //and return the object containing the data of the new user
         const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
         const newUser = {
             id: users[users.length-1].id+1,
@@ -64,8 +70,6 @@ class AddAdminForm extends Component {
                 user_id: newUser.id,
                 balance: 0
         };
-
-        authenticateUser(newUser);
         addWallet(newWallet);
         //console.log(newUser);
         //console.log(newWallet);
@@ -115,14 +119,12 @@ class AddAdminForm extends Component {
         }
         
         if (condition === 0){// condition = 0 means that there is not any error
-            //let newArray = users.concat(this.subscribe());
-            //console.log(newArray);
-            //localStorage.setItem("users",JSON.stringify(newArray));
             //console.log("Successful registration !");
-            let newUser = this.subscribe();
+            let newUser = this.NewUser();
             //console.log(newUser);
             addUser(newUser);
             //console.log(getUsers());
+            this.setState({redirect : true});
         } 
         
     }
@@ -132,7 +134,18 @@ class AddAdminForm extends Component {
 
 
     render() {
-
+        if (this.state.redirect) { 
+            //Show a new page to confirm the admin he/she added a new admin
+            return (
+                <div>
+                        <br/>
+                        <h2>You added a new admin on Watermelon successfully !</h2> 
+                        <br/>
+                        <Button color="primary" onClick={this.handleChangeRedirect} >Add a new admin</Button>
+                        <Link to="/account"><Button color="primary">Go home</Button></Link>
+                </div>
+            );
+        } else {
             let  lastNameErr = null, firstNameErr = null, emailErr = null, passwordErr = null;
 
             for(let err of this.state.errors){
@@ -186,6 +199,7 @@ class AddAdminForm extends Component {
                 
             );
         }
+    }
 
     
 }
