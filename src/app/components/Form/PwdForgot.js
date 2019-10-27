@@ -37,14 +37,13 @@ class PwdForgot extends Component {
         //Step 1 : check if there are empty fiels
         this.setState({errors : [] }); //reinitiate the array errors
         //console.log("Vous aviez appuyé sur le bouton signUp!");
-        //console.log(this.state.email);
+        //console.log(this.state.email); 
 
         if (this.state.email === "") {
            this.MsgErr("Empty","You have to fill in this field !");
         } else {
             this.MsgErr("wrongEmail","Wrong email or it is not in our database");
         }
-
 
         //Step 2 : is the user in the database ?
         const users = getUsers(); 

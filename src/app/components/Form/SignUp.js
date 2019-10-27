@@ -104,7 +104,7 @@ class SignUp extends Component {
             condition++;
         }
 
-        if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users
+        if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users 
             this.MsgErr("email","There is already an user under this email address !");
             condition++;
         } else if (this.state.email === "") {
@@ -114,7 +114,6 @@ class SignUp extends Component {
             this.MsgErr("NotAnEmail","This is not an email address !");
             condition++;
         }
-
         
         if (condition === 0){// condition = 0 means that there is not any error
             //let newArray = users.concat(this.subscribe());
