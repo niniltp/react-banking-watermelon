@@ -40,7 +40,7 @@ class PwdForgot extends Component {
         //console.log(this.state.email);
 
         if (this.state.email === "") {
-           this.MsgErr("Empty","You have not to fill in this field !");
+           this.MsgErr("Empty","You have to fill in this field !");
         } else {
             this.MsgErr("wrongEmail","Wrong email or it is not in our database");
         }

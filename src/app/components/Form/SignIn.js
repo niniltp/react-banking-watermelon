@@ -47,18 +47,18 @@ class SignIn extends Component {
         let condition = 0; //In order to that the user logs in to its page, it should no be any empty field
 
         if (this.state.email === "") {
-            this.MsgErr("email", "You have not to fill in this field !");
+            this.MsgErr("email", "You have to fill in this field !");
             condition++;
         }
         if (this.state.password === "") {
-            this.MsgErr("password", "You have not to fill in this field !");
+            this.MsgErr("password", "You have to fill in this field !");
             condition++;
         }
 
 
         //Step 2 : is the user in the database ?
-        console.log("Vous aviez appuyé sur le bouton connexion !");
-        console.log(this.state.email + " " + this.state.password);
+        //console.log("Vous aviez appuyé sur le bouton connexion !");
+        //console.log(this.state.email + " " + this.state.password);
         const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
         const user = users.filter((user) => {
             return user.email === this.state.email;
@@ -70,10 +70,10 @@ class SignIn extends Component {
                 authenticateUser(user[0]);
                 // localStorage.setItem("isAuth", true);
                 // localStorage.setItem("userID", user[0].id);
-                console.log("Vous vous êtes bien connecté !");
-                console.log(user[0].first_name + " " + user[0].last_name);
+                //console.log("Vous vous êtes bien connecté !");
+                //console.log(user[0].first_name + " " + user[0].last_name);
             } else {//the user found but wrong password
-                console.log("Connexion échoué ! Vous ne vous êtes pas connecté !");
+                //console.log("Connexion échoué ! Vous ne vous êtes pas connecté !");
                 this.MsgErr("wrongUser", "There is an error somewhere");
                 condition++;
             }
