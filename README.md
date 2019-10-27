@@ -7,9 +7,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Branches
 
-The main branch is named master, which includes the basic features of the app.
-
-The branch named bonus includes more features (admin features, search bar...).
+- "master" includes the basic features of the app
+- "bonus" includes more features (admin features, search bar...)
 
 ## Database
 
