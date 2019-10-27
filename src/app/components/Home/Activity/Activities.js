@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {getPayinsByWalletId} from "../../../backend/payins_backend";
-import {getWallets} from "../../../backend/wallets_backend";
+import {getWalletByUserID, getWallets} from "../../../backend/wallets_backend";
 import {Button, ButtonGroup} from "reactstrap";
 import {getPayoutsByWalletId} from "../../../backend/payouts_backend";
 import SimpleActivity from "../fundsMng/SimpleActivity";
-import {getTransfersByCreditedWalletId} from "../../../backend/transfers_backend";
+import {getTransfersByCreditedWalletId, getTransfersByDebitedWalletId} from "../../../backend/transfers_backend";
 import {Link} from "react-router-dom";
 import {generateID} from "../../../services/idsGeneartor";
+import Searchbar from "../../Searchbar/Searchbar";
+import {getUsers} from "../../../backend/users_backend";
 
 class Activities extends Component {
     constructor(props) {
@@ -16,7 +18,9 @@ class Activities extends Component {
             wallets: getWallets(),
             isFetching: true,
             activities: [],
-            filters: ["payins", "payouts", "transfers"]
+            users: getUsers(),
+            filters: ["payins", "payouts", "transfers"],
+            searchValue: ""
         };
     }
 
@@ -33,7 +37,7 @@ class Activities extends Component {
     fetchData = () => {
         const filters = this.state.filters;
         const wallets = this.state.wallets;
-        let payins = [], payouts = [], transfers = [];
+        let payins = [], payouts = [], transfers = [], transfersIn = [], transfersOut = [];
         let activities;
 
         this.setState({isFetching: true});
@@ -50,14 +54,42 @@ class Activities extends Component {
                         break;
                     }
                     case "transfers": {
-                        transfers = transfers.concat(getTransfersByCreditedWalletId(walletID));
+                        let uniqueTransfersIn = [], uniqueTransfersOut = [];
+                        transfersIn = getTransfersByCreditedWalletId(walletID);
+                        transfersOut = getTransfersByDebitedWalletId(walletID);
 
-                        transfers = transfers.map((transfer) => {
+                        uniqueTransfersIn = transfersIn.filter((transferIn) => {
+                            return transfers.findIndex((transfer) => {
+                                return transferIn.id === transfer.id;
+                            }) <= -1;
+                        });
+
+                        uniqueTransfersOut = transfersOut.filter((transferOut) => {
+                            return transfers.findIndex((transfer) => {
+                                return transferOut.id === transfer.id;
+                            }) <= -1;
+                        });
+
+                        uniqueTransfersIn.forEach((transferIn) => {
+                            uniqueTransfersOut = uniqueTransfersOut.filter((transferOut) => {
+                                return transferIn.id !== transferOut.id;
+                            });
+                        });
+
+
+                        uniqueTransfersOut.forEach((transferOut) => {
+                            uniqueTransfersIn = transfersIn.filter((transferIn) => {
+                                return transferIn.id !== transferOut.id;
+                            });
+                        });
+
+                        transfers = transfers.concat(uniqueTransfersIn).concat(uniqueTransfersOut).map((transfer) => {
                             return {
                                 ...transfer,
                                 way: ""
                             }
                         });
+
                         break;
                     }
                     default:
@@ -109,9 +141,40 @@ class Activities extends Component {
         }
     };
 
+    convertUsersForSearchbar = (users) => {
+        const usersForSearchbar = [];
+
+        users.forEach((user) => {
+            usersForSearchbar.push({
+                id: user.id,
+                value: user.first_name + " " + user.last_name
+            })
+        });
+
+        return usersForSearchbar;
+    };
+
+    handleSearchResults = (searchValue, resultsID) => {
+        const wallets = [];
+
+        resultsID.forEach((resultID) => {
+            wallets.push(getWalletByUserID(resultID));
+        });
+
+        this.setState({
+            wallets: wallets,
+            searchValue: searchValue
+        }, () => {
+            this.fetchData();
+        });
+    };
+
     displayActivities = () => {
         return (
             <div id="boxesList">
+                <Searchbar searchValue={this.state.searchValue} autoFocus={true}
+                           items={this.convertUsersForSearchbar(this.state.users)}
+                           searchResults={this.handleSearchResults}/>
                 {this.state.isFetching ? <p>Fetching data...</p> : this.state.activities.map((activity, index) => (
                     <SimpleActivity key={generateID() + activity.id.toString()} index={index} data={activity}/>))}
             </div>
