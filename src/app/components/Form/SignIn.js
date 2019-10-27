@@ -51,7 +51,7 @@ class SignIn extends Component {
             condition++;
         }
         if (this.state.password === "") {
-            this.MsgErr("password", "You have to fill in this field !");
+            this.MsgErr("password", "You have to fill in this field !"); 
             condition++;
         }
 

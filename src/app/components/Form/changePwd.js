@@ -46,7 +46,7 @@ class changePwd extends Component{
         //console.log(this.state.email);
 
         if (this.state.pwd1 === this.state.pwd2 && this.state.pwd1=== "" ) {
-           this.MsgErr("Empty","You have to fill in this field !");
+           this.MsgErr("Empty","You have to fill in this field !"); 
         }
         if (this.state.pwd1 !==  this.state.pwd2){
             this.MsgErr("NotSamePwd","Your password is not the same in these two fields !");

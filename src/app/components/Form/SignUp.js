@@ -104,7 +104,7 @@ class SignUp extends Component {
             condition++;
         }
 
-        if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users
+        if (user.length === 1 && user[0].email===this.state.email) {//the user has been found in the array users 
             this.MsgErr("email","There is already an user under this email address !");
             condition++;
         } else if (this.state.email === "") {

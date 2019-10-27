@@ -85,7 +85,7 @@ class Parameter extends Component {
                 this.MsgErr("Empty","One of those fields is empty !");
              }
              if (this.state.pwd2 !==  this.state.pwd3){
-                 this.MsgErr("NotSamePwd","Your password is not the same in these two fields !");
+                 this.MsgErr("NotSamePwd","Your password is not the same in these two fields !"); 
              }
              if ((this.state.pwd2 ===  this.state.pwd3) && this.state.pwd2.length<8 && this.state.pwd2 !== "") {
                  this.MsgErr("PwdLength","Your password is too short !");
