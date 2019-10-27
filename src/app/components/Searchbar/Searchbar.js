@@ -56,9 +56,15 @@ class Searchbar extends Component {
 
     handleClickItem = (event) => {
         const resultID = parseInt(event.target.dataset.id);
+        const resultValue = event.target.dataset.value;
         let resultsID = [];
+
         resultsID.push(resultID);
-        this.setResults(this.state.value, resultsID);
+        this.setResults(resultValue, resultsID);
+        this.setState({
+            isOpen: false,
+            value: resultValue
+        });
     };
 
     render = () => {
@@ -74,7 +80,7 @@ class Searchbar extends Component {
                     <ul className="searchbar-results">
                         {this.state.results.map((result, index) => (
                             <li className="searchbar-result" key={index} onClick={this.handleClickItem}
-                                data-id={result.id}>{result.value}</li>
+                                data-id={result.id} data-value={result.value}>{result.value}</li>
                         ))}
                     </ul> : null}
             </div>
