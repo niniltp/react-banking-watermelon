@@ -76,6 +76,7 @@ class Parameter extends Component {
         //Otherwise, it will display a msg error
         //If everything is correct, then update data
 
+        
         this.setState({errors : [] });
         //console.log(this.state.email);
         const elt = this.props.param.name;

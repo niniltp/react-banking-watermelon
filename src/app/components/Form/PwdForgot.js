@@ -45,7 +45,6 @@ class PwdForgot extends Component {
             this.MsgErr("wrongEmail","Wrong email or it is not in our database");
         }
 
-
         //Step 2 : is the user in the database ?
         const users = getUsers(); 
         const user = users.filter((user)=> {return user.email===this.state.email;});

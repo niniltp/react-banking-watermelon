@@ -59,6 +59,7 @@ class changePwd extends Component{
             this.setState({redirect: true});
             this.updatePwd();
         }
+        
     }
 
     updatePwd = () =>{

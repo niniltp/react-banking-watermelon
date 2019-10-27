@@ -114,7 +114,6 @@ class SignUp extends Component {
             this.MsgErr("NotAnEmail","This is not an email address !");
             condition++;
         }
-
         
         if (condition === 0){// condition = 0 means that there is not any error
             //let newArray = users.concat(this.subscribe());

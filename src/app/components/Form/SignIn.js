@@ -59,6 +59,7 @@ class SignIn extends Component {
         //Step 2 : is the user in the database ?
         //console.log("Vous aviez appuyé sur le bouton connexion !");
         //console.log(this.state.email + " " + this.state.password);
+        
         const users = getUsers(); //JSON.parse(localStorage.getItem("users"));
         const user = users.filter((user) => {
             return user.email === this.state.email;
