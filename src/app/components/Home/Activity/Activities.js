@@ -25,6 +25,7 @@ class Activities extends Component {
     }
 
     componentDidMount = () => {
+        this.setState({isFetching: true});
         this.fetchData();
     };
 
@@ -40,7 +41,6 @@ class Activities extends Component {
         let payins = [], payouts = [], transfers = [], transfersIn = [], transfersOut = [];
         let activities;
 
-        this.setState({isFetching: true});
         wallets.forEach((wallet) => {
             const walletID = wallet.id;
             filters.forEach((filter) => {
