@@ -15,8 +15,7 @@ class Users extends Component {
             userID: getUserIDAuth(),
             isFetching: true,
             users: [],
-            usersSearched: [],
-            searchValue: ""
+            usersSearched: []
         };
     }
 
@@ -66,7 +65,7 @@ class Users extends Component {
         return usersForSearchbar;
     };
 
-    handleSearchResults = (searchValue, resultsID) => {
+    handleSearchResults = (resultsID) => {
         const users = [];
 
         resultsID.forEach((resultID) => {
@@ -74,8 +73,7 @@ class Users extends Component {
         });
 
         this.setState({
-            usersSearched: users,
-            searchValue: searchValue
+            usersSearched: users
         });
     };
 
@@ -86,7 +84,7 @@ class Users extends Component {
                     <h3>List of users</h3>
                     {this.state.isFetching ? <p>Fetching data...</p> :
                         <div id="boxesList">
-                            <Searchbar searchValue={this.state.searchValue} autoFocus={true}
+                            <Searchbar autoFocus={true}
                                        items={this.convertUsersForSearchbar(this.state.users)}
                                        searchResults={this.handleSearchResults}/>
                             {this.state.usersSearched.map((user, index) => (

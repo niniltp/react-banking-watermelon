@@ -9,7 +9,7 @@ class Searchbar extends Component {
         this.input = React.createRef();
 
         this.state = {
-            value: this.props.searchValue,
+            value: "",
             isOpen: false,
             results: this.props.items
         }
@@ -22,17 +22,17 @@ class Searchbar extends Component {
     filterResults = (searchValue) => {
         this.setState({
             results: this.props.items.filter((item) => {
-                return item.value.toLowerCase().indexOf(searchValue) > -1;
+                return item.value.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
             })
         }, () => {
-            this.setResults(this.state.value, this.state.results.map((result) => {
+            this.setResults(this.state.results.map((result) => {
                 return result.id;
             }))
         });
     };
 
-    setResults = (searchValue, resultsID) => {
-        this.props.searchResults(searchValue, resultsID);
+    setResults = (resultsID) => {
+        this.props.searchResults(resultsID);
     };
 
     handleChange = (event) => {
@@ -60,7 +60,7 @@ class Searchbar extends Component {
         let resultsID = [];
 
         resultsID.push(resultID);
-        this.setResults(resultValue, resultsID);
+        this.setResults(resultsID);
         this.setState({
             isOpen: false,
             value: resultValue

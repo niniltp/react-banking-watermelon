@@ -19,8 +19,7 @@ class Activities extends Component {
             isFetching: true,
             activities: [],
             users: getUsers(),
-            filters: ["payins", "payouts", "transfers"],
-            searchValue: ""
+            filters: ["payins", "payouts", "transfers"]
         };
     }
 
@@ -154,7 +153,7 @@ class Activities extends Component {
         return usersForSearchbar;
     };
 
-    handleSearchResults = (searchValue, resultsID) => {
+    handleSearchResults = (resultsID) => {
         const wallets = [];
 
         resultsID.forEach((resultID) => {
@@ -162,8 +161,7 @@ class Activities extends Component {
         });
 
         this.setState({
-            wallets: wallets,
-            searchValue: searchValue
+            wallets: wallets
         }, () => {
             this.fetchData();
         });
@@ -172,7 +170,7 @@ class Activities extends Component {
     displayActivities = () => {
         return (
             <div id="boxesList">
-                <Searchbar searchValue={this.state.searchValue} autoFocus={true}
+                <Searchbar autoFocus={true}
                            items={this.convertUsersForSearchbar(this.state.users)}
                            searchResults={this.handleSearchResults}/>
                 {this.state.isFetching ? <p>Fetching data...</p> : this.state.activities.map((activity, index) => (
