@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {getUserIDAuth} from "../../../services/authenticationManager";
 import {getCardsByUserId} from "../../../backend/cards_backend";
-import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {isFundSufficient, isInputAmountValid, isWithdrawValid, makeWithdraw} from "../../../services/fundsManager";
@@ -186,7 +186,7 @@ class Withdraw extends Component {
             <div>
                 <p><strong>{(parseFloat(this.state.payout.amount)).toFixed(2)}</strong>₩M has been successfully
                     withdrawn from
-                    your card !</p>
+                    your wallet to your card !</p>
                 {this.state.selectedCardIndex !== null ?
                     <SimpleCard data={this.state.cards[this.state.selectedCardIndex]}/>
                     : null}

@@ -174,8 +174,8 @@ class Deposit extends Component {
         return (
             <div>
                 <p><strong>{(parseFloat(this.state.payin.amount)).toFixed(2)}</strong>₩M has been successfully deposited
-                    to
-                    your card !</p>
+                    from your card to
+                    your wallet !</p>
                 {this.state.selectedCardIndex !== null ?
                     <SimpleCard data={this.state.cards[this.state.selectedCardIndex]}/>
                     : null}

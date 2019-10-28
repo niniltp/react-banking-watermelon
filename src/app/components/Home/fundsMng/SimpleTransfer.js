@@ -41,7 +41,7 @@ class SimpleTransfer extends Component {
         const userDebited = this.state.userDebited;
         const userCredited = this.state.userCredited;
         const way = this.state.way;
-        const amountWM = convertToWM(this.state.amount);
+        const amountWM = convertToWM(this.state.amount).toFixed(2);
         return (
             this.state.isFetching ? <p>Fetching data...</p> :
                 <ul>
