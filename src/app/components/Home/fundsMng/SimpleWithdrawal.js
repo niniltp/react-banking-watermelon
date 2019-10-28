@@ -32,7 +32,7 @@ class SimpleWithdrawal extends Component {
 
     displayActivity = () => {
         const user = this.state.user;
-        const amountWM = convertToWM(this.state.amount);
+        const amountWM = convertToWM(this.state.amount).toFixed(2);
         return (
             this.state.isFetching ? <p>Fetching data...</p> :
                 <ul>
