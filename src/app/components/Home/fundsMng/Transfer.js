@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label} from "reactstrap";
+import {Button, Form, FormGroup, Input, InputGroup, InputGroupAddon} from "reactstrap";
 import {Link} from "react-router-dom";
 import './fundsMngForm.css';
 import {getUserIDAuth} from "../../../services/authenticationManager";
